@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>VYBE AI — AI Video Platform</title>
+  <meta
+    name="description"
+    content="VYBE AI is a modern AI-powered video platform for watching, discovering and sharing videos."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       MOBILE OVERLAY
+  ========================== -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-top">
+      <a href="#" class="brand" onclick="showHome(); return false;">
+        <span class="brand-icon">▶</span>
+        <span>VYBE<span class="brand-ai">AI</span></span>
+      </a>
+
+      <button
+        class="close-sidebar"
+        id="closeSidebar"
+        aria-label="Close menu"
+      >
+        ×
+      </button>
+    </div>
+
+    <nav class="side-nav">
+
+      <div class="nav-section">
+
+        <button class="nav-item active" data-page="home">
+          <span class="nav-icon">⌂</span>
+          <span>Home</span>
+        </button>
+
+        <button class="nav-item" data-page="trending">
+          <span class="nav-icon">🔥</span>
+          <span>Trending</span>
+        </button>
+
+        <button class="nav-item" data-page="shorts">
+          <span class="nav-icon">▣</span>
+          <span>Shorts</span>
+        </button>
+
+        <button class="nav-item" data-page="subscriptions">
+          <span class="nav-icon">▤</span>
+          <span>Subscriptions</span>
+        </button>
+
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <div class="nav-section">
+
+        <div class="nav-heading">YOU</div>
+
+        <button class="nav-item" data-page="history">
+          <span class="nav-icon">◷</span>
+          <span>History</span>
+        </button>
+
+        <button class="nav-item" data-page="watchlater">
+          <span class="nav-icon">◫</span>
+          <span>Watch later</span>
+        </button>
+
+        <button class="nav-item" data-page="liked">
+          <span class="nav-icon">♡</span>
+          <span>Liked videos</span>
+        </button>
+
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <div class="nav-section">
+
+        <div class="nav-heading">CREATE</div>
+
+        <button class="nav-item" id="sidebarUpload">
+          <span class="nav-icon">＋</span>
+          <span>Upload video</span>
+        </button>
+
+        <button class="nav-item" data-page="studio">
+          <span class="nav-icon">▥</span>
+          <span>Creator Studio</span>
+        </button>
+
+      </div>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="ai-box">
+        <div class="ai-box-icon">✦</div>
+        <div>
+          <strong>AI Powered</strong>
+          <p>Discover smarter videos.</p>
+        </div>
+      </div>
+
+      <p class="copyright">
+        © 2026 VYBE AI
+      </p>
+    </div>
+
+  </aside>
+
+  <!-- =========================
+       MAIN AREA
+  ========================== -->
+  <div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <button
+          class="menu-button"
+          id="menuButton"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+
+        <a href="#" class="mobile-brand" onclick="showHome(); return false;">
+          <span class="brand-icon">▶</span>
+          <span>VYBE<span class="brand-ai">AI</span></span>
+        </a>
+
+      </div>
+
+      <div class="search-area">
+
+        <div class="search-box">
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search videos..."
+            autocomplete="off"
+          />
+
+          <button
+            id="clearSearch"
+            class="clear-search"
+            aria-label="Clear search"
+          >
+            ×
+          </button>
+
+          <button
+            id="searchButton"
+            class="search-button"
+            aria-label="Search"
+          >
+            🔍
+          </button>
+
+        </div>
+
+        <button
+          class="voice-search"
+          id="voiceSearch"
+          aria-label="Voice search"
+          title="Voice search"
+        >
+          🎙
+        </button>
+
+      </div>
+
+      <div class="top-actions">
+
+        <button
+          class="icon-button"
+          id="uploadButton"
+          title="Upload video"
+        >
+          ＋
+        </button>
+
+        <button
+          class="icon-button notification-button"
+          id="notificationButton"
+          title="Notifications"
+        >
+          🔔
+          <span class="notification-dot"></span>
+        </button>
+
+        <button
+          class="profile-button"
+          id="profileButton"
+          title="Account"
+        >
+          <span id="profileAvatar">G</span>
+        </button>
+
+      </div>
+
+    </header>
+
+    <!-- =========================
+         CATEGORY BAR
+    ========================== -->
+    <div class="category-bar">
+
+      <button class="category active" data-category="All">
+        All
+      </button>
+
+      <button class="category" data-category="Music">
+        Music
+      </button>
+
+      <button class="category" data-category="Technology">
+        Technology
+      </button>
+
+      <button class="category" data-category="AI">
+        AI
+      </button>
+
+      <button class="category" data-category="Gaming">
+        Gaming
+      </button>
+
+      <button class="category" data-category="Education">
+        Education
+      </button>
+
+      <button class="category" data-category="Business">
+        Business
+      </button>
+
+      <button class="category" data-category="News">
+        News
+      </button>
+
+      <button class="category" data-category="Travel">
+        Travel
+      </button>
+
+      <button class="category" data-category="Sports">
+        Sports
+      </button>
+
+    </div>
+
+    <!-- =========================
+         CONTENT
+    ========================== -->
+    <main class="main-content">
+
+      <!-- HOME PAGE -->
+      <section id="homePage" class="page active">
+
+        <div class="hero">
+
+          <div class="hero-content">
+
+            <div class="hero-badge">
+              <span>✦</span>
+              AI-powered video discovery
+            </div>
+
+            <h1>
+              Watch.
+              <span>Discover.</span>
+              Create.
+            </h1>
+
+            <p>
+              A new generation of video built around creators,
+              communities and intelligent AI discovery.
+            </p>
+
+            <div class="hero-actions">
+
+              <button class="primary-button" id="heroUpload">
+                <span>＋</span>
+                Upload your video
+              </button>
+
+              <button class="secondary-button" id="exploreButton">
+                Explore videos
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="hero-glow"></div>
+
+          <div class="hero-card">
+
+            <div class="hero-card-top">
+              <span class="live-dot"></span>
+              AI RECOMMENDATIONS
+            </div>
+
+            <div class="hero-ai-line">
+              <span>✦</span>
+              Personalized for you
+            </div>
+
+            <div class="mini-video-list">
+
+              <div class="mini-video">
+                <div class="mini-thumb gradient-one"></div>
+                <div>
+                  <strong>Future of AI</strong>
+                  <small>AI Labs • 2.4M views</small>
+                </div>
+              </div>
+
+              <div class="mini-video">
+                <div class="mini-thumb gradient-two"></div>
+                <div>
+                  <strong>Build Your Business</strong>
+                  <small>Startup Hub • 841K views</small>
+                </div>
+              </div>
+
+              <div class="mini-video">
+                <div class="mini-thumb gradient-three"></div>
+                <div>
+                  <strong>Travel Pakistan</strong>
+                  <small>Explore PK • 529K views</small>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- TRENDING -->
+        <div class="section-header">
+
+          <div>
+            <div class="section-title-row">
+              <span class="section-icon">🔥</span>
+              <h2>Trending now</h2>
+            </div>
+            <p>What everyone is watching</p>
+          </div>
+
+          <button class="see-all" data-page-link="trending">
+            See all →
+          </button>
+
+        </div>
+
+        <div class="video-grid" id="videoGrid"></div>
+
+        <!-- SHORTS -->
+        <div class="section-header shorts-header">
+
+          <div>
+            <div class="section-title-row">
+              <span class="section-icon">▣</span>
+              <h2>Shorts</h2>
+            </div>
+            <p>Quick videos. Big ideas.</p>
+          </div>
+
+          <button class="see-all" data-page-link="shorts">
+            See all →
+          </button>
+
+        </div>
+
+        <div class="shorts-grid" id="shortsGrid"></div>
+
+        <!-- CREATOR CTA -->
+        <section class="creator-cta">
+
+          <div class="creator-cta-icon">
+            ✦
+          </div>
+
+          <div class="creator-cta-content">
+
+            <span class="eyebrow">
+              FOR CREATORS
+            </span>
+
+            <h2>
+              Your ideas deserve an audience.
+            </h2>
+
+            <p>
+              Upload your first video and start building
+              your community with AI-powered creator tools.
+            </p>
+
+          </div>
+
+          <button class="primary-button" id="creatorUpload">
+            Start creating
+          </button>
+
+        </section>
+
+      </section>
+
+      <!-- DYNAMIC PAGE -->
+      <section id="dynamicPage" class="page">
+
+        <div class="dynamic-header">
+
+          <button
+            class="back-button"
+            id="backHome"
+          >
+            ← Home
+          </button>
+
+          <div>
+            <h1 id="dynamicTitle">
+              Videos
+            </h1>
+
+            <p id="dynamicSubtitle">
+              Explore videos
+            </p>
+          </div>
+
+        </div>
+
+        <div class="video-grid" id="dynamicVideoGrid"></div>
+
+      </section>
+
+      <!-- WATCH PAGE -->
+      <section id="watchPage" class="page">
+
+        <button
+          class="back-button"
+          id="watchBack"
+        >
+          ← Back
+        </button>
+
+        <div class="watch-layout">
+
+          <div class="watch-main">
+
+            <div class="watch-player" id="watchPlayer">
+
+              <div class="player-placeholder">
+
+                <div class="player-play">
+                  ▶
+                </div>
+
+                <p>
+                  Video preview
+                </p>
+
+                <small>
+                  Connect video storage in the next stage
+                </small>
+
+              </div>
+
+            </div>
+
+            <div class="watch-info">
+
+              <h1 id="watchTitle">
+                Video title
+              </h1>
+
+              <div class="watch-meta">
+
+                <span id="watchViews">
+                  0 views
+                </span>
+
+                <span>•</span>
+
+                <span id="watchDate">
+                  Today
+                </span>
+
+              </div>
+
+              <div class="watch-actions">
+
+                <button id="watchLike">
+                  ♡ <span>Like</span>
+                </button>
+
+                <button>
+                  ↗ <span>Share</span>
+                </button>
+
+                <button>
+                  ▫ <span>Save</span>
+                </button>
+
+              </div>
+
+              <div class="channel-bar">
+
+                <div class="channel-avatar" id="watchAvatar">
+                  V
+                </div>
+
+                <div class="channel-details">
+
+                  <strong id="watchChannel">
+                    VYBE Creator
+                  </strong>
+
+                  <small id="watchSubscribers">
+                    0 subscribers
+                  </small>
+
+                </div>
+
+                <button class="subscribe-button" id="watchSubscribe">
+                  Subscribe
+                </button>
+
+              </div>
+
+              <div class="watch-description" id="watchDescription">
+                Video description will appear here.
+              </div>
+
+            </div>
+
+            <div class="comments-section">
+
+              <div class="comments-title">
+                <h2>
+                  Comments
+                </h2>
+
+                <span id="commentCount">
+                  0
+                </span>
+
+              </div>
+
+              <div class="comment-input">
+
+                <div class="small-avatar">
+                  G
+                </div>
+
+                <input
+                  id="commentInput"
+                  type="text"
+                  placeholder="Add a comment..."
+                />
+
+                <button id="commentButton">
+                  Comment
+                </button>
+
+              </div>
+
+              <div id="commentsList"></div>
+
+            </div>
+
+          </div>
+
+          <aside class="recommended">
+
+            <h3>
+              Up next
+            </h3>
+
+            <div id="recommendedList"></div>
+
+          </aside>
+
+        </div>
+
+      </section>
+
+      <!-- CHANNEL PAGE -->
+      <section id="channelPage" class="page">
+
+        <div class="channel-cover"></div>
+
+        <div class="channel-profile">
+
+          <div class="large-avatar" id="channelAvatar">
+            G
+          </div>
+
+          <div class="channel-profile-info">
+
+            <h1 id="channelName">
+              Your Channel
+            </h1>
+
+            <p id="channelHandle">
+              @yourchannel
+            </p>
+
+            <span id="channelSubscribers">
+              0 subscribers
+            </span>
+
+          </div>
+
+          <button class="primary-button">
+            Customize channel
+          </button>
+
+        </div>
+
+        <div class="channel-tabs">
+
+          <button class="channel-tab active">
+            Videos
+          </button>
+
+          <button class="channel-tab">
+            Shorts
+          </button>
+
+          <button class="channel-tab">
+            Playlists
+          </button>
+
+          <button class="channel-tab">
+            About
+          </button>
+
+        </div>
+
+        <div class="video-grid" id="channelVideoGrid"></div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- =========================
+       UPLOAD MODAL
+  ========================== -->
+  <div class="modal" id="uploadModal">
+
+    <div class="modal-card">
+
+      <button class="modal-close" data-close-modal="uploadModal">
+        ×
+      </button>
+
+      <div class="modal-icon">
+        ↑
+      </div>
+
+      <h2>
+        Upload a video
+      </h2>
+
+      <p>
+        Share your video with the VYBE AI community.
+      </p>
+
+      <label class="upload-dropzone" for="videoFile">
+
+        <span class="upload-big-icon">
+          ↑
+        </span>
+
+        <strong>
+          Choose a video file
+        </strong>
+
+        <small>
+          MP4, MOV, WebM up to 500 MB
+        </small>
+
+      </label>
+
+      <input
+        type="file"
+        id="videoFile"
+        accept="video/*"
+        hidden
+      />
+
+      <div
+        class="selected-file"
+        id="selectedFile"
+      ></div>
+
+      <div class="form-group">
+
+        <label>
+          Video title
+        </label>
+
+        <input
+          type="text"
+          id="uploadTitle"
+          placeholder="Give your video a title"
+        />
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Description
+        </label>
+
+        <textarea
+          id="uploadDescription"
+          rows="4"
+          placeholder="Tell viewers about your video"
+        ></textarea>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Category
+        </label>
+
+        <select id="uploadCategory">
+
+          <option value="Technology">
+            Technology
+          </option>
+
+          <option value="AI">
+            AI
+          </option>
+
+          <option value="Music">
+            Music
+          </option>
+
+          <option value="Gaming">
+            Gaming
+          </option>
+
+          <option value="Education">
+            Education
+          </option>
+
+          <option value="Business">
+            Business
+          </option>
+
+          <option value="Travel">
+            Travel
+          </option>
+
+          <option value="Sports">
+            Sports
+          </option>
+
+        </select>
+
+      </div>
+
+      <button
+        class="primary-button full-width"
+        id="publishButton"
+      >
+        Publish video
+      </button>
+
+      <p class="modal-note">
+        Video publishing will connect to secure cloud storage
+        in the next development stage.
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       LOGIN MODAL
+  ========================== -->
+  <div class="modal" id="loginModal">
+
+    <div class="modal-card login-card">
+
+      <button class="modal-close" data-close-modal="loginModal">
+        ×
+      </button>
+
+      <div class="login-logo">
+        <span>▶</span>
+        VYBE<span>AI</span>
+      </div>
+
+      <h2>
+        Welcome to VYBE AI
+      </h2>
+
+      <p>
+        Sign in to like videos, subscribe to channels
+        and start creating.
+      </p>
+
+      <div class="form-group">
+
+        <label>
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="you@example.com"
+        />
+
+      </div>
+
+      <div class="form-group">
+
+        <label>
+          Password
+        </label>
+
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="••••••••"
+        />
+
+      </div>
+
+      <button
+        class="primary-button full-width"
+        id="loginButton"
+      >
+        Sign in
+      </button>
+
+      <p class="login-switch">
+        Don't have an account?
+        <button id="signupSwitch">
+          Create one
+        </button>
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       NOTIFICATION PANEL
+  ========================== -->
+  <div class="notification-panel" id="notificationPanel">
+
+    <div class="notification-header">
+      <strong>Notifications</strong>
+
+      <button id="closeNotifications">
+        ×
+      </button>
+    </div>
+
+    <div class="notification-empty">
+
+      <div>
+        🔔
+      </div>
+
+      <strong>
+        You're all caught up
+      </strong>
+
+      <p>
+        New activity will appear here.
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       TOAST
+  ========================== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
