@@ -1,1535 +1,1057 @@
-/* =====================================================
+/* =========================================================
    VYBE AI
-   Main Application
-   Step 4 - Supabase Connection
-===================================================== */
+   app.js
+   YouTube + Direct Video URL Version
+========================================================= */
 
 
-/* =====================================================
-   SUPABASE CONNECTION
-===================================================== */
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
+  window.SUPABASE_URL ||
   "https://wnhnjbrrszmybvxgtbin.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
+const SUPABASE_ANON_KEY =
+  window.SUPABASE_ANON_KEY ||
   "sb_publishable_E0HAjFvs98-9lmEJtBzSzw_6ZYpXaAw";
 
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
+let supabaseClient = null;
 
-console.log(
-  "VYBE AI → Supabase connected"
-);
+try {
+  if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
+    supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+  }
+} catch (error) {
+  console.error("Supabase initialization error:", error);
+}
 
 
-/* =====================================================
-   DEMO VIDEO DATA
-===================================================== */
+/* =========================================================
+   DEMO VIDEOS
+========================================================= */
 
 let videos = [
 
   {
     id: 1,
-    title: "The Future of Artificial Intelligence",
+    title: "Welcome to VYBE AI",
     channel: "VYBE AI",
-    views: "1.2M",
+    views: "12K views",
     date: "2 days ago",
-    category: "AI",
-    duration: "10:24",
+    category: "Entertainment",
+    duration: "04:25",
     description:
-      "Discover how artificial intelligence is changing the world and what the future may look like.",
-    icon: "🤖",
-    likes: 15200,
-    subscribers: "245K",
+      "Welcome to VYBE AI — discover videos, creators and new experiences.",
+    icon: "▶️",
+    likes: 125,
+    subscribers: "2.4K",
     videoUrl: ""
   },
 
   {
     id: 2,
-    title: "Build Your First AI App",
-    channel: "Tech Vision",
-    views: "845K",
+    title: "Amazing Music Experience",
+    channel: "VYBE Music",
+    views: "45K views",
     date: "5 days ago",
-    category: "Technology",
-    duration: "18:42",
+    category: "Music",
+    duration: "05:32",
     description:
-      "A simple introduction to building powerful AI applications.",
-    icon: "💻",
-    likes: 8900,
-    subscribers: "182K",
+      "Enjoy an amazing music experience on VYBE AI.",
+    icon: "🎵",
+    likes: 842,
+    subscribers: "18K",
     videoUrl: ""
   },
 
   {
     id: 3,
-    title: "Amazing Future Technology",
-    channel: "Future Lab",
-    views: "2.1M",
+    title: "Gaming Highlights",
+    channel: "VYBE Gaming",
+    views: "89K views",
     date: "1 week ago",
-    category: "Technology",
-    duration: "12:30",
+    category: "Gaming",
+    duration: "08:14",
     description:
-      "Explore the technologies that could define the next decade.",
-    icon: "🚀",
-    likes: 24100,
-    subscribers: "510K",
+      "The best gaming highlights and exciting moments.",
+    icon: "🎮",
+    likes: 1542,
+    subscribers: "32K",
     videoUrl: ""
   },
 
   {
     id: 4,
-    title: "Top Gaming Moments",
-    channel: "Game Zone",
-    views: "3.4M",
+    title: "Learn Something New",
+    channel: "VYBE Education",
+    views: "23K views",
     date: "3 days ago",
-    category: "Gaming",
-    duration: "14:08",
+    category: "Education",
+    duration: "10:22",
     description:
-      "The most exciting gaming moments collected in one video.",
-    icon: "🎮",
-    likes: 31000,
-    subscribers: "720K",
+      "Learn something new with VYBE AI.",
+    icon: "🎓",
+    likes: 632,
+    subscribers: "11K",
     videoUrl: ""
   },
 
   {
     id: 5,
-    title: "How Successful Businesses Think",
-    channel: "Business Daily",
-    views: "620K",
-    date: "4 days ago",
-    category: "Business",
-    duration: "16:15",
+    title: "Latest News Update",
+    channel: "VYBE News",
+    views: "76K views",
+    date: "1 day ago",
+    category: "News",
+    duration: "06:45",
     description:
-      "Lessons from successful entrepreneurs and modern businesses.",
-    icon: "💼",
-    likes: 7600,
-    subscribers: "98K",
+      "Latest news and important updates.",
+    icon: "📰",
+    likes: 921,
+    subscribers: "25K",
     videoUrl: ""
   },
 
   {
     id: 6,
-    title: "Beautiful Places Around The World",
-    channel: "Travel Vibes",
-    views: "1.8M",
-    date: "6 days ago",
-    category: "Travel",
-    duration: "21:10",
+    title: "Entertainment Tonight",
+    channel: "VYBE Entertainment",
+    views: "54K views",
+    date: "4 days ago",
+    category: "Entertainment",
+    duration: "07:18",
     description:
-      "Travel through some of the most beautiful places around the world.",
-    icon: "🌍",
-    likes: 19000,
-    subscribers: "430K",
+      "Entertainment, fun and exciting content.",
+    icon: "🎬",
+    likes: 723,
+    subscribers: "19K",
     videoUrl: ""
   },
 
   {
     id: 7,
-    title: "Learn Faster With AI",
-    channel: "Smart Learning",
-    views: "455K",
-    date: "1 day ago",
-    category: "Education",
-    duration: "09:45",
+    title: "Beautiful Travel Experience",
+    channel: "VYBE Travel",
+    views: "31K views",
+    date: "6 days ago",
+    category: "Entertainment",
+    duration: "09:03",
     description:
-      "Use AI tools to improve your learning and productivity.",
-    icon: "📚",
-    likes: 5400,
-    subscribers: "76K",
+      "Explore beautiful places and amazing experiences.",
+    icon: "🌍",
+    likes: 543,
+    subscribers: "8.2K",
     videoUrl: ""
   },
 
   {
     id: 8,
-    title: "Latest Technology News",
-    channel: "Tech News",
-    views: "920K",
-    date: "8 hours ago",
-    category: "News",
-    duration: "08:20",
+    title: "Technology Explained",
+    channel: "VYBE Tech",
+    views: "67K views",
+    date: "1 week ago",
+    category: "Education",
+    duration: "12:40",
     description:
-      "Today's biggest technology stories and updates.",
-    icon: "📰",
-    likes: 7200,
-    subscribers: "201K",
+      "Technology explained in a simple way.",
+    icon: "💻",
+    likes: 1043,
+    subscribers: "21K",
     videoUrl: ""
   }
 
 ];
 
 
+/* =========================================================
+   SHORTS
+========================================================= */
+
 let shorts = [
 
   {
-    id: 101,
-    title: "AI in 30 Seconds",
-    channel: "VYBE AI",
-    icon: "🤖"
+    id: "short-1",
+    title: "Amazing Moment",
+    channel: "VYBE Shorts",
+    views: "120K views",
+    icon: "🔥",
+    videoUrl: ""
   },
 
   {
-    id: 102,
-    title: "Amazing Technology",
-    channel: "Future Lab",
-    icon: "🚀"
+    id: "short-2",
+    title: "Funny Video",
+    channel: "Fun Zone",
+    views: "89K views",
+    icon: "😂",
+    videoUrl: ""
   },
 
   {
-    id: 103,
-    title: "Gaming Trick",
-    channel: "Game Zone",
-    icon: "🎮"
+    id: "short-3",
+    title: "Music Vibes",
+    channel: "VYBE Music",
+    views: "220K views",
+    icon: "🎵",
+    videoUrl: ""
   },
 
   {
-    id: 104,
-    title: "Business Tip",
-    channel: "Business Daily",
-    icon: "💼"
+    id: "short-4",
+    title: "Quick Knowledge",
+    channel: "Learn Fast",
+    views: "56K views",
+    icon: "🧠",
+    videoUrl: ""
   },
 
   {
-    id: 105,
-    title: "Travel Secret",
-    channel: "Travel Vibes",
-    icon: "🌍"
+    id: "short-5",
+    title: "Gaming Moment",
+    channel: "VYBE Gaming",
+    views: "145K views",
+    icon: "🎮",
+    videoUrl: ""
   },
 
   {
-    id: 106,
-    title: "Learn With AI",
-    channel: "Smart Learning",
-    icon: "📚"
+    id: "short-6",
+    title: "Beautiful World",
+    channel: "VYBE Travel",
+    views: "98K views",
+    icon: "🌍",
+    videoUrl: ""
   }
 
 ];
 
 
-/* =====================================================
+/* =========================================================
    STATE
-===================================================== */
+========================================================= */
 
 let currentVideo = null;
 
 let selectedCategory = "All";
 
 let likedVideos =
-  JSON.parse(
-    localStorage.getItem("vybeLikedVideos") || "[]"
-  );
+  JSON.parse(localStorage.getItem("vybe_liked_videos") || "[]");
 
 let savedVideos =
-  JSON.parse(
-    localStorage.getItem("vybeSavedVideos") || "[]"
-  );
+  JSON.parse(localStorage.getItem("vybe_saved_videos") || "[]");
 
 let history =
-  JSON.parse(
-    localStorage.getItem("vybeHistory") || "[]"
-  );
+  JSON.parse(localStorage.getItem("vybe_history") || "[]");
 
 let subscriptions =
-  JSON.parse(
-    localStorage.getItem("vybeSubscriptions") || "[]"
-  );
+  JSON.parse(localStorage.getItem("vybe_subscriptions") || "[]");
 
 let comments =
-  JSON.parse(
-    localStorage.getItem("vybeComments") || "{}"
-  );
+  JSON.parse(localStorage.getItem("vybe_comments") || "{}");
 
 
-/* =====================================================
-   DOM
-===================================================== */
+/* =========================================================
+   DOM READY
+========================================================= */
 
-const videoGrid =
-  document.getElementById("videoGrid");
+document.addEventListener("DOMContentLoaded", () => {
 
-const shortsGrid =
-  document.getElementById("shortsGrid");
+  renderVideos();
 
-const dynamicPage =
-  document.getElementById("dynamicPage");
+  renderShorts();
 
-const dynamicTitle =
-  document.getElementById("dynamicTitle");
+  setupNavigation();
 
-const dynamicSubtitle =
-  document.getElementById("dynamicSubtitle");
+  setupCategories();
 
-const dynamicVideoGrid =
-  document.getElementById("dynamicVideoGrid");
+  setupSearch();
 
-const watchPage =
-  document.getElementById("watchPage");
+  setupUpload();
 
-const homePage =
-  document.getElementById("homePage");
+  setupLogin();
 
-const channelPage =
-  document.getElementById("channelPage");
+  setupNotifications();
 
-const uploadModal =
-  document.getElementById("uploadModal");
+  setupMobileMenu();
 
-const loginModal =
-  document.getElementById("loginModal");
+  setupWatchActions();
 
-const notificationPanel =
-  document.getElementById("notificationPanel");
+  setupBackButton();
 
-const toast =
-  document.getElementById("toast");
+  setupLogo();
+
+  checkSupabaseConnection();
+
+});
 
 
-/* =====================================================
-   INITIALIZATION
-===================================================== */
+/* =========================================================
+   SAFE ELEMENT
+========================================================= */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    renderVideos();
-
-    renderShorts();
-
-    setupNavigation();
-
-    setupCategories();
-
-    setupSearch();
-
-    setupUpload();
-
-    setupLogin();
-
-    setupNotifications();
-
-    setupMobileMenu();
-
-    setupWatchActions();
-
-    checkSupabaseConnection();
-
-  }
-);
-
-
-/* =====================================================
-   SUPABASE TEST
-===================================================== */
-
-async function checkSupabaseConnection() {
-
-  try {
-
-    const {
-      data,
-      error
-    } = await supabaseClient
-      .from("videos")
-      .select("id")
-      .limit(1);
-
-    /*
-      Table may not exist yet.
-
-      This is expected in Step 4.
-    */
-
-    if (error) {
-
-      console.log(
-        "Supabase connected. Database table not created yet."
-      );
-
-      return;
-    }
-
-    console.log(
-      "VYBE AI database connection successful."
-    );
-
-  } catch (error) {
-
-    console.error(
-      "Supabase connection error:",
-      error
-    );
-
-  }
-
+function $(id) {
+  return document.getElementById(id);
 }
 
 
-/* =====================================================
-   RENDER VIDEOS
-===================================================== */
+/* =========================================================
+   TOAST
+========================================================= */
 
-function renderVideos(list = null) {
+function showToast(message) {
 
-  const data =
-    list ||
-    filterByCategory(videos);
+  const toast = $("toast");
 
-  videoGrid.innerHTML = "";
-
-  if (!data.length) {
-
-    videoGrid.innerHTML =
-      emptyVideos();
-
+  if (!toast) {
+    alert(message);
     return;
   }
 
-  data.forEach(
-    video => {
+  toast.textContent = message;
 
-      videoGrid.appendChild(
-        createVideoCard(video)
-      );
+  toast.classList.add("show");
 
-    }
+  clearTimeout(window.vybeToastTimer);
+
+  window.vybeToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2800);
+
+}
+
+
+/* =========================================================
+   YOUTUBE URL DETECTION
+========================================================= */
+
+function getYouTubeId(url) {
+
+  if (!url) return null;
+
+  const value = String(url).trim();
+
+  let match = null;
+
+  /*
+     Standard:
+     https://www.youtube.com/watch?v=VIDEO_ID
+  */
+
+  match = value.match(
+    /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/
+  );
+
+  if (match) {
+    return match[1];
+  }
+
+
+  /*
+     YouTube short:
+     https://youtu.be/VIDEO_ID
+  */
+
+  match = value.match(
+    /youtu\.be\/([a-zA-Z0-9_-]{11})/
+  );
+
+  if (match) {
+    return match[1];
+  }
+
+
+  /*
+     YouTube embed:
+     https://www.youtube.com/embed/VIDEO_ID
+  */
+
+  match = value.match(
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/
+  );
+
+  if (match) {
+    return match[1];
+  }
+
+
+  /*
+     Shorts:
+     https://www.youtube.com/shorts/VIDEO_ID
+  */
+
+  match = value.match(
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/
+  );
+
+  if (match) {
+    return match[1];
+  }
+
+
+  /*
+     Music:
+     https://music.youtube.com/watch?v=VIDEO_ID
+  */
+
+  match = value.match(
+    /music\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/
+  );
+
+  if (match) {
+    return match[1];
+  }
+
+
+  return null;
+}
+
+
+/* =========================================================
+   YOUTUBE THUMBNAIL
+========================================================= */
+
+function getYouTubeThumbnail(url) {
+
+  const videoId = getYouTubeId(url);
+
+  if (!videoId) {
+    return null;
+  }
+
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+
+/* =========================================================
+   DIRECT VIDEO URL
+========================================================= */
+
+function isDirectVideoUrl(url) {
+
+  if (!url) return false;
+
+  const value = String(url).toLowerCase();
+
+  return (
+    value.includes(".mp4") ||
+    value.includes(".webm") ||
+    value.includes(".ogg") ||
+    value.includes(".mov") ||
+    value.includes(".m4v")
   );
 
 }
 
 
-/* =====================================================
+/* =========================================================
    CREATE VIDEO CARD
-===================================================== */
+========================================================= */
 
 function createVideoCard(video) {
 
-  const card =
-    document.createElement("article");
+  const card = document.createElement("article");
 
-  card.className =
-    "video-card";
+  card.className = "video-card";
 
-  card.innerHTML = `
+  card.dataset.videoId = video.id;
 
-    <div class="thumbnail">
 
-      ${
-        video.thumbnail
-          ?
-          `<img
-             src="${escapeAttribute(video.thumbnail)}"
-             alt="${escapeAttribute(video.title)}">`
-          :
-          `
-          <div class="thumbnail-gradient">
-            ${video.icon || "▶"}
-          </div>
-          `
-      }
+  /* THUMBNAIL */
 
-      <span class="duration">
-        ${escapeHtml(video.duration || "00:00")}
-      </span>
+  const thumbnail = document.createElement("div");
 
-    </div>
+  thumbnail.className = "video-thumbnail";
 
-    <div class="video-info">
 
-      <div class="mini-avatar">
-        ${getInitial(video.channel)}
-      </div>
+  const youtubeThumbnail =
+    getYouTubeThumbnail(video.videoUrl);
 
-      <div>
 
-        <div class="video-title">
-          ${escapeHtml(video.title)}
-        </div>
+  if (youtubeThumbnail) {
 
-        <div class="video-channel">
-          ${escapeHtml(video.channel)}
-        </div>
+    thumbnail.style.backgroundImage =
+      `url("${youtubeThumbnail}")`;
 
-        <div class="video-meta">
-          ${escapeHtml(video.views || "0 views")}
-          •
-          ${escapeHtml(video.date || "Today")}
-        </div>
+    thumbnail.style.backgroundSize = "cover";
 
-      </div>
-
-    </div>
-  `;
-
-  card.addEventListener(
-    "click",
-    () => openVideo(video.id)
-  );
-
-  return card;
-}
-
-
-/* =====================================================
-   FILTER CATEGORY
-===================================================== */
-
-function filterByCategory(list) {
-
-  if (selectedCategory === "All") {
-
-    return list;
-
-  }
-
-  return list.filter(
-    video =>
-      video.category === selectedCategory
-  );
-
-}
-
-
-/* =====================================================
-   SHORTS
-===================================================== */
-
-function renderShorts() {
-
-  shortsGrid.innerHTML = "";
-
-  shorts.forEach(
-    short => {
-
-      const card =
-        document.createElement("article");
-
-      card.className =
-        "short-card";
-
-      card.innerHTML = `
-
-        <div class="short-thumb">
-          <span>${short.icon}</span>
-        </div>
-
-        <div class="short-title">
-          ${escapeHtml(short.title)}
-        </div>
-
-      `;
-
-      card.addEventListener(
-        "click",
-        () => showToast("Shorts player coming next.")
-      );
-
-      shortsGrid.appendChild(card);
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   OPEN VIDEO
-===================================================== */
-
-function openVideo(id) {
-
-  const video =
-    videos.find(
-      item => item.id === id
-    );
-
-  if (!video) {
-
-    showToast(
-      "Video not found."
-    );
-
-    return;
-  }
-
-  currentVideo = video;
-
-  addToHistory(video.id);
-
-  homePage.style.display = "none";
-
-  dynamicPage.style.display = "none";
-
-  channelPage.style.display = "none";
-
-  watchPage.style.display = "block";
-
-  populateWatchPage(video);
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-/* =====================================================
-   WATCH PAGE
-===================================================== */
-
-function populateWatchPage(video) {
-
-  const player =
-    document.getElementById("mainVideo");
-
-  const placeholder =
-    document.getElementById(
-      "playerPlaceholder"
-    );
-
-  document.getElementById(
-    "watchTitle"
-  ).textContent =
-    video.title;
-
-  document.getElementById(
-    "watchViews"
-  ).textContent =
-    `${video.views || "0 views"}`;
-
-  document.getElementById(
-    "watchDate"
-  ).textContent =
-    video.date || "Today";
-
-  document.getElementById(
-    "watchChannel"
-  ).textContent =
-    video.channel;
-
-  document.getElementById(
-    "watchSubscribers"
-  ).textContent =
-    `${video.subscribers || "0"} subscribers`;
-
-  document.getElementById(
-    "watchDescription"
-  ).textContent =
-    video.description || "";
-
-  document.getElementById(
-    "watchChannelAvatar"
-  ).textContent =
-    getInitial(video.channel);
-
-  document.getElementById(
-    "likeCount"
-  ).textContent =
-    formatNumber(
-      video.likes || 0
-    );
-
-  const subscribeBtn =
-    document.getElementById(
-      "subscribeBtn"
-    );
-
-  const subscribed =
-    subscriptions.includes(
-      video.channel
-    );
-
-  subscribeBtn.textContent =
-    subscribed
-      ? "Subscribed"
-      : "Subscribe";
-
-  if (video.videoUrl) {
-
-    player.src =
-      video.videoUrl;
-
-    player.style.display =
-      "block";
-
-    placeholder.style.display =
-      "none";
+    thumbnail.style.backgroundPosition = "center";
 
   } else {
 
-    player.removeAttribute(
-      "src"
-    );
+    const icon = document.createElement("div");
 
-    player.style.display =
-      "none";
+    icon.className = "thumbnail-icon";
 
-    placeholder.style.display =
-      "grid";
+    icon.textContent = video.icon || "🎬";
+
+    thumbnail.appendChild(icon);
 
   }
 
-  renderComments(video.id);
 
-  renderRecommended(video.id);
+  /* DURATION */
+
+  if (video.duration) {
+
+    const duration = document.createElement("span");
+
+    duration.className = "video-duration";
+
+    duration.textContent = video.duration;
+
+    thumbnail.appendChild(duration);
+
+  }
+
+
+  /* INFO */
+
+  const info = document.createElement("div");
+
+  info.className = "video-card-info";
+
+
+  const avatar = document.createElement("div");
+
+  avatar.className = "video-avatar";
+
+  avatar.textContent =
+    getInitial(video.channel || "V");
+
+
+  const text = document.createElement("div");
+
+  text.className = "video-card-text";
+
+
+  const title = document.createElement("h3");
+
+  title.textContent =
+    video.title || "Untitled Video";
+
+
+  const channel = document.createElement("p");
+
+  channel.textContent =
+    video.channel || "VYBE AI";
+
+
+  const meta = document.createElement("p");
+
+  meta.textContent =
+    `${video.views || "0 views"} • ${video.date || "Just now"}`;
+
+
+  text.appendChild(title);
+
+  text.appendChild(channel);
+
+  text.appendChild(meta);
+
+
+  info.appendChild(avatar);
+
+  info.appendChild(text);
+
+
+  card.appendChild(thumbnail);
+
+  card.appendChild(info);
+
+
+  card.addEventListener("click", () => {
+
+    openVideo(video.id);
+
+  });
+
+
+  return card;
 
 }
 
 
-/* =====================================================
-   RECOMMENDED
-===================================================== */
+/* =========================================================
+   INITIALS
+========================================================= */
 
-function renderRecommended(currentId) {
+function getInitial(name) {
 
-  const container =
-    document.getElementById(
-      "recommendedList"
-    );
+  if (!name) return "V";
 
-  container.innerHTML = "";
+  return String(name)
+    .trim()
+    .charAt(0)
+    .toUpperCase();
 
-  videos
-    .filter(
-      video => video.id !== currentId
-    )
-    .slice(0, 6)
-    .forEach(
-      video => {
+}
 
-        const card =
-          document.createElement("div");
 
-        card.className =
-          "recommended-card";
+/* =========================================================
+   RENDER VIDEOS
+========================================================= */
 
-        card.innerHTML = `
+function renderVideos(list = null) {
 
-          <div class="recommended-thumb">
-            ${video.icon || "▶"}
-          </div>
+  const grid = $("videoGrid");
 
-          <div>
+  if (!grid) return;
 
-            <div class="recommended-title">
-              ${escapeHtml(video.title)}
-            </div>
+  grid.innerHTML = "";
 
-            <div class="recommended-meta">
-              ${escapeHtml(video.channel)}
-            </div>
+  let data =
+    list ||
+    videos.filter(video => {
 
-            <div class="recommended-meta">
-              ${escapeHtml(video.views)}
-            </div>
-
-          </div>
-        `;
-
-        card.addEventListener(
-          "click",
-          () => openVideo(video.id)
-        );
-
-        container.appendChild(card);
-
+      if (selectedCategory === "All") {
+        return true;
       }
-    );
 
-}
+      return video.category === selectedCategory;
+
+    });
 
 
-/* =====================================================
-   COMMENTS
-===================================================== */
+  if (!data.length) {
 
-function renderComments(videoId) {
-
-  const list =
-    document.getElementById(
-      "commentsList"
-    );
-
-  list.innerHTML = "";
-
-  const videoComments =
-    comments[videoId] || [];
-
-  if (!videoComments.length) {
-
-    list.innerHTML = `
-      <p style="
-        color:#9aa4b5;
-        padding:20px 0;
-      ">
-        No comments yet. Be the first to comment.
-      </p>
+    grid.innerHTML = `
+      <div class="empty-state">
+        No videos found.
+      </div>
     `;
 
     return;
+
   }
 
-  videoComments
-    .slice()
-    .reverse()
-    .forEach(
-      comment => {
 
-        const div =
-          document.createElement("div");
+  data.forEach(video => {
 
-        div.className =
-          "comment";
-
-        div.innerHTML = `
-
-          <div class="mini-avatar">
-            U
-          </div>
-
-          <div>
-
-            <strong>
-              ${escapeHtml(comment.user)}
-            </strong>
-
-            <p>
-              ${escapeHtml(comment.text)}
-            </p>
-
-          </div>
-
-        `;
-
-        list.appendChild(div);
-
-      }
+    grid.appendChild(
+      createVideoCard(video)
     );
-
-}
-
-
-/* =====================================================
-   ADD COMMENT
-===================================================== */
-
-function addComment() {
-
-  if (!currentVideo) {
-
-    return;
-  }
-
-  const input =
-    document.getElementById(
-      "commentInput"
-    );
-
-  const text =
-    input.value.trim();
-
-  if (!text) {
-
-    showToast(
-      "Write a comment first."
-    );
-
-    return;
-  }
-
-  if (!comments[currentVideo.id]) {
-
-    comments[currentVideo.id] = [];
-
-  }
-
-  comments[currentVideo.id].push({
-
-    user: "You",
-
-    text: text,
-
-    createdAt:
-      new Date().toISOString()
 
   });
 
-  localStorage.setItem(
-    "vybeComments",
-    JSON.stringify(comments)
-  );
+}
 
-  input.value = "";
 
-  renderComments(
-    currentVideo.id
-  );
+/* =========================================================
+   SHORTS
+========================================================= */
 
-  showToast(
-    "Comment added."
-  );
+function createShortCard(short) {
+
+  const card = document.createElement("article");
+
+  card.className = "short-card";
+
+
+  const thumb = document.createElement("div");
+
+  thumb.className = "short-thumbnail";
+
+
+  const icon = document.createElement("div");
+
+  icon.className = "short-icon";
+
+  icon.textContent =
+    short.icon || "▶️";
+
+
+  thumb.appendChild(icon);
+
+
+  const info = document.createElement("div");
+
+  info.className = "short-info";
+
+
+  const title = document.createElement("h3");
+
+  title.textContent =
+    short.title || "Short";
+
+
+  const channel = document.createElement("p");
+
+  channel.textContent =
+    short.channel || "VYBE AI";
+
+
+  const views = document.createElement("p");
+
+  views.textContent =
+    short.views || "0 views";
+
+
+  info.appendChild(title);
+
+  info.appendChild(channel);
+
+  info.appendChild(views);
+
+
+  card.appendChild(thumb);
+
+  card.appendChild(info);
+
+
+  if (short.videoUrl) {
+
+    card.addEventListener("click", () => {
+
+      const tempVideo = {
+
+        id: short.id,
+
+        title: short.title,
+
+        channel: short.channel,
+
+        views: short.views,
+
+        date: "Just now",
+
+        category: "Entertainment",
+
+        duration: "",
+
+        description: "",
+
+        icon: short.icon,
+
+        likes: 0,
+
+        subscribers: "0",
+
+        videoUrl: short.videoUrl
+
+      };
+
+
+      videos.push(tempVideo);
+
+      openVideo(tempVideo.id);
+
+    });
+
+  }
+
+
+  return card;
 
 }
 
 
-/* =====================================================
-   LIKE
-===================================================== */
+function renderShorts() {
 
-function toggleLike() {
+  const grids = [
 
-  if (!currentVideo) {
+    $("shortsGrid"),
 
-    return;
-  }
+    $("shortsPageGrid")
 
-  const id =
-    currentVideo.id;
+  ];
 
-  const index =
-    likedVideos.indexOf(id);
 
-  if (index === -1) {
+  grids.forEach(grid => {
 
-    likedVideos.push(id);
+    if (!grid) return;
 
-    currentVideo.likes =
-      (currentVideo.likes || 0) + 1;
+    grid.innerHTML = "";
 
-    showToast(
-      "Video liked 👍"
-    );
+    shorts.forEach(short => {
 
-  } else {
-
-    likedVideos.splice(
-      index,
-      1
-    );
-
-    currentVideo.likes =
-      Math.max(
-        0,
-        (currentVideo.likes || 0) - 1
+      grid.appendChild(
+        createShortCard(short)
       );
 
-    showToast(
-      "Like removed."
-    );
+    });
 
-  }
-
-  localStorage.setItem(
-    "vybeLikedVideos",
-    JSON.stringify(likedVideos)
-  );
-
-  document.getElementById(
-    "likeCount"
-  ).textContent =
-    formatNumber(
-      currentVideo.likes
-    );
+  });
 
 }
 
 
-/* =====================================================
-   SAVE
-===================================================== */
-
-function toggleSave() {
-
-  if (!currentVideo) {
-
-    return;
-  }
-
-  const id =
-    currentVideo.id;
-
-  const index =
-    savedVideos.indexOf(id);
-
-  if (index === -1) {
-
-    savedVideos.push(id);
-
-    showToast(
-      "Saved to Watch later 🔖"
-    );
-
-  } else {
-
-    savedVideos.splice(
-      index,
-      1
-    );
-
-    showToast(
-      "Removed from Watch later."
-    );
-
-  }
-
-  localStorage.setItem(
-    "vybeSavedVideos",
-    JSON.stringify(savedVideos)
-  );
-
-}
-
-
-/* =====================================================
-   SUBSCRIBE
-===================================================== */
-
-function toggleSubscribe() {
-
-  if (!currentVideo) {
-
-    return;
-  }
-
-  const channel =
-    currentVideo.channel;
-
-  const index =
-    subscriptions.indexOf(
-      channel
-    );
-
-  const btn =
-    document.getElementById(
-      "subscribeBtn"
-    );
-
-  if (index === -1) {
-
-    subscriptions.push(
-      channel
-    );
-
-    btn.textContent =
-      "Subscribed";
-
-    showToast(
-      `Subscribed to ${channel}`
-    );
-
-  } else {
-
-    subscriptions.splice(
-      index,
-      1
-    );
-
-    btn.textContent =
-      "Subscribe";
-
-    showToast(
-      `Unsubscribed from ${channel}`
-    );
-
-  }
-
-  localStorage.setItem(
-    "vybeSubscriptions",
-    JSON.stringify(
-      subscriptions
-    )
-  );
-
-}
-
-
-/* =====================================================
-   HISTORY
-===================================================== */
-
-function addToHistory(id) {
-
-  history =
-    history.filter(
-      item => item !== id
-    );
-
-  history.unshift(id);
-
-  history =
-    history.slice(
-      0,
-      100
-    );
-
-  localStorage.setItem(
-    "vybeHistory",
-    JSON.stringify(history)
-  );
-
-}
-
-
-/* =====================================================
+/* =========================================================
    NAVIGATION
-===================================================== */
+========================================================= */
 
 function setupNavigation() {
 
-  document
-    .querySelectorAll(".nav-item[data-page]")
-    .forEach(
-      button => {
+  const navItems =
+    document.querySelectorAll(".nav-item[data-page]");
 
-        button.addEventListener(
-          "click",
-          () => {
 
-            const page =
-              button.dataset.page;
+  navItems.forEach(item => {
 
-            showPage(page);
+    item.addEventListener("click", () => {
 
-          }
-        );
+      const page =
+        item.dataset.page;
 
-      }
-    );
+
+      showPage(page);
+
+
+      navItems.forEach(nav => {
+
+        nav.classList.remove("active");
+
+      });
+
+
+      item.classList.add("active");
+
+    });
+
+  });
+
+
+  const seeAll =
+    $("seeAllBtn");
+
+  if (seeAll) {
+
+    seeAll.addEventListener("click", () => {
+
+      selectedCategory = "All";
+
+      showPage("home");
+
+      renderVideos();
+
+    });
+
+  }
+
+
+  const seeAllShorts =
+    $("seeAllShortsBtn");
+
+  if (seeAllShorts) {
+
+    seeAllShorts.addEventListener("click", () => {
+
+      showPage("shorts");
+
+    });
+
+  }
 
 }
 
 
 function showPage(page) {
 
-  homePage.style.display =
-    "none";
-
-  watchPage.style.display =
-    "none";
-
-  channelPage.style.display =
-    "none";
-
-  dynamicPage.style.display =
-    "block";
-
-  let list = [];
-
-  switch (page) {
-
-    case "home":
-
-      showHome();
-
-      return;
-
-    case "trending":
-
-      dynamicTitle.textContent =
-        "🔥 Trending";
-
-      dynamicSubtitle.textContent =
-        "What's popular on VYBE AI";
-
-      list =
-        [...videos];
-
-      break;
-
-    case "shorts":
-
-      dynamicTitle.textContent =
-        "⚡ Shorts";
-
-      dynamicSubtitle.textContent =
-        "Quick videos. Big VYBE.";
-
-      renderDynamicShorts();
-
-      return;
-
-    case "subscriptions":
-
-      dynamicTitle.textContent =
-        "Subscriptions";
-
-      dynamicSubtitle.textContent =
-        "Videos from creators you follow";
-
-      list =
-        videos.filter(
-          video =>
-            subscriptions.includes(
-              video.channel
-            )
-        );
-
-      break;
-
-    case "history":
-
-      dynamicTitle.textContent =
-        "History";
-
-      dynamicSubtitle.textContent =
-        "Videos you've watched";
-
-      list =
-        history
-          .map(
-            id =>
-              videos.find(
-                video =>
-                  video.id === id
-              )
-          )
-          .filter(Boolean);
-
-      break;
-
-    case "watchlater":
-
-      dynamicTitle.textContent =
-        "Watch later";
-
-      dynamicSubtitle.textContent =
-        "Your saved videos";
-
-      list =
-        savedVideos
-          .map(
-            id =>
-              videos.find(
-                video =>
-                  video.id === id
-              )
-          )
-          .filter(Boolean);
-
-      break;
-
-    case "liked":
-
-      dynamicTitle.textContent =
-        "Liked videos";
-
-      dynamicSubtitle.textContent =
-        "Videos you liked";
-
-      list =
-        likedVideos
-          .map(
-            id =>
-              videos.find(
-                video =>
-                  video.id === id
-              )
-          )
-          .filter(Boolean);
-
-      break;
-
-    default:
-
-      showHome();
-
-      return;
-  }
-
-  renderDynamicVideos(list);
-
-  updateActiveNav(page);
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-/* =====================================================
-   HOME
-===================================================== */
-
-function showHome() {
-
-  homePage.style.display =
-    "block";
-
-  dynamicPage.style.display =
-    "none";
-
-  watchPage.style.display =
-    "none";
-
-  channelPage.style.display =
-    "none";
-
-  updateActiveNav(
-    "home"
-  );
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-/* =====================================================
-   DYNAMIC VIDEOS
-===================================================== */
-
-function renderDynamicVideos(list) {
-
-  dynamicVideoGrid.innerHTML = "";
-
-  if (!list.length) {
-
-    dynamicVideoGrid.innerHTML =
-      emptyVideos();
-
-    return;
-
-  }
-
-  list.forEach(
-    video => {
-
-      dynamicVideoGrid.appendChild(
-        createVideoCard(video)
-      );
-
-    }
-  );
-
-}
-
-
-function renderDynamicShorts() {
-
-  dynamicVideoGrid.innerHTML = "";
-
-  shorts.forEach(
-    short => {
-
-      const card =
-        document.createElement(
-          "article"
-        );
-
-      card.className =
-        "video-card";
-
-      card.innerHTML = `
-
-        <div class="thumbnail">
-
-          <div class="thumbnail-gradient">
-            ${short.icon}
-          </div>
-
-        </div>
-
-        <div class="video-info">
-
-          <div class="mini-avatar">
-            ${getInitial(short.channel)}
-          </div>
-
-          <div>
-
-            <div class="video-title">
-              ${escapeHtml(short.title)}
-            </div>
-
-            <div class="video-channel">
-              ${escapeHtml(short.channel)}
-            </div>
-
-          </div>
-
-        </div>
-      `;
-
-      dynamicVideoGrid.appendChild(card);
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   ACTIVE NAV
-===================================================== */
-
-function updateActiveNav(page) {
-
   document
-    .querySelectorAll(
-      ".nav-item[data-page]"
-    )
-    .forEach(
-      button => {
+    .querySelectorAll(".page-view")
+    .forEach(view => {
 
-        button.classList.toggle(
-          "active",
-          button.dataset.page === page
-        );
+      view.classList.remove("active");
 
-      }
-    );
+    });
+
+
+  const target =
+    $(page + "Page");
+
+
+  if (target) {
+
+    target.classList.add("active");
+
+  }
+
+
+  window.scrollTo({
+
+    top: 0,
+
+    behavior: "smooth"
+
+  });
+
+
+  if (page === "history") {
+    renderHistory();
+  }
+
+  if (page === "saved") {
+    renderSaved();
+  }
+
+  if (page === "subscriptions") {
+    renderSubscriptions();
+  }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    CATEGORIES
-===================================================== */
+========================================================= */
 
 function setupCategories() {
 
+  const buttons =
+    document.querySelectorAll(
+      ".category-btn"
+    );
+
+
+  buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      selectedCategory =
+        button.dataset.category || "All";
+
+
+      buttons.forEach(btn => {
+
+        btn.classList.remove("active");
+
+      });
+
+
+      button.classList.add("active");
+
+
+      renderVideos();
+
+    });
+
+  });
+
+
   document
-    .querySelectorAll(".category")
-    .forEach(
-      button => {
+    .querySelectorAll(".category-nav")
+    .forEach(button => {
 
-        button.addEventListener(
-          "click",
-          () => {
+      button.addEventListener("click", () => {
 
-            document
-              .querySelectorAll(
-                ".category"
-              )
-              .forEach(
-                item =>
-                  item.classList.remove(
-                    "active"
-                  )
-              );
+        selectedCategory =
+          button.dataset.category || "All";
 
-            button.classList.add(
-              "active"
-            );
 
-            selectedCategory =
-              button.dataset.category;
+        const categoryButtons =
+          document.querySelectorAll(".category-btn");
 
-            renderVideos();
+
+        categoryButtons.forEach(btn => {
+
+          btn.classList.remove("active");
+
+
+          if (
+            btn.dataset.category ===
+            selectedCategory
+          ) {
+
+            btn.classList.add("active");
 
           }
-        );
 
-      }
-    );
+        });
+
+
+        showPage("home");
+
+        renderVideos();
+
+      });
+
+    });
 
 }
 
 
-/* =====================================================
+/* =========================================================
    SEARCH
-===================================================== */
+========================================================= */
 
 function setupSearch() {
 
   const input =
-    document.getElementById(
-      "searchInput"
-    );
+    $("searchInput");
 
   const button =
-    document.getElementById(
-      "searchBtn"
-    );
+    $("searchBtn");
+
+
+  if (!input) return;
+
 
   function performSearch() {
 
     const query =
-      input.value
-        .trim()
-        .toLowerCase();
+      input.value.trim().toLowerCase();
+
 
     if (!query) {
 
-      showHome();
+      showPage("home");
+
+      renderVideos();
 
       return;
+
     }
 
+
     const results =
-      videos.filter(
-        video => {
+      videos.filter(video => {
 
-          return (
+        return (
 
-            video.title
-              .toLowerCase()
-              .includes(query)
+          String(video.title || "")
+            .toLowerCase()
+            .includes(query)
 
-            ||
+          ||
 
-            video.channel
-              .toLowerCase()
-              .includes(query)
+          String(video.channel || "")
+            .toLowerCase()
+            .includes(query)
 
-            ||
+          ||
 
-            video.category
-              .toLowerCase()
-              .includes(query)
+          String(video.category || "")
+            .toLowerCase()
+            .includes(query)
 
-          );
+          ||
 
-        }
-      );
+          String(video.description || "")
+            .toLowerCase()
+            .includes(query)
 
-    homePage.style.display =
-      "none";
+        );
 
-    watchPage.style.display =
-      "none";
+      });
 
-    channelPage.style.display =
-      "none";
 
-    dynamicPage.style.display =
-      "block";
-
-    dynamicTitle.textContent =
-      `Search results for "${input.value}"`;
-
-    dynamicSubtitle.textContent =
-      `${results.length} video(s) found`;
-
-    renderDynamicVideos(
-      results
+    renderSearchResults(
+      results,
+      query
     );
-
-    updateActiveNav("");
 
   }
 
-  button.addEventListener(
-    "click",
-    performSearch
-  );
 
   input.addEventListener(
     "keydown",
     event => {
 
-      if (
-        event.key === "Enter"
-      ) {
+      if (event.key === "Enter") {
 
         performSearch();
 
@@ -1539,207 +1061,1425 @@ function setupSearch() {
   );
 
 
-  /* Voice Search */
+  if (button) {
 
-  const voiceBtn =
-    document.getElementById(
-      "voiceSearchBtn"
+    button.addEventListener(
+      "click",
+      performSearch
     );
 
-  voiceBtn.addEventListener(
-    "click",
-    startVoiceSearch
+  }
+
+}
+
+
+function renderSearchResults(
+  results,
+  query
+) {
+
+  showPage("search");
+
+
+  const text =
+    $("searchResultText");
+
+  if (text) {
+
+    text.textContent =
+      `${results.length} result(s) for "${query}"`;
+
+  }
+
+
+  const grid =
+    $("searchGrid");
+
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+
+  if (!results.length) {
+
+    grid.innerHTML = `
+      <div class="empty-state">
+        No videos found for "${escapeHtml(query)}".
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  results.forEach(video => {
+
+    grid.appendChild(
+      createVideoCard(video)
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   OPEN VIDEO
+========================================================= */
+
+function openVideo(id) {
+
+  const video =
+    videos.find(
+      item => String(item.id) === String(id)
+    );
+
+
+  if (!video) {
+
+    showToast("Video not found.");
+
+    return;
+
+  }
+
+
+  currentVideo = video;
+
+
+  /* HISTORY */
+
+  history =
+    history.filter(
+      item => String(item) !== String(video.id)
+    );
+
+
+  history.unshift(video.id);
+
+
+  if (history.length > 50) {
+
+    history = history.slice(0, 50);
+
+  }
+
+
+  saveState();
+
+
+  showPage("watch");
+
+
+  populateWatchPage(video);
+
+}
+
+
+/* =========================================================
+   POPULATE WATCH PAGE
+========================================================= */
+
+function populateWatchPage(video) {
+
+  if (!video) return;
+
+
+  const title =
+    $("watchTitle");
+
+  const views =
+    $("watchViews");
+
+  const date =
+    $("watchDate");
+
+  const channel =
+    $("watchChannel");
+
+  const subscribers =
+    $("watchSubscribers");
+
+  const description =
+    $("watchDescription");
+
+  const avatar =
+    $("watchChannelAvatar");
+
+  const likeCount =
+    $("likeCount");
+
+
+  if (title) {
+    title.textContent =
+      video.title || "Untitled Video";
+  }
+
+
+  if (views) {
+    views.textContent =
+      video.views || "0 views";
+  }
+
+
+  if (date) {
+    date.textContent =
+      video.date || "Just now";
+  }
+
+
+  if (channel) {
+    channel.textContent =
+      video.channel || "VYBE AI";
+  }
+
+
+  if (subscribers) {
+    subscribers.textContent =
+      `${video.subscribers || "0"} subscribers`;
+  }
+
+
+  if (description) {
+    description.textContent =
+      video.description || "";
+  }
+
+
+  if (avatar) {
+    avatar.textContent =
+      getInitial(video.channel);
+  }
+
+
+  if (likeCount) {
+
+    likeCount.textContent =
+      formatNumber(video.likes || 0);
+
+  }
+
+
+  updateLikeButton();
+
+  updateSaveButton();
+
+  updateSubscribeButton();
+
+  renderComments();
+
+  renderRecommended();
+
+
+  loadVideoPlayer(video);
+
+}
+
+
+/* =========================================================
+   VIDEO PLAYER
+========================================================= */
+
+function loadVideoPlayer(video) {
+
+  const player =
+    $("mainVideo");
+
+  const youtubeContainer =
+    $("youtubePlayer");
+
+  const placeholder =
+    $("playerPlaceholder");
+
+
+  if (!player || !placeholder) return;
+
+
+  /* RESET */
+
+  try {
+    player.pause();
+  } catch (error) {
+    console.warn(error);
+  }
+
+
+  player.removeAttribute("src");
+
+  player.load();
+
+
+  player.style.display = "none";
+
+
+  if (youtubeContainer) {
+
+    youtubeContainer.innerHTML = "";
+
+    youtubeContainer.style.display = "none";
+
+  }
+
+
+  placeholder.style.display = "grid";
+
+
+  const url =
+    String(video.videoUrl || "").trim();
+
+
+  if (!url) {
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     YOUTUBE
+  ======================================================= */
+
+  const youtubeId =
+    getYouTubeId(url);
+
+
+  if (youtubeId) {
+
+    if (!youtubeContainer) {
+
+      showToast(
+        "YouTube player is not available."
+      );
+
+      return;
+
+    }
+
+
+    const iframe =
+      document.createElement("iframe");
+
+
+    iframe.src =
+      `https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1`;
+
+
+    iframe.title =
+      video.title || "VYBE AI Video";
+
+
+    iframe.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+
+    iframe.allowFullscreen = true;
+
+
+    iframe.setAttribute(
+      "frameborder",
+      "0"
+    );
+
+
+    iframe.style.width =
+      "100%";
+
+
+    iframe.style.height =
+      "100%";
+
+
+    iframe.style.border =
+      "0";
+
+
+    youtubeContainer.appendChild(
+      iframe
+    );
+
+
+    youtubeContainer.style.display =
+      "block";
+
+
+    placeholder.style.display =
+      "none";
+
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     DIRECT VIDEO
+  ======================================================= */
+
+  if (isDirectVideoUrl(url)) {
+
+    player.src = url;
+
+    player.style.display =
+      "block";
+
+
+    placeholder.style.display =
+      "none";
+
+
+    player.load();
+
+
+    return;
+
+  }
+
+
+  /* =======================================================
+     UNKNOWN URL
+  ======================================================= */
+
+  placeholder.innerHTML = `
+    <div class="play-big">⚠️</div>
+    <p>Unsupported video URL</p>
+  `;
+
+  placeholder.style.display =
+    "grid";
+
+}
+
+
+/* =========================================================
+   WATCH ACTIONS
+========================================================= */
+
+function setupWatchActions() {
+
+  const likeBtn =
+    $("likeBtn");
+
+  const saveBtn =
+    $("saveBtn");
+
+  const shareBtn =
+    $("shareBtn");
+
+  const subscribeBtn =
+    $("subscribeBtn");
+
+  const commentBtn =
+    $("commentBtn");
+
+
+  if (likeBtn) {
+
+    likeBtn.addEventListener(
+      "click",
+      toggleLike
+    );
+
+  }
+
+
+  if (saveBtn) {
+
+    saveBtn.addEventListener(
+      "click",
+      toggleSave
+    );
+
+  }
+
+
+  if (shareBtn) {
+
+    shareBtn.addEventListener(
+      "click",
+      shareCurrentVideo
+    );
+
+  }
+
+
+  if (subscribeBtn) {
+
+    subscribeBtn.addEventListener(
+      "click",
+      toggleSubscribe
+    );
+
+  }
+
+
+  if (commentBtn) {
+
+    commentBtn.addEventListener(
+      "click",
+      addComment
+    );
+
+  }
+
+
+  const commentInput =
+    $("commentInput");
+
+
+  if (commentInput) {
+
+    commentInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Enter") {
+
+          event.preventDefault();
+
+          addComment();
+
+        }
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LIKE
+========================================================= */
+
+function toggleLike() {
+
+  if (!currentVideo) return;
+
+
+  const id =
+    String(currentVideo.id);
+
+
+  const index =
+    likedVideos.indexOf(id);
+
+
+  if (index === -1) {
+
+    likedVideos.push(id);
+
+    currentVideo.likes =
+      Number(currentVideo.likes || 0) + 1;
+
+    showToast("Video liked.");
+
+  } else {
+
+    likedVideos.splice(index, 1);
+
+    currentVideo.likes =
+      Math.max(
+        0,
+        Number(currentVideo.likes || 0) - 1
+      );
+
+    showToast("Like removed.");
+
+  }
+
+
+  const count =
+    $("likeCount");
+
+
+  if (count) {
+
+    count.textContent =
+      formatNumber(currentVideo.likes);
+
+  }
+
+
+  updateLikeButton();
+
+  saveState();
+
+}
+
+
+function updateLikeButton() {
+
+  const button =
+    $("likeBtn");
+
+  if (!button || !currentVideo) return;
+
+
+  const liked =
+    likedVideos.includes(
+      String(currentVideo.id)
+    );
+
+
+  button.classList.toggle(
+    "active",
+    liked
   );
 
 }
 
 
-/* =====================================================
-   VOICE SEARCH
-===================================================== */
+/* =========================================================
+   SAVE
+========================================================= */
 
-function startVoiceSearch() {
+function toggleSave() {
 
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+  if (!currentVideo) return;
 
-  if (!SpeechRecognition) {
+
+  const id =
+    String(currentVideo.id);
+
+
+  const index =
+    savedVideos.indexOf(id);
+
+
+  if (index === -1) {
+
+    savedVideos.push(id);
+
+    showToast("Video saved.");
+
+  } else {
+
+    savedVideos.splice(index, 1);
+
+    showToast("Video removed from saved.");
+
+  }
+
+
+  updateSaveButton();
+
+  saveState();
+
+}
+
+
+function updateSaveButton() {
+
+  const button =
+    $("saveBtn");
+
+  if (!button || !currentVideo) return;
+
+
+  const saved =
+    savedVideos.includes(
+      String(currentVideo.id)
+    );
+
+
+  button.classList.toggle(
+    "active",
+    saved
+  );
+
+
+  button.innerHTML =
+    saved
+      ? "💾 Saved"
+      : "💾 Save";
+
+}
+
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareCurrentVideo() {
+
+  if (!currentVideo) return;
+
+
+  const shareData = {
+
+    title:
+      currentVideo.title || "VYBE AI",
+
+    text:
+      currentVideo.description ||
+      currentVideo.title ||
+      "Watch this video on VYBE AI.",
+
+    url:
+      window.location.href
+
+  };
+
+
+  try {
+
+    if (
+      navigator.share
+    ) {
+
+      await navigator.share(
+        shareData
+      );
+
+      return;
+
+    }
+
+
+    if (
+      navigator.clipboard
+    ) {
+
+      await navigator.clipboard.writeText(
+        window.location.href
+      );
+
+      showToast(
+        "Video link copied."
+      );
+
+      return;
+
+    }
+
 
     showToast(
-      "Voice search is not supported in this browser."
+      "Copy this page URL to share."
+    );
+
+  } catch (error) {
+
+    if (
+      error &&
+      error.name === "AbortError"
+    ) {
+
+      return;
+
+    }
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* =========================================================
+   SUBSCRIBE
+========================================================= */
+
+function toggleSubscribe() {
+
+  if (!currentVideo) return;
+
+
+  const channel =
+    currentVideo.channel ||
+    "VYBE AI";
+
+
+  const index =
+    subscriptions.indexOf(channel);
+
+
+  if (index === -1) {
+
+    subscriptions.push(channel);
+
+    showToast(
+      `Subscribed to ${channel}.`
+    );
+
+  } else {
+
+    subscriptions.splice(index, 1);
+
+    showToast(
+      `Unsubscribed from ${channel}.`
+    );
+
+  }
+
+
+  updateSubscribeButton();
+
+  saveState();
+
+}
+
+
+function updateSubscribeButton() {
+
+  const button =
+    $("subscribeBtn");
+
+  if (!button || !currentVideo) return;
+
+
+  const channel =
+    currentVideo.channel ||
+    "VYBE AI";
+
+
+  const subscribed =
+    subscriptions.includes(channel);
+
+
+  button.textContent =
+    subscribed
+      ? "Subscribed"
+      : "Subscribe";
+
+
+  button.classList.toggle(
+    "active",
+    subscribed
+  );
+
+}
+
+
+/* =========================================================
+   COMMENTS
+========================================================= */
+
+function renderComments() {
+
+  if (!currentVideo) return;
+
+
+  const list =
+    $("commentsList");
+
+  const count =
+    $("commentCount");
+
+
+  if (!list) return;
+
+
+  const id =
+    String(currentVideo.id);
+
+
+  const data =
+    comments[id] || [];
+
+
+  if (count) {
+
+    count.textContent =
+      data.length;
+
+  }
+
+
+  list.innerHTML = "";
+
+
+  if (!data.length) {
+
+    list.innerHTML = `
+      <div class="empty-state">
+        No comments yet. Be the first to comment.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  data.forEach(comment => {
+
+    const item =
+      document.createElement("div");
+
+
+    item.className =
+      "comment-item";
+
+
+    item.innerHTML = `
+      <div class="comment-avatar">
+        ${escapeHtml(
+          getInitial(comment.user || "Y")
+        )}
+      </div>
+
+      <div class="comment-content">
+
+        <strong>
+          ${escapeHtml(
+            comment.user || "You"
+          )}
+        </strong>
+
+        <p>
+          ${escapeHtml(
+            comment.text || ""
+          )}
+        </p>
+
+        <small>
+          ${escapeHtml(
+            comment.date || "Just now"
+          )}
+        </small>
+
+      </div>
+    `;
+
+
+    list.appendChild(item);
+
+  });
+
+}
+
+
+function addComment() {
+
+  if (!currentVideo) return;
+
+
+  const input =
+    $("commentInput");
+
+
+  if (!input) return;
+
+
+  const text =
+    input.value.trim();
+
+
+  if (!text) {
+
+    showToast(
+      "Please write a comment."
     );
 
     return;
+
   }
 
-  const recognition =
-    new SpeechRecognition();
 
-  recognition.lang =
-    "en-US";
+  const id =
+    String(currentVideo.id);
 
-  recognition.interimResults =
-    false;
 
-  recognition.continuous =
-    false;
+  if (!comments[id]) {
 
-  recognition.start();
+    comments[id] = [];
+
+  }
+
+
+  comments[id].unshift({
+
+    user: "You",
+
+    text: text,
+
+    date: "Just now"
+
+  });
+
+
+  input.value = "";
+
+
+  saveState();
+
+  renderComments();
 
   showToast(
-    "Listening..."
+    "Comment added."
   );
-
-  recognition.onresult =
-    event => {
-
-      const text =
-        event.results[0][0].transcript;
-
-      document.getElementById(
-        "searchInput"
-      ).value = text;
-
-      document.getElementById(
-        "searchBtn"
-      ).click();
-
-    };
-
-  recognition.onerror =
-    () => {
-
-      showToast(
-        "Voice search failed."
-      );
-
-    };
 
 }
 
 
-/* =====================================================
-   UPLOAD
-===================================================== */
+/* =========================================================
+   RECOMMENDED
+========================================================= */
+
+function renderRecommended() {
+
+  const list =
+    $("recommendedList");
+
+
+  if (!list) return;
+
+
+  list.innerHTML = "";
+
+
+  const recommended =
+    videos
+      .filter(video => {
+
+        if (!currentVideo) return true;
+
+        return (
+          String(video.id) !==
+          String(currentVideo.id)
+        );
+
+      })
+      .slice(0, 8);
+
+
+  recommended.forEach(video => {
+
+    const item =
+      document.createElement("div");
+
+
+    item.className =
+      "recommended-item";
+
+
+    const thumb =
+      document.createElement("div");
+
+
+    thumb.className =
+      "recommended-thumb";
+
+
+    const youtubeThumbnail =
+      getYouTubeThumbnail(
+        video.videoUrl
+      );
+
+
+    if (youtubeThumbnail) {
+
+      thumb.style.backgroundImage =
+        `url("${youtubeThumbnail}")`;
+
+      thumb.style.backgroundSize =
+        "cover";
+
+      thumb.style.backgroundPosition =
+        "center";
+
+    } else {
+
+      thumb.textContent =
+        video.icon || "🎬";
+
+    }
+
+
+    const info =
+      document.createElement("div");
+
+
+    info.className =
+      "recommended-info";
+
+
+    info.innerHTML = `
+      <h3>
+        ${escapeHtml(
+          video.title || "Untitled"
+        )}
+      </h3>
+
+      <p>
+        ${escapeHtml(
+          video.channel || "VYBE AI"
+        )}
+      </p>
+
+      <small>
+        ${escapeHtml(
+          video.views || "0 views"
+        )}
+      </small>
+    `;
+
+
+    item.appendChild(thumb);
+
+    item.appendChild(info);
+
+
+    item.addEventListener(
+      "click",
+      () => {
+
+        openVideo(video.id);
+
+      }
+    );
+
+
+    list.appendChild(item);
+
+  });
+
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+function renderHistory() {
+
+  const grid =
+    $("historyGrid");
+
+  if (!grid) return;
+
+
+  grid.innerHTML = "";
+
+
+  const data =
+    history
+      .map(id => {
+
+        return videos.find(
+          video =>
+            String(video.id) ===
+            String(id)
+        );
+
+      })
+      .filter(Boolean);
+
+
+  if (!data.length) {
+
+    grid.innerHTML = `
+      <div class="empty-state">
+        Your watch history is empty.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  data.forEach(video => {
+
+    grid.appendChild(
+      createVideoCard(video)
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   SAVED
+========================================================= */
+
+function renderSaved() {
+
+  const grid =
+    $("savedGrid");
+
+  if (!grid) return;
+
+
+  grid.innerHTML = "";
+
+
+  const data =
+    savedVideos
+      .map(id => {
+
+        return videos.find(
+          video =>
+            String(video.id) ===
+            String(id)
+        );
+
+      })
+      .filter(Boolean);
+
+
+  if (!data.length) {
+
+    grid.innerHTML = `
+      <div class="empty-state">
+        You have no saved videos.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  data.forEach(video => {
+
+    grid.appendChild(
+      createVideoCard(video)
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   SUBSCRIPTIONS
+========================================================= */
+
+function renderSubscriptions() {
+
+  const grid =
+    $("subscriptionsGrid");
+
+  if (!grid) return;
+
+
+  grid.innerHTML = "";
+
+
+  const data =
+    videos.filter(video => {
+
+      return subscriptions.includes(
+        video.channel
+      );
+
+    });
+
+
+  if (!data.length) {
+
+    grid.innerHTML = `
+      <div class="empty-state">
+        You haven't subscribed to any channels yet.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  data.forEach(video => {
+
+    grid.appendChild(
+      createVideoCard(video)
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   UPLOAD / ADD VIDEO
+========================================================= */
 
 function setupUpload() {
 
-  const buttons = [
+  const uploadBtn =
+    $("uploadBtn");
 
-    document.getElementById(
-      "uploadTopBtn"
-    ),
+  const creatorUploadBtn =
+    $("creatorUploadBtn");
 
-    document.getElementById(
-      "sidebarUpload"
-    ),
+  const modal =
+    $("uploadModal");
 
-    document.getElementById(
-      "heroUploadBtn"
-    ),
+  const closeBtn =
+    $("closeUploadModal");
 
-    document.getElementById(
-      "creatorUploadBtn"
-    )
+  const form =
+    $("uploadForm");
 
-  ];
 
-  buttons.forEach(
-    button => {
+  function openUploadModal() {
 
-      if (!button) return;
+    if (!modal) return;
 
-      button.addEventListener(
-        "click",
-        () => {
+    modal.classList.add("show");
 
-          uploadModal.classList.add(
-            "show"
-          );
+  }
+
+
+  function closeUploadModal() {
+
+    if (!modal) return;
+
+    modal.classList.remove("show");
+
+  }
+
+
+  if (uploadBtn) {
+
+    uploadBtn.addEventListener(
+      "click",
+      openUploadModal
+    );
+
+  }
+
+
+  if (creatorUploadBtn) {
+
+    creatorUploadBtn.addEventListener(
+      "click",
+      openUploadModal
+    );
+
+  }
+
+
+  if (closeBtn) {
+
+    closeBtn.addEventListener(
+      "click",
+      closeUploadModal
+    );
+
+  }
+
+
+  if (modal) {
+
+    modal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === modal
+        ) {
+
+          closeUploadModal();
 
         }
-      );
 
-    }
-  );
-
-
-  document
-    .getElementById(
-      "uploadClose"
-    )
-    .addEventListener(
-      "click",
-      closeUpload
+      }
     );
 
-
-  document
-    .getElementById(
-      "uploadForm"
-    )
-    .addEventListener(
-      "submit",
-      handleUpload
-    );
-
-}
+  }
 
 
-function closeUpload() {
+  if (!form) return;
 
-  uploadModal.classList.remove(
-    "show"
+
+  form.addEventListener(
+    "submit",
+    handleAddVideo
   );
 
 }
 
 
-function handleUpload(event) {
+function handleAddVideo(event) {
 
   event.preventDefault();
 
+
+  const urlInput =
+    $("videoUrl");
+
+  const titleInput =
+    $("videoTitle");
+
+  const descriptionInput =
+    $("videoDescription");
+
+  const categoryInput =
+    $("videoCategory");
+
+
+  const videoUrl =
+    urlInput
+      ? urlInput.value.trim()
+      : "";
+
+
   const title =
-    document.getElementById(
-      "uploadTitle"
-    ).value.trim();
+    titleInput
+      ? titleInput.value.trim()
+      : "";
+
 
   const description =
-    document.getElementById(
-      "uploadDescription"
-    ).value.trim();
+    descriptionInput
+      ? descriptionInput.value.trim()
+      : "";
+
 
   const category =
-    document.getElementById(
-      "uploadCategory"
-    ).value;
+    categoryInput
+      ? categoryInput.value
+      : "Entertainment";
 
-  const file =
-    document.getElementById(
-      "uploadFile"
-    ).files[0];
 
-  if (!file) {
+  if (!videoUrl) {
 
     showToast(
-      "Please select a video."
+      "Please paste a video URL."
     );
 
     return;
+
   }
 
-  /*
-    Local preview for Step 4.
 
-    Real permanent upload to Supabase Storage
-    will be added in the next database/storage step.
-  */
+  if (!title) {
 
-  const videoUrl =
-    URL.createObjectURL(
-      file
+    showToast(
+      "Please enter a video title."
     );
+
+    return;
+
+  }
+
+
+  const youtubeId =
+    getYouTubeId(videoUrl);
+
+
+  const directVideo =
+    isDirectVideoUrl(videoUrl);
+
+
+  if (
+    !youtubeId &&
+    !directVideo
+  ) {
+
+    showToast(
+      "Please enter a valid YouTube or direct video URL."
+    );
+
+    return;
+
+  }
+
 
   const newVideo = {
 
@@ -1766,8 +2506,7 @@ function handleUpload(event) {
 
     description:
       description ||
-
-      "Uploaded to VYBE AI.",
+      "Added to VYBE AI.",
 
     icon:
       "🎬",
@@ -1783,347 +2522,308 @@ function handleUpload(event) {
 
   };
 
+
   videos.unshift(
     newVideo
   );
 
-  closeUpload();
 
-  document
-    .getElementById(
-      "uploadForm"
-    )
-    .reset();
+  /* RESET FORM */
+
+  const form =
+    $("uploadForm");
+
+
+  if (form) {
+
+    form.reset();
+
+  }
+
+
+  /* CLOSE MODAL */
+
+  const modal =
+    $("uploadModal");
+
+
+  if (modal) {
+
+    modal.classList.remove(
+      "show"
+    );
+
+  }
+
+
+  /* REFRESH */
+
+  selectedCategory = "All";
 
   renderVideos();
 
-  showToast(
-    "Video added to VYBE AI preview."
-  );
+  renderShorts();
+
+
+  /* OPEN VIDEO */
 
   openVideo(
     newVideo.id
   );
 
+
+  showToast(
+    "Video added successfully."
+  );
+
 }
 
 
-/* =====================================================
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 function setupLogin() {
 
-  document
-    .getElementById(
-      "loginBtn"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        loginModal.classList.add(
-          "show"
-        );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "loginClose"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        loginModal.classList.remove(
-          "show"
-        );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "loginForm"
-    )
-    .addEventListener(
-      "submit",
-      handleLogin
-    );
-
-}
-
-
-async function handleLogin(event) {
-
-  event.preventDefault();
-
-  const email =
-    document.getElementById(
-      "loginEmail"
-    ).value.trim();
-
-  const password =
-    document.getElementById(
-      "loginPassword"
-    ).value;
-
-  if (!email || !password) {
-
-    showToast(
-      "Enter email and password."
-    );
-
-    return;
-  }
-
-  try {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth.signInWithPassword({
-
-        email:
-          email,
-
-        password:
-          password
-
-      });
-
-
-    if (error) {
-
-      showToast(
-        error.message
-      );
-
-      return;
-    }
-
-
-    loginModal.classList.remove(
-      "show"
-    );
-
-    showLoggedInUser(
-      data.user
-    );
-
-    showToast(
-      "Signed in successfully."
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-    showToast(
-      "Login failed."
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   SHOW LOGGED USER
-===================================================== */
-
-function showLoggedInUser(user) {
-
   const loginBtn =
-    document.getElementById(
-      "loginBtn"
-    );
+    $("loginBtn");
 
-  const avatar =
-    document.getElementById(
-      "userAvatar"
-    );
+  const modal =
+    $("loginModal");
 
-  loginBtn.style.display =
-    "none";
+  const closeBtn =
+    $("closeLoginModal");
 
-  avatar.style.display =
-    "grid";
-
-  avatar.textContent =
-    getInitial(
-      user.email || "User"
-    );
-
-}
+  const form =
+    $("loginForm");
 
 
-/* =====================================================
-   CHECK SESSION
-===================================================== */
+  if (loginBtn) {
 
-async function checkSession() {
-
-  const {
-    data
-  } =
-    await supabaseClient.auth.getSession();
-
-  if (
-    data &&
-    data.session &&
-    data.session.user
-  ) {
-
-    showLoggedInUser(
-      data.session.user
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   WATCH ACTIONS
-===================================================== */
-
-function setupWatchActions() {
-
-  document
-    .getElementById(
-      "likeBtn"
-    )
-    .addEventListener(
+    loginBtn.addEventListener(
       "click",
-      toggleLike
-    );
+      () => {
 
+        if (modal) {
 
-  document
-    .getElementById(
-      "saveBtn"
-    )
-    .addEventListener(
-      "click",
-      toggleSave
-    );
-
-
-  document
-    .getElementById(
-      "subscribeBtn"
-    )
-    .addEventListener(
-      "click",
-      toggleSubscribe
-    );
-
-
-  document
-    .getElementById(
-      "commentBtn"
-    )
-    .addEventListener(
-      "click",
-      addComment
-    );
-
-
-  document
-    .getElementById(
-      "commentInput"
-    )
-    .addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key === "Enter"
-        ) {
-
-          addComment();
+          modal.classList.add(
+            "show"
+          );
 
         }
 
       }
     );
 
+  }
 
-  document
-    .getElementById(
-      "shareBtn"
-    )
-    .addEventListener(
+
+  if (closeBtn) {
+
+    closeBtn.addEventListener(
       "click",
-      shareCurrentVideo
+      () => {
+
+        if (modal) {
+
+          modal.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
     );
+
+  }
+
+
+  if (modal) {
+
+    modal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === modal
+        ) {
+
+          modal.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  if (!form) return;
+
+
+  form.addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const email =
+        $("loginEmail")
+          ?.value
+          .trim();
+
+
+      const password =
+        $("loginPassword")
+          ?.value;
+
+
+      if (!email || !password) {
+
+        showToast(
+          "Please enter email and password."
+        );
+
+        return;
+
+      }
+
+
+      if (!supabaseClient) {
+
+        showToast(
+          "Supabase connection is unavailable."
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth.signInWithPassword({
+
+            email:
+              email,
+
+            password:
+              password
+
+          });
+
+
+        if (error) {
+
+          throw error;
+
+        }
+
+
+        if (data && data.user) {
+
+          showToast(
+            "Login successful."
+          );
+
+
+          if (modal) {
+
+            modal.classList.remove(
+              "show"
+            );
+
+          }
+
+
+          updateLoginButton();
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Login error:",
+          error
+        );
+
+
+        showToast(
+          error.message ||
+          "Login failed."
+        );
+
+      }
+
+    }
+  );
+
+
+  updateLoginButton();
 
 }
 
 
-/* =====================================================
-   SHARE
-===================================================== */
+async function updateLoginButton() {
 
-async function shareCurrentVideo() {
+  const button =
+    $("loginBtn");
 
-  if (!currentVideo) {
 
-    return;
-  }
+  if (!button) return;
 
-  const url =
-    window.location.href;
 
-  if (
-    navigator.share
-  ) {
+  if (!supabaseClient) {
 
-    try {
-
-      await navigator.share({
-
-        title:
-          currentVideo.title,
-
-        text:
-          currentVideo.description,
-
-        url:
-          url
-
-      });
-
-    } catch (error) {
-
-      /* User cancelled share */
-
-    }
+    button.textContent =
+      "Login";
 
     return;
+
   }
 
 
   try {
 
-    await navigator.clipboard.writeText(
-      url
-    );
+    const {
+      data
+    } =
+      await supabaseClient.auth.getUser();
 
-    showToast(
-      "Video link copied."
-    );
+
+    if (
+      data &&
+      data.user
+    ) {
+
+      button.textContent =
+        "Logout";
+
+      button.onclick =
+        logoutUser;
+
+    } else {
+
+      button.textContent =
+        "Login";
+
+      button.onclick =
+        null;
+
+    }
 
   } catch (error) {
 
-    showToast(
-      "Unable to copy link."
+    console.warn(
+      "Session check failed:",
+      error
     );
 
   }
@@ -2131,63 +2831,120 @@ async function shareCurrentVideo() {
 }
 
 
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
+async function logoutUser() {
 
-function setupNotifications() {
+  if (!supabaseClient) return;
 
-  document
-    .getElementById(
-      "notificationBtn"
-    )
-    .addEventListener(
-      "click",
-      () => {
 
-        notificationPanel.classList.toggle(
-          "show"
-        );
+  try {
 
-      }
+    await supabaseClient.auth.signOut();
+
+    showToast(
+      "Logged out."
     );
 
 
-  document
-    .getElementById(
-      "notificationClose"
-    )
-    .addEventListener(
-      "click",
-      () => {
+    updateLoginButton();
 
-        notificationPanel.classList.remove(
-          "show"
-        );
+  } catch (error) {
 
-      }
-    );
+    console.error(error);
+
+  }
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+function setupNotifications() {
+
+  const button =
+    $("notificationBtn");
+
+  const panel =
+    $("notificationPanel");
+
+  const close =
+    $("closeNotification");
+
+
+  if (button && panel) {
+
+    button.addEventListener(
+      "click",
+      event => {
+
+        event.stopPropagation();
+
+        panel.classList.toggle(
+          "show"
+        );
+
+      }
+    );
+
+  }
+
+
+  if (close && panel) {
+
+    close.addEventListener(
+      "click",
+      () => {
+
+        panel.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+  }
+
+
+  document.addEventListener(
+    "click",
+    event => {
+
+      if (
+        panel &&
+        !panel.contains(event.target) &&
+        event.target !== button
+      ) {
+
+        panel.classList.remove(
+          "show"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
    MOBILE MENU
-===================================================== */
+========================================================= */
 
 function setupMobileMenu() {
 
-  const menuBtn =
-    document.getElementById(
-      "menuBtn"
-    );
+  const button =
+    $("menuBtn");
 
   const sidebar =
-    document.getElementById(
-      "sidebar"
-    );
+    $("sidebar");
 
-  menuBtn.addEventListener(
+
+  if (!button || !sidebar) return;
+
+
+  button.addEventListener(
     "click",
     () => {
 
@@ -2198,131 +2955,211 @@ function setupMobileMenu() {
     }
   );
 
-}
 
+  sidebar
+    .querySelectorAll("button")
+    .forEach(item => {
 
-/* =====================================================
-   SCROLL
-===================================================== */
+      item.addEventListener(
+        "click",
+        () => {
 
-function scrollToVideos() {
+          sidebar.classList.remove(
+            "open"
+          );
 
-  document
-    .getElementById(
-      "videosSection"
-    )
-    .scrollIntoView({
-      behavior: "smooth"
+        }
+      );
+
     });
 
 }
 
 
-/* =====================================================
-   EMPTY STATE
-===================================================== */
+/* =========================================================
+   BACK BUTTON
+========================================================= */
 
-function emptyVideos() {
+function setupBackButton() {
 
-  return `
+  const button =
+    $("backToHomeBtn");
 
-    <div style="
-      grid-column:1/-1;
-      padding:60px 20px;
-      text-align:center;
-      color:#9aa4b5;
-    ">
 
-      <div style="
-        font-size:45px;
-        margin-bottom:15px;
-      ">
-        🎬
-      </div>
+  if (!button) return;
 
-      <h3 style="
-        color:white;
-        margin-bottom:8px;
-      ">
-        No videos found
-      </h3>
 
-      <p>
-        Try another search or category.
-      </p>
+  button.addEventListener(
+    "click",
+    () => {
 
-    </div>
+      showPage("home");
 
-  `;
+    }
+  );
 
 }
 
 
-/* =====================================================
-   TOAST
-===================================================== */
+/* =========================================================
+   LOGO
+========================================================= */
 
-let toastTimer;
+function setupLogo() {
 
-function showToast(message) {
+  const logo =
+    $("logoBtn");
 
-  toast.textContent =
-    message;
 
-  toast.classList.add(
-    "show"
+  if (!logo) return;
+
+
+  logo.addEventListener(
+    "click",
+    () => {
+
+      showPage("home");
+
+      selectedCategory =
+        "All";
+
+      renderVideos();
+
+    }
   );
 
-  clearTimeout(
-    toastTimer
+
+  logo.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter" ||
+        event.key === " "
+      ) {
+
+        event.preventDefault();
+
+        showPage("home");
+
+      }
+
+    }
   );
 
-  toastTimer =
-    setTimeout(
-      () => {
+}
 
-        toast.classList.remove(
-          "show"
-        );
 
-      },
-      2800
+/* =========================================================
+   SUPABASE CONNECTION
+========================================================= */
+
+async function checkSupabaseConnection() {
+
+  if (!supabaseClient) {
+
+    console.warn(
+      "Supabase client not initialized."
     );
 
-}
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function getInitial(text) {
-
-  if (!text) {
-
-    return "V";
+    return;
 
   }
 
-  return text
-    .trim()
-    .charAt(0)
-    .toUpperCase();
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("videos")
+        .select("id")
+        .limit(1);
+
+
+    if (error) {
+
+      console.warn(
+        "Supabase videos table check:",
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "Supabase connection successful.",
+      data
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Supabase connection error:",
+      error
+    );
+
+  }
 
 }
 
 
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function saveState() {
+
+  localStorage.setItem(
+    "vybe_liked_videos",
+    JSON.stringify(likedVideos)
+  );
+
+
+  localStorage.setItem(
+    "vybe_saved_videos",
+    JSON.stringify(savedVideos)
+  );
+
+
+  localStorage.setItem(
+    "vybe_history",
+    JSON.stringify(history)
+  );
+
+
+  localStorage.setItem(
+    "vybe_subscriptions",
+    JSON.stringify(subscriptions)
+  );
+
+
+  localStorage.setItem(
+    "vybe_comments",
+    JSON.stringify(comments)
+  );
+
+}
+
+
+/* =========================================================
+   FORMAT NUMBER
+========================================================= */
+
 function formatNumber(number) {
 
-  number =
-    Number(number) || 0;
+  const value =
+    Number(number || 0);
 
-  if (
-    number >= 1000000
-  ) {
+
+  if (value >= 1000000) {
 
     return (
-      (number / 1000000)
+      (value / 1000000)
         .toFixed(1)
         .replace(".0", "")
       + "M"
@@ -2330,12 +3167,11 @@ function formatNumber(number) {
 
   }
 
-  if (
-    number >= 1000
-  ) {
+
+  if (value >= 1000) {
 
     return (
-      (number / 1000)
+      (value / 1000)
         .toFixed(1)
         .replace(".0", "")
       + "K"
@@ -2343,16 +3179,19 @@ function formatNumber(number) {
 
   }
 
-  return number.toString();
+
+  return String(value);
 
 }
 
 
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
 function escapeHtml(value) {
 
-  return String(
-    value ?? ""
-  )
+  return String(value || "")
     .replace(
       /&/g,
       "&amp;"
@@ -2377,44 +3216,68 @@ function escapeHtml(value) {
 }
 
 
-function escapeAttribute(value) {
-
-  return escapeHtml(
-    value
-  );
-
-}
-
-
-/* =====================================================
+/* =========================================================
    SUPABASE AUTH STATE
-===================================================== */
+========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-  (event, session) => {
+if (
+  window.supabase &&
+  SUPABASE_URL &&
+  SUPABASE_ANON_KEY
+) {
 
-    console.log(
-      "VYBE AI Auth:",
-      event
-    );
+  try {
 
-    if (
-      session &&
-      session.user
-    ) {
+    const client =
+      supabaseClient;
 
-      showLoggedInUser(
-        session.user
+
+    if (client) {
+
+      client.auth.onAuthStateChange(
+        (event, session) => {
+
+          console.log(
+            "Auth state:",
+            event
+          );
+
+
+          updateLoginButton();
+
+        }
       );
 
     }
 
+  } catch (error) {
+
+    console.warn(
+      "Auth listener error:",
+      error
+    );
+
   }
-);
+
+}
 
 
-/* =====================================================
-   INITIAL SESSION CHECK
-===================================================== */
+/* =========================================================
+   GLOBAL DEBUG
+========================================================= */
 
-checkSession();
+window.VYBE = {
+
+  videos,
+
+  shorts,
+
+  openVideo,
+
+  getYouTubeId,
+
+  getYouTubeThumbnail,
+
+  addVideo: handleAddVideo
+
+};
