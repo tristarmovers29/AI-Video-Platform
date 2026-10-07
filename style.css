@@ -40,6 +40,18 @@ body {
   min-height: 100vh;
 }
 
+body,
+button,
+input,
+textarea,
+select {
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
 button,
 input,
 textarea,
@@ -55,6 +67,11 @@ button:disabled {
   opacity: .5;
   cursor: not-allowed;
 }
+
+img {
+  max-width: 100%;
+}
+
 
 /* ==========================================
    TOPBAR
@@ -105,6 +122,8 @@ button:disabled {
   font-weight: 800;
 
   cursor: pointer;
+
+  user-select: none;
 }
 
 .logo-icon {
@@ -163,6 +182,10 @@ button:disabled {
   border: 0;
 
   outline: none;
+}
+
+.search-box input::placeholder {
+  color: #7f899b;
 }
 
 .search-box button {
@@ -510,6 +533,8 @@ button:disabled {
   padding-bottom: 10px;
 
   margin-bottom: 30px;
+
+  scrollbar-width: thin;
 }
 
 .category {
@@ -589,6 +614,10 @@ button:disabled {
   min-width: 0;
 
   cursor: pointer;
+}
+
+.video-card:hover .thumbnail {
+  border-color: rgba(124,92,255,.45);
 }
 
 .thumbnail {
@@ -839,6 +868,10 @@ button:disabled {
   display: block;
 
   background: black;
+}
+
+.video-player video:not([src]) {
+  display: none;
 }
 
 .player-placeholder {
@@ -1400,6 +1433,8 @@ button:disabled {
   transition: .3s;
 
   z-index: 3000;
+
+  pointer-events: none;
 }
 
 .toast.show {
@@ -1543,6 +1578,39 @@ button:disabled {
 
   .channel-header .subscribe-btn {
     width: 100%;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .topbar {
+    gap: 5px;
+  }
+
+  .logo {
+    min-width: auto;
+  }
+
+  .logo-icon {
+    display: none;
+  }
+
+  .top-actions {
+    gap: 4px;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .login-btn {
+    font-size: 12px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
   }
 
 }
