@@ -46,11 +46,11 @@ let videos = [
     views: "12K views",
     date: "2 days ago",
     category: "Entertainment",
-    duration: "04:25",
+    duration: "04:32",
     description:
-      "Welcome to VYBE AI. Discover videos and creators.",
+      "Welcome to VYBE AI — a new generation video platform.",
     icon: "🎬",
-    likes: 120,
+    likes: 1200,
     subscribers: "12K",
     videoUrl: ""
   },
@@ -59,47 +59,47 @@ let videos = [
     id: 2,
     title: "Future of Artificial Intelligence",
     channel: "Tech Vision",
-    views: "45K views",
+    views: "24K views",
     date: "1 week ago",
     category: "Education",
-    duration: "08:40",
+    duration: "08:15",
     description:
-      "Explore the future of artificial intelligence.",
+      "Exploring the future of artificial intelligence.",
     icon: "🤖",
-    likes: 430,
-    subscribers: "28K",
+    likes: 2400,
+    subscribers: "45K",
     videoUrl: ""
   },
 
   {
     id: 3,
-    title: "Best Music Vibes",
+    title: "Amazing Music Experience",
     channel: "VYBE Music",
-    views: "89K views",
+    views: "56K views",
     date: "3 days ago",
     category: "Music",
     duration: "05:20",
     description:
-      "Relax and enjoy the latest music vibes.",
+      "Enjoy an amazing music experience.",
     icon: "🎵",
-    likes: 900,
-    subscribers: "55K",
+    likes: 5600,
+    subscribers: "85K",
     videoUrl: ""
   },
 
   {
     id: 4,
-    title: "Gaming Highlights",
+    title: "Gaming World",
     channel: "Game Zone",
-    views: "76K views",
+    views: "89K views",
     date: "5 days ago",
     category: "Gaming",
-    duration: "10:15",
+    duration: "12:44",
     description:
-      "Amazing gaming highlights and moments.",
+      "Latest gaming content and entertainment.",
     icon: "🎮",
-    likes: 760,
-    subscribers: "42K",
+    likes: 8900,
+    subscribers: "120K",
     videoUrl: ""
   },
 
@@ -107,31 +107,31 @@ let videos = [
     id: 5,
     title: "Latest News Update",
     channel: "VYBE News",
-    views: "31K views",
+    views: "35K views",
     date: "Today",
     category: "News",
-    duration: "06:10",
+    duration: "06:18",
     description:
       "Latest news and important updates.",
     icon: "📰",
-    likes: 310,
-    subscribers: "20K",
+    likes: 3500,
+    subscribers: "70K",
     videoUrl: ""
   },
 
   {
     id: 6,
     title: "Learn Something New",
-    channel: "Learn Hub",
-    views: "21K views",
+    channel: "Learn Daily",
+    views: "18K views",
     date: "4 days ago",
     category: "Education",
-    duration: "07:30",
+    duration: "10:21",
     description:
-      "Learn something useful and interesting.",
-    icon: "📚",
-    likes: 210,
-    subscribers: "18K",
+      "Learn useful things every day.",
+    icon: "🎓",
+    likes: 1800,
+    subscribers: "32K",
     videoUrl: ""
   },
 
@@ -139,84 +139,31 @@ let videos = [
     id: 7,
     title: "Entertainment Tonight",
     channel: "VYBE Entertainment",
-    views: "64K views",
-    date: "Yesterday",
+    views: "44K views",
+    date: "1 day ago",
     category: "Entertainment",
-    duration: "09:00",
+    duration: "07:55",
     description:
       "Entertainment highlights from VYBE AI.",
     icon: "✨",
-    likes: 640,
-    subscribers: "35K",
+    likes: 4400,
+    subscribers: "91K",
     videoUrl: ""
   },
 
   {
     id: 8,
-    title: "Amazing Technology",
-    channel: "Future Tech",
-    views: "52K views",
+    title: "Digital Future",
+    channel: "Future Lab",
+    views: "31K views",
     date: "6 days ago",
     category: "Education",
-    duration: "11:20",
+    duration: "09:10",
     description:
-      "Interesting technology and innovation.",
-    icon: "💡",
-    likes: 520,
-    subscribers: "31K",
-    videoUrl: ""
-  }
-
-];
-
-
-let shorts = [
-
-  {
-    id: 101,
-    title: "Quick VYBE",
-    channel: "VYBE AI",
-    icon: "⚡",
-    videoUrl: ""
-  },
-
-  {
-    id: 102,
-    title: "Amazing Moment",
-    channel: "VYBE",
-    icon: "🔥",
-    videoUrl: ""
-  },
-
-  {
-    id: 103,
-    title: "Music Short",
-    channel: "VYBE Music",
-    icon: "🎵",
-    videoUrl: ""
-  },
-
-  {
-    id: 104,
-    title: "Gaming Short",
-    channel: "Game Zone",
-    icon: "🎮",
-    videoUrl: ""
-  },
-
-  {
-    id: 105,
-    title: "Tech Short",
-    channel: "Tech Vision",
-    icon: "🤖",
-    videoUrl: ""
-  },
-
-  {
-    id: 106,
-    title: "Daily VYBE",
-    channel: "VYBE AI",
-    icon: "✨",
+      "Understanding the digital future.",
+    icon: "🌐",
+    likes: 3100,
+    subscribers: "50K",
     videoUrl: ""
   }
 
@@ -224,7 +171,64 @@ let shorts = [
 
 
 /* ==========================================
-   LOCAL STATE
+   SHORTS
+========================================== */
+
+let shorts = [
+
+  {
+    id: 101,
+    title: "Amazing Moment",
+    channel: "VYBE AI",
+    icon: "✨",
+    videoUrl: ""
+  },
+
+  {
+    id: 102,
+    title: "Quick Tech Tip",
+    channel: "Tech Vision",
+    icon: "💡",
+    videoUrl: ""
+  },
+
+  {
+    id: 103,
+    title: "Music VYBE",
+    channel: "VYBE Music",
+    icon: "🎵",
+    videoUrl: ""
+  },
+
+  {
+    id: 104,
+    title: "Gaming Moment",
+    channel: "Game Zone",
+    icon: "🎮",
+    videoUrl: ""
+  },
+
+  {
+    id: 105,
+    title: "Daily News",
+    channel: "VYBE News",
+    icon: "📰",
+    videoUrl: ""
+  },
+
+  {
+    id: 106,
+    title: "Learn Fast",
+    channel: "Learn Daily",
+    icon: "🎓",
+    videoUrl: ""
+  }
+
+];
+
+
+/* ==========================================
+   STATE
 ========================================== */
 
 let likedVideos =
@@ -252,7 +256,7 @@ let comments =
     localStorage.getItem("vybe_comments") || "{}"
   );
 
-let currentVideo = null;
+let currentVideoId = null;
 let currentCategory = "All";
 
 
@@ -262,7 +266,7 @@ let currentCategory = "All";
 
 document.addEventListener(
   "DOMContentLoaded",
-  () => {
+  function () {
 
     renderVideos();
     renderShorts();
@@ -277,6 +281,11 @@ document.addEventListener(
     setupWatchActions();
     setupBackButton();
     setupLogo();
+    setupHeroButtons();
+
+    renderSubscriptions();
+    renderHistory();
+    renderSaved();
 
     checkSupabaseConnection();
 
@@ -285,55 +294,127 @@ document.addEventListener(
 
 
 /* ==========================================
-   YOUTUBE HELPERS
+   HELPERS
+========================================== */
+
+function saveState() {
+
+  localStorage.setItem(
+    "vybe_liked_videos",
+    JSON.stringify(likedVideos)
+  );
+
+  localStorage.setItem(
+    "vybe_saved_videos",
+    JSON.stringify(savedVideos)
+  );
+
+  localStorage.setItem(
+    "vybe_history",
+    JSON.stringify(watchHistory)
+  );
+
+  localStorage.setItem(
+    "vybe_subscriptions",
+    JSON.stringify(subscriptions)
+  );
+
+  localStorage.setItem(
+    "vybe_comments",
+    JSON.stringify(comments)
+  );
+}
+
+
+function showToast(message) {
+
+  const toast =
+    document.getElementById("toast");
+
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(
+    showToast.timer
+  );
+
+  showToast.timer =
+    setTimeout(
+      function () {
+        toast.classList.remove("show");
+      },
+      2500
+    );
+}
+
+
+/* ==========================================
+   YOUTUBE
 ========================================== */
 
 function getYouTubeId(url) {
 
-  if (!url) {
-    return null;
-  }
+  if (!url) return null;
 
   try {
 
-    const value =
-      String(url).trim();
+    const parsed =
+      new URL(url);
 
-    const patterns = [
+    const host =
+      parsed.hostname.toLowerCase();
 
-      /youtube\.com\/watch\?v=([^&]+)/i,
+    if (
+      host.includes("youtube.com") ||
+      host.includes("youtube-nocookie.com")
+    ) {
 
-      /youtu\.be\/([^?&/]+)/i,
+      if (
+        parsed.pathname === "/watch"
+      ) {
+        return parsed.searchParams.get("v");
+      }
 
-      /youtube\.com\/embed\/([^?&/]+)/i,
+      const parts =
+        parsed.pathname
+          .split("/")
+          .filter(Boolean);
 
-      /youtube\.com\/shorts\/([^?&/]+)/i,
+      if (
+        parts[0] === "embed" &&
+        parts[1]
+      ) {
+        return parts[1];
+      }
 
-      /music\.youtube\.com\/watch\?v=([^&]+)/i
-
-    ];
-
-    for (const pattern of patterns) {
-
-      const match =
-        value.match(pattern);
-
-      if (match && match[1]) {
-
-        const id =
-          match[1].substring(0, 11);
-
-        if (id.length === 11) {
-          return id;
-        }
+      if (
+        parts[0] === "shorts" &&
+        parts[1]
+      ) {
+        return parts[1];
       }
     }
 
+    if (
+      host === "youtu.be" &&
+      parsed.pathname
+    ) {
+
+      return parsed.pathname
+        .replace("/", "")
+        .split("/")[0];
+
+    }
+
   } catch (error) {
-    console.error(
-      "YouTube ID error:",
-      error
+
+    console.warn(
+      "Invalid YouTube URL:",
+      url
     );
+
   }
 
   return null;
@@ -345,52 +426,59 @@ function getYouTubeThumbnail(url) {
   const id =
     getYouTubeId(url);
 
-  if (!id) {
-    return "";
-  }
+  if (!id) return "";
 
-  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-}
-
-
-function isDirectVideoUrl(url) {
-
-  if (!url) {
-    return false;
-  }
-
-  return /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i
-    .test(
-      String(url).trim()
-    );
+  return (
+    "https://img.youtube.com/vi/" +
+    id +
+    "/hqdefault.jpg"
+  );
 }
 
 
 /* ==========================================
-   VIDEO CARDS
+   DIRECT VIDEO
+========================================== */
+
+function isDirectVideoUrl(url) {
+
+  if (!url) return false;
+
+  const lower =
+    url.toLowerCase();
+
+  return (
+    lower.includes(".mp4") ||
+    lower.includes(".webm") ||
+    lower.includes(".ogg") ||
+    lower.includes(".mov") ||
+    lower.includes(".m4v")
+  );
+}
+
+
+/* ==========================================
+   VIDEO CARD
 ========================================== */
 
 function createVideoCard(video) {
 
   const card =
-    document.createElement("div");
+    document.createElement("article");
 
-  card.className =
-    "video-card";
-
-  const thumbnail =
-    getYouTubeThumbnail(
-      video.videoUrl
-    );
+  card.className = "video-card";
 
   let thumbnailHTML = "";
 
-  if (thumbnail) {
+  const youtubeId =
+    getYouTubeId(video.videoUrl);
+
+  if (youtubeId) {
 
     thumbnailHTML = `
       <img
-        src="${escapeHtml(thumbnail)}"
-        alt="${escapeHtml(video.title)}"
+        src="https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg"
+        alt="${escapeHTML(video.title)}"
         loading="lazy"
       >
     `;
@@ -412,7 +500,7 @@ function createVideoCard(video) {
       ${thumbnailHTML}
 
       <span class="duration">
-        ${escapeHtml(video.duration || "00:00")}
+        ${escapeHTML(video.duration || "00:00")}
       </span>
 
     </div>
@@ -420,35 +508,36 @@ function createVideoCard(video) {
     <div class="video-info">
 
       <div class="mini-avatar">
-        ${escapeHtml(
-          (video.channel || "V").charAt(0).toUpperCase()
-        )}
+        ${getInitial(video.channel)}
       </div>
 
       <div>
 
         <div class="video-title">
-          ${escapeHtml(video.title)}
+          ${escapeHTML(video.title)}
         </div>
 
         <div class="video-channel">
-          ${escapeHtml(video.channel || "VYBE AI")}
+          ${escapeHTML(video.channel)}
         </div>
 
         <div class="video-meta">
-          ${escapeHtml(video.views || "0 views")}
+          ${escapeHTML(video.views || "0 views")}
           •
-          ${escapeHtml(video.date || "Just now")}
+          ${escapeHTML(video.date || "Just now")}
         </div>
 
       </div>
 
     </div>
+
   `;
 
   card.addEventListener(
     "click",
-    () => openVideo(video.id)
+    function () {
+      openVideo(video.id);
+    }
   );
 
   return card;
@@ -456,30 +545,32 @@ function createVideoCard(video) {
 
 
 function renderVideos(
-  list = videos
+  category = currentCategory
 ) {
 
   const grid =
-    document.getElementById(
-      "videoGrid"
-    );
+    document.getElementById("videoGrid");
 
-  if (!grid) {
-    return;
-  }
+  if (!grid) return;
 
   grid.innerHTML = "";
 
-  const filtered =
-    currentCategory === "All"
-      ? list
-      : list.filter(
-          video =>
-            video.category ===
-            currentCategory
-        );
+  let list = [...videos];
 
-  if (!filtered.length) {
+  if (
+    category &&
+    category !== "All"
+  ) {
+
+    list =
+      list.filter(
+        video =>
+          video.category === category
+      );
+
+  }
+
+  if (!list.length) {
 
     grid.innerHTML = `
       <div class="empty-state">
@@ -490,7 +581,7 @@ function renderVideos(
     return;
   }
 
-  filtered.forEach(
+  list.forEach(
     video =>
       grid.appendChild(
         createVideoCard(video)
@@ -500,29 +591,49 @@ function renderVideos(
 
 
 /* ==========================================
-   SHORTS
+   SHORT CARDS
 ========================================== */
 
 function createShortCard(short) {
 
   const card =
-    document.createElement("div");
+    document.createElement("article");
 
-  card.className =
-    "short-card";
+  card.className = "short-card";
+
+  let thumb = "";
+
+  const youtubeId =
+    getYouTubeId(short.videoUrl);
+
+  if (youtubeId) {
+
+    thumb = `
+      <img
+        src="https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg"
+        alt="${escapeHTML(short.title)}"
+        loading="lazy"
+      >
+    `;
+
+  } else {
+
+    thumb = `
+      <span>
+        ${short.icon || "▶"}
+      </span>
+    `;
+
+  }
 
   card.innerHTML = `
 
     <div class="short-thumb">
-
-      <span>
-        ${short.icon || "🎬"}
-      </span>
-
+      ${thumb}
     </div>
 
     <div class="short-title">
-      ${escapeHtml(short.title)}
+      ${escapeHTML(short.title)}
     </div>
 
   `;
@@ -531,53 +642,22 @@ function createShortCard(short) {
 
     card.addEventListener(
       "click",
-      () => {
+      function () {
 
-        const id =
-          getYouTubeId(
+        const video =
+          findVideoByUrl(
             short.videoUrl
           );
 
-        if (id) {
+        if (video) {
+          openVideo(video.id);
+        } else {
 
-          const found =
-            videos.find(
-              video =>
-                getYouTubeId(
-                  video.videoUrl
-                ) === id
-            );
-
-          if (found) {
-            openVideo(found.id);
-          }
-
-        } else if (
-          isDirectVideoUrl(
-            short.videoUrl
-          )
-        ) {
-
-          const video = {
-            ...short,
-            id: `short-${short.id}`,
-            title: short.title,
-            channel: short.channel,
-            views: "0 views",
-            date: "Just now",
-            category: "Entertainment",
-            duration: "00:00",
-            description: "",
-            likes: 0,
-            subscribers: "0",
-            videoUrl: short.videoUrl
-          };
-
-          videos.unshift(video);
-
-          openVideo(
-            video.id
+          openExternalVideo(
+            short.videoUrl,
+            short.title
           );
+
         }
 
       }
@@ -626,12 +706,100 @@ function renderShorts() {
     );
 
   }
+
 }
 
 
 /* ==========================================
    NAVIGATION
 ========================================== */
+
+function getPages() {
+
+  return {
+
+    home:
+      document.getElementById("homePage"),
+
+    shorts:
+      document.getElementById("shortsPage"),
+
+    subscriptions:
+      document.getElementById(
+        "subscriptionsPage"
+      ),
+
+    history:
+      document.getElementById(
+        "historyPage"
+      ),
+
+    saved:
+      document.getElementById(
+        "savedPage"
+      ),
+
+    search:
+      document.getElementById(
+        "searchPage"
+      ),
+
+    watch:
+      document.getElementById(
+        "watchPage"
+      )
+
+  };
+
+}
+
+
+function showPage(pageName) {
+
+  const pages =
+    getPages();
+
+  Object.keys(pages)
+    .forEach(
+      key => {
+
+        if (!pages[key]) return;
+
+        pages[key].style.display =
+          key === pageName
+            ? ""
+            : "none";
+
+      }
+    );
+
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(
+      item => {
+
+        item.classList.remove(
+          "active"
+        );
+
+        if (
+          item.dataset.page ===
+          pageName
+        ) {
+          item.classList.add(
+            "active"
+          );
+        }
+
+      }
+    );
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 
 function setupNavigation() {
 
@@ -640,52 +808,37 @@ function setupNavigation() {
       ".nav-item[data-page]"
     )
     .forEach(
-      button => {
+      item => {
 
-        button.addEventListener(
+        item.addEventListener(
           "click",
-          () => {
+          function () {
 
             showPage(
-              button.dataset.page
+              item.dataset.page
             );
 
-            document
-              .querySelectorAll(
-                ".nav-item"
-              )
-              .forEach(
-                item =>
-                  item.classList.remove(
-                    "active"
-                  )
-              );
-
-            button.classList.add(
-              "active"
-            );
-
-            closeSidebar();
+            closeMobileMenu();
 
             if (
-              button.dataset.page ===
-              "historyPage"
+              item.dataset.page ===
+              "subscriptions"
+            ) {
+              renderSubscriptions();
+            }
+
+            if (
+              item.dataset.page ===
+              "history"
             ) {
               renderHistory();
             }
 
             if (
-              button.dataset.page ===
-              "savedPage"
+              item.dataset.page ===
+              "saved"
             ) {
               renderSaved();
-            }
-
-            if (
-              button.dataset.page ===
-              "subscriptionsPage"
-            ) {
-              renderSubscriptions();
             }
 
           }
@@ -694,59 +847,66 @@ function setupNavigation() {
       }
     );
 
-}
-
-
-function showPage(pageId) {
-
   document
     .querySelectorAll(
-      ".page-view"
-    )
-    .forEach(
-      page =>
-        page.classList.remove(
-          "active"
-        )
-    );
-
-  const page =
-    document.getElementById(
-      pageId
-    );
-
-  if (page) {
-
-    page.classList.add(
-      "active"
-    );
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  }
-
-}
-
-
-function setupBackButton() {
-
-  document
-    .querySelectorAll(
-      "[data-back]"
+      ".back-btn[data-page]"
     )
     .forEach(
       button => {
 
         button.addEventListener(
           "click",
-          () => showPage("homePage")
+          function () {
+            showPage(
+              button.dataset.page
+            );
+          }
         );
 
       }
     );
+
+  const viewAll =
+    document.getElementById(
+      "viewAllVideos"
+    );
+
+  if (viewAll) {
+
+    viewAll.addEventListener(
+      "click",
+      function () {
+
+        currentCategory = "All";
+
+        setActiveCategory("All");
+
+        renderVideos();
+
+        showPage("home");
+
+      }
+    );
+
+  }
+
+  const viewAllShorts =
+    document.getElementById(
+      "viewAllShorts"
+    );
+
+  if (viewAllShorts) {
+
+    viewAllShorts.addEventListener(
+      "click",
+      function () {
+
+        showPage("shorts");
+
+      }
+    );
+
+  }
 
 }
 
@@ -766,32 +926,24 @@ function setupCategories() {
 
         button.addEventListener(
           "click",
-          () => {
+          function () {
 
-            currentCategory =
+            const category =
               button.dataset.category ||
               "All";
 
-            document
-              .querySelectorAll(
-                ".category"
-              )
-              .forEach(
-                item =>
-                  item.classList.remove(
-                    "active"
-                  )
-              );
+            currentCategory =
+              category;
 
-            button.classList.add(
-              "active"
+            setActiveCategory(
+              category
             );
 
-            showPage(
-              "homePage"
+            renderVideos(
+              category
             );
 
-            renderVideos();
+            showPage("home");
 
           }
         );
@@ -809,36 +961,50 @@ function setupCategories() {
 
         button.addEventListener(
           "click",
-          () => {
+          function () {
 
-            currentCategory =
+            const category =
               button.dataset.category;
 
-            document
-              .querySelectorAll(
-                ".category"
-              )
-              .forEach(
-                item => {
+            currentCategory =
+              category;
 
-                  item.classList.toggle(
-                    "active",
-                    item.dataset.category ===
-                    currentCategory
-                  );
-
-                }
-              );
-
-            showPage(
-              "homePage"
+            setActiveCategory(
+              category
             );
 
-            renderVideos();
+            renderVideos(
+              category
+            );
 
-            closeSidebar();
+            showPage("home");
+
+            closeMobileMenu();
 
           }
+        );
+
+      }
+    );
+
+}
+
+
+function setActiveCategory(
+  category
+) {
+
+  document
+    .querySelectorAll(
+      ".category"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.category ===
+            category
         );
 
       }
@@ -863,53 +1029,79 @@ function setupSearch() {
       "searchBtn"
     );
 
-  if (input) {
+  if (!input || !button) return;
 
-    input.addEventListener(
-      "keydown",
-      event => {
+  function doSearch() {
 
-        if (
-          event.key ===
-          "Enter"
-        ) {
+    const query =
+      input.value.trim();
 
-          performSearch(
-            input.value
+    if (!query) {
+
+      showToast(
+        "Please enter a search."
+      );
+
+      return;
+
+    }
+
+    const results =
+      videos.filter(
+        video => {
+
+          const text =
+            (
+              video.title +
+              " " +
+              video.channel +
+              " " +
+              video.category +
+              " " +
+              video.description
+            ).toLowerCase();
+
+          return text.includes(
+            query.toLowerCase()
           );
 
         }
+      );
 
+    renderSearchResults(
+      results,
+      query
+    );
+
+    showPage("search");
+
+  }
+
+  button.addEventListener(
+    "click",
+    doSearch
+  );
+
+  input.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Enter"
+      ) {
+        doSearch();
       }
-    );
 
-  }
-
-  if (button) {
-
-    button.addEventListener(
-      "click",
-      () =>
-        performSearch(
-          input ? input.value : ""
-        )
-    );
-
-  }
+    }
+  );
 
 }
 
 
-function performSearch(query) {
-
-  const value =
-    String(query || "")
-      .trim()
-      .toLowerCase();
-
-  showPage(
-    "searchPage"
-  );
+function renderSearchResults(
+  results,
+  query
+) {
 
   const grid =
     document.getElementById(
@@ -921,52 +1113,22 @@ function performSearch(query) {
       "searchResultText"
     );
 
-  if (!grid) {
-    return;
-  }
+  if (!grid) return;
 
-  const results =
-    videos.filter(
-      video => {
-
-        const combined =
-          `${video.title} ${video.channel} ${video.description} ${video.category}`
-            .toLowerCase();
-
-        return combined.includes(
-          value
-        );
-
-      }
-    );
+  grid.innerHTML = "";
 
   if (text) {
 
     text.textContent =
-      value
-        ? `${results.length} result(s) for "${query}"`
-        : "Search VYBE AI.";
+      `${results.length} result(s) for "${query}"`;
 
-  }
-
-  grid.innerHTML = "";
-
-  if (!value) {
-
-    grid.innerHTML = `
-      <div class="empty-state">
-        Enter a search term.
-      </div>
-    `;
-
-    return;
   }
 
   if (!results.length) {
 
     grid.innerHTML = `
       <div class="empty-state">
-        No videos found for "${escapeHtml(query)}".
+        No videos found for "${escapeHTML(query)}".
       </div>
     `;
 
@@ -984,7 +1146,7 @@ function performSearch(query) {
 
 
 /* ==========================================
-   WATCH VIDEO
+   WATCH
 ========================================== */
 
 function openVideo(id) {
@@ -1003,145 +1165,25 @@ function openVideo(id) {
     );
 
     return;
+
   }
 
-  currentVideo =
-    video;
+  currentVideoId =
+    video.id;
 
-  showPage(
-    "watchPage"
-  );
+  showPage("watch");
 
-  loadVideoPlayer(
-    video
-  );
+  updateWatchInfo(video);
 
-  updateWatchInfo(
-    video
-  );
+  loadVideoPlayer(video);
 
-  addToHistory(
-    video
-  );
+  addToHistory(video.id);
 
-  renderComments();
+  renderComments(video.id);
 
-  renderRecommended();
+  renderRecommended(video.id);
 
-  updateWatchButtons();
-
-}
-
-
-function loadVideoPlayer(video) {
-
-  const mainVideo =
-    document.getElementById(
-      "mainVideo"
-    );
-
-  const youtubePlayer =
-    document.getElementById(
-      "youtubePlayer"
-    );
-
-  const placeholder =
-    document.getElementById(
-      "playerPlaceholder"
-    );
-
-  if (!mainVideo ||
-      !youtubePlayer ||
-      !placeholder) {
-    return;
-  }
-
-  mainVideo.pause();
-
-  mainVideo.removeAttribute(
-    "src"
-  );
-
-  mainVideo.load();
-
-  mainVideo.style.display =
-    "none";
-
-  youtubePlayer.innerHTML =
-    "";
-
-  youtubePlayer.style.display =
-    "none";
-
-  placeholder.style.display =
-    "grid";
-
-
-  const youtubeId =
-    getYouTubeId(
-      video.videoUrl
-    );
-
-  if (youtubeId) {
-
-    const iframe =
-      document.createElement(
-        "iframe"
-      );
-
-    iframe.src =
-      `https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1`;
-
-    iframe.title =
-      video.title;
-
-    iframe.allow =
-      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-
-    iframe.allowFullscreen =
-      true;
-
-    youtubePlayer.appendChild(
-      iframe
-    );
-
-    youtubePlayer.style.display =
-      "block";
-
-    placeholder.style.display =
-      "none";
-
-    return;
-  }
-
-
-  if (
-    isDirectVideoUrl(
-      video.videoUrl
-    )
-  ) {
-
-    mainVideo.src =
-      video.videoUrl;
-
-    mainVideo.style.display =
-      "block";
-
-    placeholder.style.display =
-      "none";
-
-    mainVideo.load();
-
-    return;
-  }
-
-
-  placeholder.innerHTML = `
-    <div class="play-big">▶</div>
-    <p>
-      Add a YouTube or direct video URL
-    </p>
-  `;
+  updateWatchButtons(video);
 
 }
 
@@ -1183,48 +1225,183 @@ function updateWatchInfo(video) {
       "watchChannelAvatar"
     );
 
-  if (title)
+  if (title) {
     title.textContent =
       video.title;
+  }
 
-  if (views)
+  if (views) {
     views.textContent =
-      video.views ||
-      "0 views";
+      video.views || "0 views";
+  }
 
-  if (date)
+  if (date) {
     date.textContent =
-      video.date ||
-      "Just now";
+      video.date || "Just now";
+  }
 
-  if (channel)
+  if (channel) {
     channel.textContent =
-      video.channel ||
-      "VYBE AI";
+      video.channel || "You";
+  }
 
-  if (subscribers)
+  if (subscribers) {
     subscribers.textContent =
       `${video.subscribers || "0"} subscribers`;
+  }
 
-  if (description)
+  if (description) {
     description.textContent =
       video.description ||
-      "No description available.";
+      "No description.";
+  }
 
-  if (avatar)
+  if (avatar) {
     avatar.textContent =
-      (
-        video.channel ||
-        "V"
-      )
-      .charAt(0)
-      .toUpperCase();
+      getInitial(
+        video.channel
+      );
+  }
+
+}
+
+
+function loadVideoPlayer(video) {
+
+  const mainVideo =
+    document.getElementById(
+      "mainVideo"
+    );
+
+  const youtubePlayer =
+    document.getElementById(
+      "youtubePlayer"
+    );
+
+  const placeholder =
+    document.getElementById(
+      "playerPlaceholder"
+    );
+
+  if (
+    !mainVideo ||
+    !youtubePlayer ||
+    !placeholder
+  ) {
+    return;
+  }
+
+
+  /* RESET */
+
+  try {
+    mainVideo.pause();
+  } catch (error) {}
+
+  mainVideo.removeAttribute(
+    "src"
+  );
+
+  mainVideo.load();
+
+  mainVideo.style.display =
+    "none";
+
+  youtubePlayer.style.display =
+    "none";
+
+  youtubePlayer.innerHTML =
+    "";
+
+  placeholder.style.display =
+    "grid";
+
+
+  /* YOUTUBE */
+
+  const youtubeId =
+    getYouTubeId(
+      video.videoUrl
+    );
+
+  if (youtubeId) {
+
+    const iframe =
+      document.createElement(
+        "iframe"
+      );
+
+    iframe.src =
+      "https://www.youtube.com/embed/" +
+      encodeURIComponent(
+        youtubeId
+      ) +
+      "?rel=0&modestbranding=1";
+
+    iframe.title =
+      video.title || "VYBE AI Video";
+
+    iframe.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+    iframe.allowFullscreen =
+      true;
+
+    iframe.referrerPolicy =
+      "strict-origin-when-cross-origin";
+
+    youtubePlayer.appendChild(
+      iframe
+    );
+
+    youtubePlayer.style.display =
+      "block";
+
+    placeholder.style.display =
+      "none";
+
+    return;
+  }
+
+
+  /* DIRECT VIDEO */
+
+  if (
+    isDirectVideoUrl(
+      video.videoUrl
+    )
+  ) {
+
+    mainVideo.src =
+      video.videoUrl;
+
+    mainVideo.style.display =
+      "block";
+
+    placeholder.style.display =
+      "none";
+
+    return;
+  }
+
+
+  /* NO VIDEO URL */
+
+  placeholder.innerHTML = `
+    <div class="play-big">
+      ▶
+    </div>
+
+    <p>
+      Video URL is not available.
+    </p>
+  `;
 
 }
 
 
 /* ==========================================
-   WATCH ACTIONS
+   LIKE / SAVE / SHARE / SUBSCRIBE
 ========================================== */
 
 function setupWatchActions() {
@@ -1254,22 +1431,22 @@ function setupWatchActions() {
       "commentBtn"
     );
 
-  const commentInput =
-    document.getElementById(
-      "commentInput"
-    );
-
-  const watchBackBtn =
-    document.getElementById(
-      "watchBackBtn"
-    );
-
 
   if (likeBtn) {
 
     likeBtn.addEventListener(
       "click",
-      toggleLike
+      function () {
+
+        if (
+          currentVideoId === null
+        ) return;
+
+        toggleLike(
+          currentVideoId
+        );
+
+      }
     );
 
   }
@@ -1279,7 +1456,17 @@ function setupWatchActions() {
 
     saveBtn.addEventListener(
       "click",
-      toggleSave
+      function () {
+
+        if (
+          currentVideoId === null
+        ) return;
+
+        toggleSave(
+          currentVideoId
+        );
+
+      }
     );
 
   }
@@ -1289,7 +1476,7 @@ function setupWatchActions() {
 
     shareBtn.addEventListener(
       "click",
-      shareVideo
+      shareCurrentVideo
     );
 
   }
@@ -1299,7 +1486,7 @@ function setupWatchActions() {
 
     subscribeBtn.addEventListener(
       "click",
-      toggleSubscribe
+      toggleSubscription
     );
 
   }
@@ -1314,53 +1501,10 @@ function setupWatchActions() {
 
   }
 
-
-  if (commentInput) {
-
-    commentInput.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key ===
-          "Enter"
-        ) {
-
-          event.preventDefault();
-
-          addComment();
-
-        }
-
-      }
-    );
-
-  }
-
-
-  if (watchBackBtn) {
-
-    watchBackBtn.addEventListener(
-      "click",
-      () =>
-        showPage("homePage")
-    );
-
-  }
-
 }
 
 
-function toggleLike() {
-
-  if (!currentVideo) {
-    return;
-  }
-
-  const id =
-    String(
-      currentVideo.id
-    );
+function toggleLike(id) {
 
   if (
     likedVideos.includes(id)
@@ -1372,7 +1516,7 @@ function toggleLike() {
       );
 
     showToast(
-      "Removed Like"
+      "Removed from liked videos."
     );
 
   } else {
@@ -1380,33 +1524,27 @@ function toggleLike() {
     likedVideos.push(id);
 
     showToast(
-      "Video Liked 👍"
+      "Video liked."
     );
 
   }
 
-  localStorage.setItem(
-    "vybe_liked_videos",
-    JSON.stringify(
-      likedVideos
-    )
-  );
+  saveState();
 
-  updateWatchButtons();
+  if (
+    currentVideoId !== null
+  ) {
+
+    updateWatchButtons(
+      findVideo(currentVideoId)
+    );
+
+  }
 
 }
 
 
-function toggleSave() {
-
-  if (!currentVideo) {
-    return;
-  }
-
-  const id =
-    String(
-      currentVideo.id
-    );
+function toggleSave(id) {
 
   if (
     savedVideos.includes(id)
@@ -1418,7 +1556,7 @@ function toggleSave() {
       );
 
     showToast(
-      "Removed from Saved"
+      "Removed from saved videos."
     );
 
   } else {
@@ -1426,32 +1564,45 @@ function toggleSave() {
     savedVideos.push(id);
 
     showToast(
-      "Video Saved 🔖"
+      "Video saved."
     );
 
   }
 
-  localStorage.setItem(
-    "vybe_saved_videos",
-    JSON.stringify(
-      savedVideos
-    )
+  saveState();
+
+  updateWatchButtons(
+    findVideo(id)
   );
 
-  updateWatchButtons();
+  renderSaved();
 
 }
 
 
-async function shareVideo() {
+async function shareCurrentVideo() {
 
-  if (!currentVideo) {
-    return;
-  }
+  const video =
+    findVideo(
+      currentVideoId
+    );
 
-  const url =
-    currentVideo.videoUrl ||
-    window.location.href;
+  if (!video) return;
+
+  const shareData = {
+
+    title:
+      video.title,
+
+    text:
+      video.description ||
+      "Watch this video on VYBE AI.",
+
+    url:
+      video.videoUrl ||
+      window.location.href
+
+  };
 
   try {
 
@@ -1459,25 +1610,21 @@ async function shareVideo() {
       navigator.share
     ) {
 
-      await navigator.share({
-        title:
-          currentVideo.title,
-        text:
-          `Watch ${currentVideo.title} on VYBE AI`,
-        url
-      });
-
-    } else {
-
-      await navigator.clipboard.writeText(
-        url
+      await navigator.share(
+        shareData
       );
 
-      showToast(
-        "Video link copied."
-      );
+      return;
 
     }
+
+    await navigator.clipboard.writeText(
+      shareData.url
+    );
+
+    showToast(
+      "Video link copied."
+    );
 
   } catch (error) {
 
@@ -1490,15 +1637,17 @@ async function shareVideo() {
 }
 
 
-function toggleSubscribe() {
+function toggleSubscription() {
 
-  if (!currentVideo) {
-    return;
-  }
+  const video =
+    findVideo(
+      currentVideoId
+    );
+
+  if (!video) return;
 
   const channel =
-    currentVideo.channel ||
-    "VYBE AI";
+    video.channel;
 
   if (
     subscriptions.includes(
@@ -1513,7 +1662,7 @@ function toggleSubscribe() {
       );
 
     showToast(
-      "Unsubscribed"
+      "Unsubscribed."
     );
 
   } else {
@@ -1523,33 +1672,27 @@ function toggleSubscribe() {
     );
 
     showToast(
-      "Subscribed ✓"
+      "Subscribed."
     );
 
   }
 
-  localStorage.setItem(
-    "vybe_subscriptions",
-    JSON.stringify(
-      subscriptions
-    )
+  saveState();
+
+  updateSubscribeButton(
+    video
   );
 
-  updateWatchButtons();
+  renderSubscriptions();
 
 }
 
 
-function updateWatchButtons() {
+function updateWatchButtons(
+  video
+) {
 
-  if (!currentVideo) {
-    return;
-  }
-
-  const id =
-    String(
-      currentVideo.id
-    );
+  if (!video) return;
 
   const likeBtn =
     document.getElementById(
@@ -1561,42 +1704,54 @@ function updateWatchButtons() {
       "saveBtn"
     );
 
-  const subscribeBtn =
-    document.getElementById(
-      "subscribeBtn"
-    );
-
-
   if (likeBtn) {
 
     likeBtn.textContent =
-      likedVideos.includes(id)
+      likedVideos.includes(
+        video.id
+      )
         ? "👍 Liked"
         : "👍 Like";
 
   }
 
-
   if (saveBtn) {
 
     saveBtn.textContent =
-      savedVideos.includes(id)
+      savedVideos.includes(
+        video.id
+      )
         ? "🔖 Saved"
         : "🔖 Save";
 
   }
 
+  updateSubscribeButton(
+    video
+  );
 
-  if (subscribeBtn) {
+}
 
-    subscribeBtn.textContent =
-      subscriptions.includes(
-        currentVideo.channel
-      )
-        ? "Subscribed"
-        : "Subscribe";
 
+function updateSubscribeButton(
+  video
+) {
+
+  const button =
+    document.getElementById(
+      "subscribeBtn"
+    );
+
+  if (!button || !video) {
+    return;
   }
+
+  button.textContent =
+    subscriptions.includes(
+      video.channel
+    )
+      ? "Subscribed"
+      : "Subscribe";
 
 }
 
@@ -1605,21 +1760,16 @@ function updateWatchButtons() {
    HISTORY
 ========================================== */
 
-function addToHistory(video) {
-
-  const id =
-    String(video.id);
+function addToHistory(id) {
 
   watchHistory =
     watchHistory.filter(
       item =>
-        String(item.id) !==
-        id
+        String(item) !==
+        String(id)
     );
 
-  watchHistory.unshift(
-    video
-  );
+  watchHistory.unshift(id);
 
   watchHistory =
     watchHistory.slice(
@@ -1627,12 +1777,9 @@ function addToHistory(video) {
       50
     );
 
-  localStorage.setItem(
-    "vybe_history",
-    JSON.stringify(
-      watchHistory
-    )
-  );
+  saveState();
+
+  renderHistory();
 
 }
 
@@ -1644,13 +1791,19 @@ function renderHistory() {
       "historyGrid"
     );
 
-  if (!grid) {
-    return;
-  }
+  if (!grid) return;
 
   grid.innerHTML = "";
 
-  if (!watchHistory.length) {
+  const historyVideos =
+    watchHistory
+      .map(
+        id =>
+          findVideo(id)
+      )
+      .filter(Boolean);
+
+  if (!historyVideos.length) {
 
     grid.innerHTML = `
       <div class="empty-state">
@@ -1659,9 +1812,10 @@ function renderHistory() {
     `;
 
     return;
+
   }
 
-  watchHistory.forEach(
+  historyVideos.forEach(
     video =>
       grid.appendChild(
         createVideoCard(video)
@@ -1682,19 +1836,17 @@ function renderSaved() {
       "savedGrid"
     );
 
-  if (!grid) {
-    return;
-  }
-
-  const saved =
-    videos.filter(
-      video =>
-        savedVideos.includes(
-          String(video.id)
-        )
-    );
+  if (!grid) return;
 
   grid.innerHTML = "";
+
+  const saved =
+    savedVideos
+      .map(
+        id =>
+          findVideo(id)
+      )
+      .filter(Boolean);
 
   if (!saved.length) {
 
@@ -1705,6 +1857,7 @@ function renderSaved() {
     `;
 
     return;
+
   }
 
   saved.forEach(
@@ -1728,9 +1881,9 @@ function renderSubscriptions() {
       "subscriptionsGrid"
     );
 
-  if (!grid) {
-    return;
-  }
+  if (!grid) return;
+
+  grid.innerHTML = "";
 
   const subscribed =
     videos.filter(
@@ -1740,17 +1893,16 @@ function renderSubscriptions() {
         )
     );
 
-  grid.innerHTML = "";
-
   if (!subscribed.length) {
 
     grid.innerHTML = `
       <div class="empty-state">
-        No subscriptions yet.
+        You have no subscriptions yet.
       </div>
     `;
 
     return;
+
   }
 
   subscribed.forEach(
@@ -1767,78 +1919,73 @@ function renderSubscriptions() {
    COMMENTS
 ========================================== */
 
-function renderComments() {
+function renderComments(
+  videoId
+) {
 
   const list =
     document.getElementById(
       "commentsList"
     );
 
-  if (!list ||
-      !currentVideo) {
-    return;
-  }
-
-  const id =
-    String(
-      currentVideo.id
-    );
-
-  const videoComments =
-    comments[id] || [];
+  if (!list) return;
 
   list.innerHTML = "";
+
+  const videoComments =
+    comments[videoId] || [];
 
   if (!videoComments.length) {
 
     list.innerHTML = `
       <div class="notification-empty">
-        No comments yet.
+        No comments yet. Be the first to comment.
       </div>
     `;
 
     return;
+
   }
 
   videoComments.forEach(
     comment => {
 
-      const div =
+      const item =
         document.createElement(
           "div"
         );
 
-      div.className =
+      item.className =
         "comment";
 
-      div.innerHTML = `
+      item.innerHTML = `
 
         <div class="mini-avatar">
-          ${escapeHtml(
-            comment.name
-              .charAt(0)
-              .toUpperCase()
+          ${getInitial(
+            comment.name || "You"
           )}
         </div>
 
         <div>
+
           <strong>
-            ${escapeHtml(
-              comment.name
+            ${escapeHTML(
+              comment.name || "You"
             )}
           </strong>
 
           <p>
-            ${escapeHtml(
+            ${escapeHTML(
               comment.text
             )}
           </p>
+
         </div>
 
       `;
 
       list.appendChild(
-        div
+        item
       );
 
     }
@@ -1849,7 +1996,9 @@ function renderComments() {
 
 function addComment() {
 
-  if (!currentVideo) {
+  if (
+    currentVideoId === null
+  ) {
     return;
   }
 
@@ -1858,9 +2007,7 @@ function addComment() {
       "commentInput"
     );
 
-  if (!input) {
-    return;
-  }
+  if (!input) return;
 
   const text =
     input.value.trim();
@@ -1868,36 +2015,37 @@ function addComment() {
   if (!text) {
 
     showToast(
-      "Write a comment first."
+      "Please write a comment."
     );
 
     return;
+
   }
 
-  const id =
-    String(
-      currentVideo.id
-    );
-
-  if (!comments[id]) {
-    comments[id] = [];
+  if (
+    !comments[currentVideoId]
+  ) {
+    comments[currentVideoId] = [];
   }
 
-  comments[id].unshift({
+  comments[currentVideoId].unshift({
+
     name: "You",
-    text
-  });
 
-  localStorage.setItem(
-    "vybe_comments",
-    JSON.stringify(
-      comments
-    )
-  );
+    text: text,
+
+    date:
+      new Date().toISOString()
+
+  });
 
   input.value = "";
 
-  renderComments();
+  saveState();
+
+  renderComments(
+    currentVideoId
+  );
 
   showToast(
     "Comment added."
@@ -1910,135 +2058,123 @@ function addComment() {
    RECOMMENDED
 ========================================== */
 
-function renderRecommended() {
+function renderRecommended(
+  currentId
+) {
 
-  const grid =
+  const container =
     document.getElementById(
-      "recommendedGrid"
+      "recommendedList"
     );
 
-  if (!grid) {
-    return;
-  }
+  if (!container) return;
 
-  grid.innerHTML = "";
+  container.innerHTML = "";
 
-  const recommended =
-    videos
-      .filter(
-        video =>
-          !currentVideo ||
-          String(video.id) !==
-          String(currentVideo.id)
-      )
-      .slice(
-        0,
-        8
-      );
+  videos
+    .filter(
+      video =>
+        String(video.id) !==
+        String(currentId)
+    )
+    .slice(0, 8)
+    .forEach(
+      video => {
 
-  recommended.forEach(
-    video => {
+        const card =
+          document.createElement(
+            "div"
+          );
 
-      const card =
-        document.createElement(
-          "div"
-        );
+        card.className =
+          "recommended-card";
 
-      card.className =
-        "recommended-card";
+        const youtubeId =
+          getYouTubeId(
+            video.videoUrl
+          );
 
-      const thumbnail =
-        getYouTubeThumbnail(
-          video.videoUrl
-        );
+        let thumbnail = "";
 
-      card.innerHTML = `
+        if (youtubeId) {
 
-        <div class="recommended-thumb">
+          thumbnail = `
+            <img
+              src="https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg"
+              alt="${escapeHTML(video.title)}"
+              style="width:100%;height:100%;object-fit:cover;border-radius:8px;"
+            >
+          `;
 
-          ${
-            thumbnail
-              ? `
-                <img
-                  src="${escapeHtml(thumbnail)}"
-                  alt=""
-                  style="
-                    width:100%;
-                    height:100%;
-                    object-fit:cover;
-                    border-radius:8px;
-                  "
-                >
-              `
-              : `
-                <span>
-                  ${video.icon || "🎬"}
-                </span>
-              `
+        } else {
+
+          thumbnail =
+            video.icon ||
+            "🎬";
+
+        }
+
+        card.innerHTML = `
+
+          <div class="recommended-thumb">
+            ${thumbnail}
+          </div>
+
+          <div>
+
+            <div class="recommended-title">
+              ${escapeHTML(
+                video.title
+              )}
+            </div>
+
+            <div class="recommended-meta">
+              ${escapeHTML(
+                video.channel
+              )}
+              •
+              ${escapeHTML(
+                video.views
+              )}
+            </div>
+
+          </div>
+
+        `;
+
+        card.addEventListener(
+          "click",
+          function () {
+            openVideo(
+              video.id
+            );
           }
+        );
 
-        </div>
+        container.appendChild(
+          card
+        );
 
-        <div>
-
-          <div class="recommended-title">
-            ${escapeHtml(video.title)}
-          </div>
-
-          <div class="recommended-meta">
-            ${escapeHtml(video.channel)}
-          </div>
-
-          <div class="recommended-meta">
-            ${escapeHtml(video.views)}
-          </div>
-
-        </div>
-
-      `;
-
-      card.addEventListener(
-        "click",
-        () =>
-          openVideo(
-            video.id
-          )
-      );
-
-      grid.appendChild(
-        card
-      );
-
-    }
-  );
+      }
+    );
 
 }
 
 
 /* ==========================================
-   ADD VIDEO
+   UPLOAD / ADD VIDEO
 ========================================== */
 
 function setupUpload() {
 
-  const createBtn =
+  const uploadBtn =
     document.getElementById(
-      "createBtn"
+      "uploadBtn"
     );
 
-  const heroCreateBtn =
+  const creatorBtn =
     document.getElementById(
-      "heroCreateBtn"
-    );
-
-  const creatorAddBtn =
-    document.getElementById(
-      "creatorAddBtn"
-    );
-
-  const heroExploreBtn =
-    document.getElementById(
-      "heroExploreBtn"
+      "creatorCtaBtn"
     );
 
   const form =
@@ -2046,40 +2182,81 @@ function setupUpload() {
       "uploadForm"
     );
 
+  const modal =
+    document.getElementById(
+      "uploadModal"
+    );
 
-  [
-    createBtn,
-    heroCreateBtn,
-    creatorAddBtn
-  ].forEach(
-    button => {
 
-      if (button) {
+  function openUploadModal() {
+
+    if (!modal) return;
+
+    modal.classList.add(
+      "show"
+    );
+
+  }
+
+
+  if (uploadBtn) {
+
+    uploadBtn.addEventListener(
+      "click",
+      openUploadModal
+    );
+
+  }
+
+  if (creatorBtn) {
+
+    creatorBtn.addEventListener(
+      "click",
+      openUploadModal
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      '[data-close="uploadModal"]'
+    )
+    .forEach(
+      button => {
 
         button.addEventListener(
           "click",
-          () =>
-            openModal(
-              "uploadModal"
-            )
+          function () {
+
+            modal.classList.remove(
+              "show"
+            );
+
+          }
         );
 
       }
-
-    }
-  );
+    );
 
 
-  if (heroExploreBtn) {
+  if (modal) {
 
-    heroExploreBtn.addEventListener(
+    modal.addEventListener(
       "click",
-      () =>
-        document.getElementById(
-          "videoGrid"
-        )?.scrollIntoView({
-          behavior: "smooth"
-        })
+      function (event) {
+
+        if (
+          event.target === modal
+        ) {
+
+          modal.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
     );
 
   }
@@ -2094,78 +2271,89 @@ function setupUpload() {
 
   }
 
-
-  document
-    .querySelectorAll(
-      "[data-close]"
-    )
-    .forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () =>
-            closeModal(
-              button.dataset.close
-            )
-        );
-
-      }
-    );
-
 }
 
 
-function handleAddVideo(event) {
+function handleAddVideo(
+  event
+) {
 
   event.preventDefault();
 
-  const url =
+  const urlInput =
     document.getElementById(
       "videoUrl"
-    ).value.trim();
+    );
 
-  const title =
+  const titleInput =
     document.getElementById(
       "videoTitle"
-    ).value.trim();
+    );
 
-  const description =
+  const descriptionInput =
     document.getElementById(
       "videoDescription"
-    ).value.trim();
+    );
 
-  const category =
+  const categoryInput =
     document.getElementById(
       "videoCategory"
-    ).value;
+    );
+
+  const videoUrl =
+    urlInput.value.trim();
+
+  const title =
+    titleInput.value.trim();
+
+  const description =
+    descriptionInput.value.trim();
+
+  const category =
+    categoryInput.value;
+
+
+  if (!videoUrl) {
+
+    showToast(
+      "Please enter a video URL."
+    );
+
+    return;
+
+  }
+
+  if (!title) {
+
+    showToast(
+      "Please enter a video title."
+    );
+
+    return;
+
+  }
 
 
   const youtubeId =
-    getYouTubeId(url);
+    getYouTubeId(videoUrl);
 
   const direct =
-    isDirectVideoUrl(url);
+    isDirectVideoUrl(
+      videoUrl
+    );
 
 
-  if (!youtubeId &&
-      !direct) {
+  if (
+    !youtubeId &&
+    !direct
+  ) {
 
     showToast(
       "Please enter a valid YouTube or direct video URL."
     );
 
     return;
-  }
 
-
-  if (!title) {
-
-    showToast(
-      "Video title is required."
-    );
-
-    return;
   }
 
 
@@ -2174,7 +2362,8 @@ function handleAddVideo(event) {
     id:
       Date.now(),
 
-    title,
+    title:
+      title,
 
     channel:
       "You",
@@ -2185,7 +2374,8 @@ function handleAddVideo(event) {
     date:
       "Just now",
 
-    category,
+    category:
+      category,
 
     duration:
       "00:00",
@@ -2204,7 +2394,7 @@ function handleAddVideo(event) {
       "0",
 
     videoUrl:
-      url
+      videoUrl
 
   };
 
@@ -2214,10 +2404,35 @@ function handleAddVideo(event) {
   );
 
 
-  event.target.reset();
+  const form =
+    document.getElementById(
+      "uploadForm"
+    );
 
-  closeModal(
-    "uploadModal"
+  if (form) {
+    form.reset();
+  }
+
+
+  const modal =
+    document.getElementById(
+      "uploadModal"
+    );
+
+  if (modal) {
+
+    modal.classList.remove(
+      "show"
+    );
+
+  }
+
+
+  currentCategory =
+    "All";
+
+  setActiveCategory(
+    "All"
   );
 
   renderVideos();
@@ -2226,12 +2441,8 @@ function handleAddVideo(event) {
     "Video added successfully."
   );
 
-  setTimeout(
-    () =>
-      openVideo(
-        newVideo.id
-      ),
-    150
+  openVideo(
+    newVideo.id
   );
 
 }
@@ -2248,6 +2459,11 @@ function setupLogin() {
       "loginBtn"
     );
 
+  const modal =
+    document.getElementById(
+      "loginModal"
+    );
+
   const form =
     document.getElementById(
       "loginForm"
@@ -2258,53 +2474,87 @@ function setupLogin() {
 
     loginBtn.addEventListener(
       "click",
-      async () => {
+      async function () {
 
         if (
           supabaseClient
         ) {
 
-          try {
+          const {
+            data
+          } =
+            await supabaseClient.auth.getUser();
 
-            const {
-              data
-            } =
-              await supabaseClient
-                .auth
-                .getUser();
+          if (
+            data &&
+            data.user
+          ) {
 
-            if (
-              data &&
-              data.user
-            ) {
+            await supabaseClient.auth.signOut();
 
-              await supabaseClient
-                .auth
-                .signOut();
+            updateLoginButton();
 
-              updateLoginButton();
-
-              showToast(
-                "Logged out."
-              );
-
-              return;
-
-            }
-
-          } catch (error) {
-
-            console.error(
-              error
+            showToast(
+              "Logged out."
             );
+
+            return;
 
           }
 
         }
 
-        openModal(
-          "loginModal"
+        if (modal) {
+
+          modal.classList.add(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      '[data-close="loginModal"]'
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            modal.classList.remove(
+              "show"
+            );
+
+          }
         );
+
+      }
+    );
+
+
+  if (modal) {
+
+    modal.addEventListener(
+      "click",
+      function (event) {
+
+        if (
+          event.target === modal
+        ) {
+
+          modal.classList.remove(
+            "show"
+          );
+
+        }
 
       }
     );
@@ -2316,93 +2566,76 @@ function setupLogin() {
 
     form.addEventListener(
       "submit",
-      handleLogin
+      async function (event) {
+
+        event.preventDefault();
+
+        const email =
+          document.getElementById(
+            "loginEmail"
+          ).value.trim();
+
+        const password =
+          document.getElementById(
+            "loginPassword"
+          ).value;
+
+
+        if (
+          !supabaseClient
+        ) {
+
+          showToast(
+            "Supabase is not connected."
+          );
+
+          return;
+
+        }
+
+
+        const {
+          error
+        } =
+          await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+
+        if (error) {
+
+          console.error(
+            error
+          );
+
+          showToast(
+            error.message ||
+            "Login failed."
+          );
+
+          return;
+
+        }
+
+
+        modal.classList.remove(
+          "show"
+        );
+
+        updateLoginButton();
+
+        showToast(
+          "Login successful."
+        );
+
+      }
     );
 
   }
 
-}
 
-
-async function handleLogin(event) {
-
-  event.preventDefault();
-
-  if (!supabaseClient) {
-
-    showToast(
-      "Supabase is not configured."
-    );
-
-    return;
-  }
-
-  const email =
-    document.getElementById(
-      "loginEmail"
-    ).value.trim();
-
-  const password =
-    document.getElementById(
-      "loginPassword"
-    ).value;
-
-
-  try {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .auth
-        .signInWithPassword({
-          email,
-          password
-        });
-
-
-    if (error) {
-      throw error;
-    }
-
-
-    closeModal(
-      "loginModal"
-    );
-
-    updateLoginButton();
-
-    showToast(
-      "Login successful."
-    );
-
-
-    if (
-      data &&
-      data.user
-    ) {
-
-      console.log(
-        "Logged in:",
-        data.user.email
-      );
-
-    }
-
-  } catch (error) {
-
-    console.error(
-      "Login error:",
-      error
-    );
-
-    showToast(
-      error.message ||
-      "Login failed."
-    );
-
-  }
+  updateLoginButton();
 
 }
 
@@ -2414,32 +2647,41 @@ async function updateLoginButton() {
       "loginBtn"
     );
 
-  if (!button) {
-    return;
-  }
+  if (!button) return;
 
-  if (!supabaseClient) {
+  if (
+    !supabaseClient
+  ) {
 
     button.textContent =
       "Login";
 
     return;
+
   }
+
 
   try {
 
     const {
       data
     } =
-      await supabaseClient
-        .auth
-        .getUser();
+      await supabaseClient.auth.getUser();
 
-    button.textContent =
+    if (
       data &&
       data.user
-        ? "Logout"
-        : "Login";
+    ) {
+
+      button.textContent =
+        "Logout";
+
+    } else {
+
+      button.textContent =
+        "Login";
+
+    }
 
   } catch (error) {
 
@@ -2477,9 +2719,7 @@ function setupNotifications() {
 
     button.addEventListener(
       "click",
-      event => {
-
-        event.stopPropagation();
+      function () {
 
         panel.classList.toggle(
           "show"
@@ -2495,35 +2735,16 @@ function setupNotifications() {
 
     close.addEventListener(
       "click",
-      () =>
-        panel.classList.remove(
-          "show"
-        )
-    );
-
-  }
-
-
-  document.addEventListener(
-    "click",
-    event => {
-
-      if (
-        panel &&
-        !panel.contains(
-          event.target
-        ) &&
-        event.target !== button
-      ) {
+      function () {
 
         panel.classList.remove(
           "show"
         );
 
       }
+    );
 
-    }
-  );
+  }
 
 }
 
@@ -2545,24 +2766,26 @@ function setupMobileMenu() {
     );
 
 
-  if (!button ||
-      !sidebar) {
+  if (!button || !sidebar) {
     return;
   }
 
 
   button.addEventListener(
     "click",
-    () =>
+    function () {
+
       sidebar.classList.toggle(
         "open"
-      )
+      );
+
+    }
   );
 
 }
 
 
-function closeSidebar() {
+function closeMobileMenu() {
 
   const sidebar =
     document.getElementById(
@@ -2581,6 +2804,31 @@ function closeSidebar() {
 
 
 /* ==========================================
+   BACK BUTTON
+========================================== */
+
+function setupBackButton() {
+
+  const button =
+    document.getElementById(
+      "watchBackBtn"
+    );
+
+  if (!button) return;
+
+  button.addEventListener(
+    "click",
+    function () {
+
+      showPage("home");
+
+    }
+  );
+
+}
+
+
+/* ==========================================
    LOGO
 ========================================== */
 
@@ -2591,33 +2839,100 @@ function setupLogo() {
       "logoBtn"
     );
 
-  if (logo) {
+  if (!logo) return;
 
-    logo.addEventListener(
+  logo.addEventListener(
+    "click",
+    function () {
+
+      currentCategory =
+        "All";
+
+      setActiveCategory(
+        "All"
+      );
+
+      renderVideos();
+
+      showPage("home");
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   HERO BUTTONS
+========================================== */
+
+function setupHeroButtons() {
+
+  const explore =
+    document.getElementById(
+      "heroExploreBtn"
+    );
+
+  const create =
+    document.getElementById(
+      "heroCreateBtn"
+    );
+
+
+  if (explore) {
+
+    explore.addEventListener(
       "click",
-      () => {
-
-        showPage(
-          "homePage"
-        );
-
-        currentCategory =
-          "All";
+      function () {
 
         document
-          .querySelectorAll(
-            ".category"
+          .getElementById(
+            "videoGrid"
           )
-          .forEach(
-            item =>
-              item.classList.toggle(
-                "active",
-                item.dataset.category ===
-                "All"
-              )
-          );
+          ?.scrollIntoView({
+            behavior: "smooth"
+          });
 
-        renderVideos();
+      }
+    );
+
+  }
+
+
+  if (create) {
+
+    create.addEventListener(
+      "click",
+      function () {
+
+        document
+          .getElementById(
+            "uploadBtn"
+          )
+          ?.click();
+
+      }
+    );
+
+  }
+
+
+  const cta =
+    document.getElementById(
+      "creatorCtaBtn"
+    );
+
+  if (cta) {
+
+    cta.addEventListener(
+      "click",
+      function () {
+
+        document
+          .getElementById(
+            "uploadBtn"
+          )
+          ?.click();
 
       }
     );
@@ -2628,122 +2943,31 @@ function setupLogo() {
 
 
 /* ==========================================
-   MODALS
-========================================== */
-
-function openModal(id) {
-
-  const modal =
-    document.getElementById(
-      id
-    );
-
-  if (modal) {
-
-    modal.classList.add(
-      "show"
-    );
-
-  }
-
-}
-
-
-function closeModal(id) {
-
-  const modal =
-    document.getElementById(
-      id
-    );
-
-  if (modal) {
-
-    modal.classList.remove(
-      "show"
-    );
-
-  }
-
-}
-
-
-document.addEventListener(
-  "click",
-  event => {
-
-    if (
-      event.target.classList.contains(
-        "modal"
-      )
-    ) {
-
-      event.target.classList.remove(
-        "show"
-      );
-
-    }
-
-  }
-);
-
-
-/* ==========================================
-   TOAST
-========================================== */
-
-let toastTimer = null;
-
-function showToast(message) {
-
-  const toast =
-    document.getElementById(
-      "toast"
-    );
-
-  if (!toast) {
-    return;
-  }
-
-  toast.textContent =
-    message;
-
-  toast.classList.add(
-    "show"
-  );
-
-  clearTimeout(
-    toastTimer
-  );
-
-  toastTimer =
-    setTimeout(
-      () =>
-        toast.classList.remove(
-          "show"
-        ),
-      2500
-    );
-
-}
-
-
-/* ==========================================
-   SUPABASE CHECK
+   SUPABASE CONNECTION
 ========================================== */
 
 async function checkSupabaseConnection() {
 
-  if (!supabaseClient) {
+  if (
+    !supabaseClient
+  ) {
 
     console.warn(
       "Supabase client is not available."
     );
 
     return;
+
   }
 
 
   try {
+
+    /*
+      IMPORTANT:
+      This check does NOT modify
+      your database.
+    */
 
     const {
       error
@@ -2757,15 +2981,16 @@ async function checkSupabaseConnection() {
     if (error) {
 
       console.warn(
-        "Supabase videos table check:",
+        "Supabase videos table is not ready yet:",
         error.message
       );
 
       return;
+
     }
 
     console.log(
-      "Supabase connection OK."
+      "Supabase connection successful."
     );
 
   } catch (error) {
@@ -2777,17 +3002,55 @@ async function checkSupabaseConnection() {
 
   }
 
-
-  updateLoginButton();
-
 }
 
 
 /* ==========================================
-   ESCAPE HTML
+   UTILITIES
 ========================================== */
 
-function escapeHtml(value) {
+function findVideo(id) {
+
+  return videos.find(
+    video =>
+      String(video.id) ===
+      String(id)
+  );
+
+}
+
+
+function findVideoByUrl(
+  url
+) {
+
+  return videos.find(
+    video =>
+      video.videoUrl === url
+  );
+
+}
+
+
+function getInitial(
+  name
+) {
+
+  if (!name) {
+    return "V";
+  }
+
+  return name
+    .trim()
+    .charAt(0)
+    .toUpperCase();
+
+}
+
+
+function escapeHTML(
+  value
+) {
 
   return String(
     value ?? ""
@@ -2816,6 +3079,28 @@ function escapeHtml(value) {
 }
 
 
+function openExternalVideo(
+  url,
+  title
+) {
+
+  if (!url) return;
+
+  window.open(
+    url,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+  showToast(
+    title
+      ? `Opening ${title}`
+      : "Opening video."
+  );
+
+}
+
+
 /* ==========================================
    GLOBAL API
 ========================================== */
@@ -2836,17 +3121,77 @@ window.VYBE = {
 
   getYouTubeThumbnail,
 
-  addVideo(video) {
+  isDirectVideoUrl,
 
-    if (!video) {
-      return;
+  addVideo: function (data) {
+
+    if (
+      !data ||
+      !data.videoUrl ||
+      !data.title
+    ) {
+
+      return false;
+
     }
 
+    const newVideo = {
+
+      id:
+        Date.now(),
+
+      title:
+        data.title,
+
+      channel:
+        data.channel ||
+        "You",
+
+      views:
+        data.views ||
+        "0 views",
+
+      date:
+        data.date ||
+        "Just now",
+
+      category:
+        data.category ||
+        "Entertainment",
+
+      duration:
+        data.duration ||
+        "00:00",
+
+      description:
+        data.description ||
+        "Added to VYBE AI.",
+
+      icon:
+        data.icon ||
+        "🎬",
+
+      likes:
+        Number(
+          data.likes || 0
+        ),
+
+      subscribers:
+        data.subscribers ||
+        "0",
+
+      videoUrl:
+        data.videoUrl
+
+    };
+
     videos.unshift(
-      video
+      newVideo
     );
 
     renderVideos();
+
+    return newVideo;
 
   }
 
