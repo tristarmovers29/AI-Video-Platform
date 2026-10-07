@@ -56,6 +56,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
+
 /* ==========================================
    TOPBAR
 ========================================== */
@@ -353,6 +354,33 @@ button:disabled {
 
 .page {
   padding: 25px;
+}
+
+
+/* ==========================================
+   PAGE VIEWS
+========================================== */
+
+.page-view {
+  display: none;
+
+  animation: pageIn .25s ease both;
+}
+
+.page-view.active {
+  display: block;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
@@ -841,6 +869,34 @@ button:disabled {
   background: black;
 }
 
+
+/* ==========================================
+   YOUTUBE PLAYER
+========================================== */
+
+.youtube-player {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: #000;
+
+  z-index: 2;
+}
+
+.youtube-player iframe {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  border: 0;
+}
+
+
 .player-placeholder {
   position: absolute;
 
@@ -860,6 +916,8 @@ button:disabled {
       #1b2440,
       #080b12
     );
+
+  z-index: 1;
 }
 
 .play-big {
