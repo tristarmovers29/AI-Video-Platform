@@ -5,20 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>VYBE AI</title>
-  <meta name="description" content="VYBE AI - Discover, watch and share videos.">
+  <meta
+    name="description"
+    content="VYBE AI - Discover, watch and share videos."
+  >
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- =========================
-       TOP BAR
-  ========================== -->
-
+  <!-- ==========================================
+       TOPBAR
+  ========================================== -->
   <header class="topbar">
 
-    <button class="menu-btn" id="menuBtn">☰</button>
+    <button
+      class="menu-btn"
+      id="menuBtn"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
 
     <div class="logo" id="logoBtn">
       <div class="logo-icon">▶</div>
@@ -29,23 +37,33 @@
       <input
         type="search"
         id="searchInput"
-        placeholder="Search videos..."
+        placeholder="Search"
         autocomplete="off"
       >
-      <button id="searchBtn">🔍</button>
+      <button id="searchBtn" aria-label="Search">🔍</button>
     </div>
 
     <div class="top-actions">
 
-      <button class="icon-btn" id="notificationBtn" title="Notifications">
+      <button
+        class="icon-btn"
+        id="notificationBtn"
+        aria-label="Notifications"
+      >
         🔔
       </button>
 
-      <button class="upload-top-btn" id="createBtn">
-        + Create
+      <button
+        class="upload-top-btn"
+        id="uploadBtn"
+      >
+        ＋ Create
       </button>
 
-      <button class="login-btn" id="loginBtn">
+      <button
+        class="login-btn"
+        id="loginBtn"
+      >
         Login
       </button>
 
@@ -54,43 +72,47 @@
   </header>
 
 
-  <!-- =========================
+  <!-- ==========================================
        SIDEBAR
-  ========================== -->
-
+  ========================================== -->
   <aside class="sidebar" id="sidebar">
 
-    <button class="nav-item active" data-page="homePage">
-      <span>🏠</span>
+    <button class="nav-item active" data-page="home">
+      <span>⌂</span>
       <span>Home</span>
     </button>
 
-    <button class="nav-item" data-page="shortsPage">
-      <span>🎬</span>
+    <button class="nav-item" data-page="shorts">
+      <span>▶</span>
       <span>Shorts</span>
     </button>
 
-    <button class="nav-item" data-page="subscriptionsPage">
-      <span>📺</span>
+    <button class="nav-item" data-page="subscriptions">
+      <span>▣</span>
       <span>Subscriptions</span>
     </button>
 
     <hr>
 
-    <button class="nav-item" data-page="historyPage">
-      <span>🕘</span>
+    <button class="nav-item" data-page="history">
+      <span>◷</span>
       <span>History</span>
     </button>
 
-    <button class="nav-item" data-page="savedPage">
+    <button class="nav-item" data-page="saved">
       <span>🔖</span>
       <span>Saved</span>
     </button>
 
     <hr>
 
+    <button class="nav-item" data-page="explore">
+      <span>✦</span>
+      <span>Explore</span>
+    </button>
+
     <button class="nav-item" data-category="Music">
-      <span>🎵</span>
+      <span>♫</span>
       <span>Music</span>
     </button>
 
@@ -105,59 +127,53 @@
     </button>
 
     <button class="nav-item" data-category="Education">
-      <span>📚</span>
+      <span>🎓</span>
       <span>Education</span>
     </button>
 
     <div class="sidebar-bottom">
       <p>VYBE AI</p>
-      <small>Watch. Discover. Share.</small>
+      <small>Watch. Discover. Vybe.</small>
     </div>
 
   </aside>
 
 
-  <!-- =========================
+  <!-- ==========================================
        MAIN
-  ========================== -->
-
+  ========================================== -->
   <main class="main-content">
 
-
-    <!-- =========================
-         HOME
-    ========================== -->
-
-    <section id="homePage" class="page page-view active">
+    <!-- HOME -->
+    <section class="page" id="homePage">
 
       <div class="hero">
 
         <div class="hero-content">
 
-          <div class="hero-badge">
-            AI VIDEO PLATFORM
-          </div>
+          <span class="hero-badge">
+            NEXT GENERATION VIDEO PLATFORM
+          </span>
 
           <h1>
-            Discover Your
-            <span>VYBE</span>
+            Watch.
+            <span>Discover.</span>
+            Vybe.
           </h1>
 
           <p>
-            Discover videos, creators and content that match
-            your interests.
+            Discover videos, creators and ideas that match
+            your world. Welcome to VYBE AI.
           </p>
 
           <div class="hero-buttons">
-
             <button class="primary-btn" id="heroExploreBtn">
               Explore Videos
             </button>
 
             <button class="secondary-btn" id="heroCreateBtn">
-              + Add Video
+              Create Video
             </button>
-
           </div>
 
         </div>
@@ -165,6 +181,7 @@
       </div>
 
 
+      <!-- CATEGORIES -->
       <div class="categories" id="categories">
 
         <button class="category active" data-category="All">
@@ -194,49 +211,69 @@
       </div>
 
 
+      <!-- TRENDING -->
       <div class="section-heading">
 
         <div>
           <h2>Trending Videos</h2>
-          <p>Discover what's popular on VYBE AI</p>
+          <p>Popular videos on VYBE AI</p>
         </div>
 
-        <button class="view-all-btn" id="viewAllBtn">
+        <button class="view-all-btn" id="viewAllVideos">
           View all
         </button>
 
       </div>
 
-      <div class="video-grid" id="videoGrid"></div>
+      <div
+        class="video-grid"
+        id="videoGrid"
+      ></div>
 
 
+      <!-- SHORTS -->
       <div class="section-heading">
 
         <div>
           <h2>Shorts</h2>
-          <p>Quick videos for quick VYBEs</p>
+          <p>Quick videos to keep your vybe going</p>
         </div>
+
+        <button
+          class="view-all-btn"
+          id="viewAllShorts"
+        >
+          View all
+        </button>
 
       </div>
 
-      <div class="shorts-grid" id="shortsGrid"></div>
+      <div
+        class="shorts-grid"
+        id="shortsGrid"
+      ></div>
 
 
+      <!-- CREATOR CTA -->
       <div class="creator-cta">
 
         <div>
 
-          <div class="cta-icon">🎥</div>
+          <div class="cta-icon">🎬</div>
 
           <h2>Share your VYBE</h2>
 
           <p>
-            Add a YouTube video or direct video link to VYBE AI.
+            Add a YouTube video or direct video URL
+            and share it on your VYBE AI platform.
           </p>
 
         </div>
 
-        <button class="primary-btn" id="creatorAddBtn">
+        <button
+          class="primary-btn"
+          id="creatorCtaBtn"
+        >
           Add Video
         </button>
 
@@ -245,136 +282,192 @@
     </section>
 
 
-    <!-- =========================
-         SHORTS PAGE
-    ========================== -->
-
-    <section id="shortsPage" class="page page-view">
+    <!-- SHORTS PAGE -->
+    <section
+      class="page"
+      id="shortsPage"
+      style="display:none;"
+    >
 
       <div class="page-header">
 
-        <button class="back-btn" data-back>
+        <button
+          class="back-btn"
+          data-page="home"
+        >
           ← Back
         </button>
 
         <h1>Shorts</h1>
 
-        <p>Quick videos from VYBE AI.</p>
+        <p>
+          Explore short videos on VYBE AI.
+        </p>
 
       </div>
 
-      <div class="shorts-grid" id="shortsPageGrid"></div>
+      <div
+        class="shorts-grid"
+        id="shortsPageGrid"
+      ></div>
 
     </section>
 
 
-    <!-- =========================
-         SUBSCRIPTIONS
-    ========================== -->
-
-    <section id="subscriptionsPage" class="page page-view">
+    <!-- SUBSCRIPTIONS -->
+    <section
+      class="page"
+      id="subscriptionsPage"
+      style="display:none;"
+    >
 
       <div class="page-header">
 
-        <button class="back-btn" data-back>
+        <button
+          class="back-btn"
+          data-page="home"
+        >
           ← Back
         </button>
 
         <h1>Subscriptions</h1>
 
-        <p>Creators you follow.</p>
+        <p>
+          Videos from channels you follow.
+        </p>
 
       </div>
 
-      <div class="video-grid" id="subscriptionsGrid"></div>
+      <div
+        class="video-grid"
+        id="subscriptionsGrid"
+      ></div>
 
     </section>
 
 
-    <!-- =========================
-         HISTORY
-    ========================== -->
-
-    <section id="historyPage" class="page page-view">
+    <!-- HISTORY -->
+    <section
+      class="page"
+      id="historyPage"
+      style="display:none;"
+    >
 
       <div class="page-header">
 
-        <button class="back-btn" data-back>
+        <button
+          class="back-btn"
+          data-page="home"
+        >
           ← Back
         </button>
 
         <h1>History</h1>
 
-        <p>Your recently watched videos.</p>
+        <p>
+          Videos you recently watched.
+        </p>
 
       </div>
 
-      <div class="video-grid" id="historyGrid"></div>
+      <div
+        class="video-grid"
+        id="historyGrid"
+      ></div>
 
     </section>
 
 
-    <!-- =========================
-         SAVED
-    ========================== -->
-
-    <section id="savedPage" class="page page-view">
+    <!-- SAVED -->
+    <section
+      class="page"
+      id="savedPage"
+      style="display:none;"
+    >
 
       <div class="page-header">
 
-        <button class="back-btn" data-back>
+        <button
+          class="back-btn"
+          data-page="home"
+        >
           ← Back
         </button>
 
-        <h1>Saved Videos</h1>
+        <h1>Saved</h1>
 
-        <p>Videos you saved for later.</p>
+        <p>
+          Videos you saved for later.
+        </p>
 
       </div>
 
-      <div class="video-grid" id="savedGrid"></div>
+      <div
+        class="video-grid"
+        id="savedGrid"
+      ></div>
 
     </section>
 
 
-    <!-- =========================
-         SEARCH
-    ========================== -->
-
-    <section id="searchPage" class="page page-view">
+    <!-- SEARCH -->
+    <section
+      class="page"
+      id="searchPage"
+      style="display:none;"
+    >
 
       <div class="page-header">
 
-        <button class="back-btn" data-back>
+        <button
+          class="back-btn"
+          data-page="home"
+        >
           ← Back
         </button>
 
         <h1>Search Results</h1>
 
-        <p id="searchResultText">Search VYBE AI.</p>
+        <p id="searchResultText">
+          Search videos on VYBE AI.
+        </p>
 
       </div>
 
-      <div class="video-grid" id="searchGrid"></div>
+      <div
+        class="video-grid"
+        id="searchGrid"
+      ></div>
 
     </section>
 
 
-    <!-- =========================
-         WATCH PAGE
-    ========================== -->
+    <!-- WATCH PAGE -->
+    <section
+      class="page"
+      id="watchPage"
+      style="display:none;"
+    >
 
-    <section id="watchPage" class="page page-view">
+      <div class="page-header">
 
-      <button class="back-btn" id="watchBackBtn">
-        ← Back
-      </button>
+        <button
+          class="back-btn"
+          id="watchBackBtn"
+        >
+          ← Back
+        </button>
+
+      </div>
 
       <div class="watch-layout">
 
         <div class="watch-main">
 
-          <div class="video-player" id="videoPlayerContainer">
+          <div
+            class="video-player"
+            id="videoPlayerContainer"
+          >
 
             <video
               id="mainVideo"
@@ -395,9 +488,13 @@
               class="player-placeholder"
             >
 
-              <div class="play-big">▶</div>
+              <div class="play-big">
+                ▶
+              </div>
 
-              <p>Select a video to start watching</p>
+              <p>
+                Select a video to start watching
+              </p>
 
             </div>
 
@@ -422,7 +519,7 @@
             </button>
 
             <button id="shareBtn">
-              🔗 Share
+              ↗ Share
             </button>
 
             <button id="saveBtn">
@@ -434,14 +531,17 @@
 
           <div class="channel-bar">
 
-            <div class="channel-avatar" id="watchChannelAvatar">
-              V
+            <div
+              class="channel-avatar"
+              id="watchChannelAvatar"
+            >
+              Y
             </div>
 
             <div class="channel-info">
 
               <strong id="watchChannel">
-                VYBE AI
+                You
               </strong>
 
               <small id="watchSubscribers">
@@ -450,7 +550,10 @@
 
             </div>
 
-            <button class="subscribe-btn" id="subscribeBtn">
+            <button
+              class="subscribe-btn"
+              id="subscribeBtn"
+            >
               Subscribe
             </button>
 
@@ -461,10 +564,11 @@
             class="video-description"
             id="watchDescription"
           >
-            Select a video to see its description.
+            No description.
           </div>
 
 
+          <!-- COMMENTS -->
           <div class="comments-section">
 
             <h2>Comments</h2>
@@ -475,6 +579,7 @@
                 type="text"
                 id="commentInput"
                 placeholder="Add a comment..."
+                autocomplete="off"
               >
 
               <button id="commentBtn">
@@ -490,11 +595,12 @@
         </div>
 
 
+        <!-- RECOMMENDED -->
         <aside class="recommended">
 
           <h3>Recommended</h3>
 
-          <div id="recommendedGrid"></div>
+          <div id="recommendedList"></div>
 
         </aside>
 
@@ -505,22 +611,27 @@
   </main>
 
 
-  <!-- =========================
+  <!-- ==========================================
        ADD VIDEO MODAL
-  ========================== -->
-
-  <div class="modal" id="uploadModal">
+  ========================================== -->
+  <div
+    class="modal"
+    id="uploadModal"
+  >
 
     <div class="modal-card">
 
-      <button class="modal-close" data-close="uploadModal">
+      <button
+        class="modal-close"
+        data-close="uploadModal"
+      >
         ×
       </button>
 
       <h2>Add Video</h2>
 
       <p>
-        Paste a YouTube URL or a direct video URL.
+        Paste a YouTube link or a direct video URL.
       </p>
 
       <form id="uploadForm">
@@ -540,8 +651,7 @@
           >
 
           <small>
-            YouTube links and direct MP4/WebM/OGG/MOV/M4V
-            links are supported.
+            YouTube links and direct MP4/video links are supported.
           </small>
 
         </div>
@@ -611,7 +721,10 @@
         </div>
 
 
-        <button type="submit" class="primary-btn full-btn">
+        <button
+          type="submit"
+          class="primary-btn full-btn"
+        >
           Add Video
         </button>
 
@@ -622,15 +735,20 @@
   </div>
 
 
-  <!-- =========================
+  <!-- ==========================================
        LOGIN MODAL
-  ========================== -->
-
-  <div class="modal" id="loginModal">
+  ========================================== -->
+  <div
+    class="modal"
+    id="loginModal"
+  >
 
     <div class="modal-card">
 
-      <button class="modal-close" data-close="loginModal">
+      <button
+        class="modal-close"
+        data-close="loginModal"
+      >
         ×
       </button>
 
@@ -638,7 +756,7 @@
         VYBE AI
       </div>
 
-      <h2>Login</h2>
+      <h2>Welcome Back</h2>
 
       <p>
         Login to your VYBE AI account.
@@ -653,7 +771,7 @@
         <input
           type="email"
           id="loginEmail"
-          placeholder="Enter email"
+          placeholder="you@example.com"
           required
         >
 
@@ -678,7 +796,7 @@
       </form>
 
       <div class="login-note">
-        VYBE AI authentication
+        Your account is secured by Supabase.
       </div>
 
     </div>
@@ -686,11 +804,13 @@
   </div>
 
 
-  <!-- =========================
+  <!-- ==========================================
        NOTIFICATIONS
-  ========================== -->
-
-  <div class="notification-panel" id="notificationPanel">
+  ========================================== -->
+  <div
+    class="notification-panel"
+    id="notificationPanel"
+  >
 
     <div class="notification-header">
 
@@ -709,11 +829,11 @@
   </div>
 
 
-  <!-- =========================
-       TOAST
-  ========================== -->
-
-  <div class="toast" id="toast"></div>
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast"
+  ></div>
 
 
   <!-- SUPABASE -->
