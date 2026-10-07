@@ -1,625 +1,1279 @@
-/* =========================================================
-   VYBE AI — AI VIDEO PLATFORM
-   VERSION 1 FRONTEND
-========================================================= */
+/* =====================================================
+   VYBE AI
+   Main Application
+   Step 4 - Supabase Connection
+===================================================== */
 
-"use strict";
 
-/* =========================================================
-   DEMO DATA
-========================================================= */
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
 
-const videos = [
+const SUPABASE_URL =
+  "https://wnhnjbrrszmybvxgtbin.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_E0HAjFvs98-9lmEJtBzSzw_6ZYpXaAw";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+console.log(
+  "VYBE AI → Supabase connected"
+);
+
+
+/* =====================================================
+   DEMO VIDEO DATA
+===================================================== */
+
+let videos = [
+
   {
     id: 1,
-    title: "The Future of AI Is Already Here",
-    channel: "AI Labs",
-    avatar: "A",
-    category: "AI",
-    views: "2.4M views",
+    title: "The Future of Artificial Intelligence",
+    channel: "VYBE AI",
+    views: "1.2M",
     date: "2 days ago",
-    duration: "12:42",
+    category: "AI",
+    duration: "10:24",
     description:
-      "A look at how artificial intelligence is changing the way people work, create and build businesses.",
-    thumbnail: "thumb-one",
-    liked: false,
-    subscribed: false
+      "Discover how artificial intelligence is changing the world and what the future may look like.",
+    icon: "🤖",
+    likes: 15200,
+    subscribers: "245K",
+    videoUrl: ""
   },
+
   {
     id: 2,
-    title: "Build a Business From Zero in 2026",
-    channel: "Startup Hub",
-    avatar: "S",
-    category: "Business",
-    views: "841K views",
+    title: "Build Your First AI App",
+    channel: "Tech Vision",
+    views: "845K",
     date: "5 days ago",
-    duration: "18:24",
+    category: "Technology",
+    duration: "18:42",
     description:
-      "Practical ideas for building a modern online business from the ground up.",
-    thumbnail: "thumb-two",
-    liked: false,
-    subscribed: false
+      "A simple introduction to building powerful AI applications.",
+    icon: "💻",
+    likes: 8900,
+    subscribers: "182K",
+    videoUrl: ""
   },
+
   {
     id: 3,
-    title: "Pakistan's Most Beautiful Hidden Places",
-    channel: "Explore PK",
-    avatar: "E",
-    category: "Travel",
-    views: "529K views",
+    title: "Amazing Future Technology",
+    channel: "Future Lab",
+    views: "2.1M",
     date: "1 week ago",
-    duration: "21:17",
+    category: "Technology",
+    duration: "12:30",
     description:
-      "Explore some of Pakistan's incredible destinations away from the usual tourist routes.",
-    thumbnail: "thumb-three",
-    liked: false,
-    subscribed: false
+      "Explore the technologies that could define the next decade.",
+    icon: "🚀",
+    likes: 24100,
+    subscribers: "510K",
+    videoUrl: ""
   },
+
   {
     id: 4,
-    title: "How Money Actually Works",
-    channel: "Money Mind",
-    avatar: "M",
-    category: "Education",
-    views: "1.1M views",
+    title: "Top Gaming Moments",
+    channel: "Game Zone",
+    views: "3.4M",
     date: "3 days ago",
-    duration: "14:55",
+    category: "Gaming",
+    duration: "14:08",
     description:
-      "A simple explanation of money, markets and how modern financial systems work.",
-    thumbnail: "thumb-four",
-    liked: false,
-    subscribed: false
+      "The most exciting gaming moments collected in one video.",
+    icon: "🎮",
+    likes: 31000,
+    subscribers: "720K",
+    videoUrl: ""
   },
+
   {
     id: 5,
-    title: "10 AI Tools You Should Know",
-    channel: "Tech Vision",
-    avatar: "T",
-    category: "Technology",
-    views: "738K views",
+    title: "How Successful Businesses Think",
+    channel: "Business Daily",
+    views: "620K",
     date: "4 days ago",
-    duration: "10:08",
+    category: "Business",
+    duration: "16:15",
     description:
-      "Ten useful artificial intelligence tools that can improve productivity and creativity.",
-    thumbnail: "thumb-five",
-    liked: false,
-    subscribed: false
+      "Lessons from successful entrepreneurs and modern businesses.",
+    icon: "💼",
+    likes: 7600,
+    subscribers: "98K",
+    videoUrl: ""
   },
+
   {
     id: 6,
-    title: "Create Your Own AI Assistant",
-    channel: "Code Factory",
-    avatar: "C",
-    category: "Technology",
-    views: "394K views",
+    title: "Beautiful Places Around The World",
+    channel: "Travel Vibes",
+    views: "1.8M",
     date: "6 days ago",
-    duration: "26:40",
+    category: "Travel",
+    duration: "21:10",
     description:
-      "Learn the core concepts behind building a useful AI assistant.",
-    thumbnail: "thumb-six",
-    liked: false,
-    subscribed: false
+      "Travel through some of the most beautiful places around the world.",
+    icon: "🌍",
+    likes: 19000,
+    subscribers: "430K",
+    videoUrl: ""
   },
+
   {
     id: 7,
-    title: "The New Era of Gaming",
-    channel: "Game World",
-    avatar: "G",
-    category: "Gaming",
-    views: "912K views",
+    title: "Learn Faster With AI",
+    channel: "Smart Learning",
+    views: "455K",
     date: "1 day ago",
-    duration: "16:33",
-    description:
-      "What the next generation of gaming could look like.",
-    thumbnail: "thumb-seven",
-    liked: false,
-    subscribed: false
-  },
-  {
-    id: 8,
-    title: "How Successful People Think",
-    channel: "Mindset Daily",
-    avatar: "D",
     category: "Education",
-    views: "1.7M views",
-    date: "2 weeks ago",
-    duration: "11:31",
-    description:
-      "A practical discussion about habits, decision-making and long-term thinking.",
-    thumbnail: "thumb-eight",
-    liked: false,
-    subscribed: false
-  },
-  {
-    id: 9,
-    title: "AI Agents Explained Simply",
-    channel: "AI Labs",
-    avatar: "A",
-    category: "AI",
-    views: "623K views",
-    date: "3 days ago",
-    duration: "13:20",
-    description:
-      "Understand AI agents without complicated technical language.",
-    thumbnail: "thumb-six",
-    liked: false,
-    subscribed: false
-  },
-  {
-    id: 10,
-    title: "The Future of Remote Work",
-    channel: "Business Daily",
-    avatar: "B",
-    category: "Business",
-    views: "284K views",
-    date: "5 days ago",
     duration: "09:45",
     description:
-      "How remote work and distributed companies are evolving.",
-    thumbnail: "thumb-five",
-    liked: false,
-    subscribed: false
+      "Use AI tools to improve your learning and productivity.",
+    icon: "📚",
+    likes: 5400,
+    subscribers: "76K",
+    videoUrl: ""
   },
+
   {
-    id: 11,
-    title: "Karachi After Dark",
-    channel: "City Stories",
-    avatar: "K",
-    category: "Travel",
-    views: "176K views",
-    date: "1 week ago",
-    duration: "08:19",
+    id: 8,
+    title: "Latest Technology News",
+    channel: "Tech News",
+    views: "920K",
+    date: "8 hours ago",
+    category: "News",
+    duration: "08:20",
     description:
-      "A cinematic look at Karachi after sunset.",
-    thumbnail: "thumb-two",
-    liked: false,
-    subscribed: false
-  },
-  {
-    id: 12,
-    title: "Mastering Productivity",
-    channel: "Better Life",
-    avatar: "L",
-    category: "Education",
-    views: "492K views",
-    date: "4 days ago",
-    duration: "15:22",
-    description:
-      "Simple productivity principles that can improve your daily routine.",
-    thumbnail: "thumb-one",
-    liked: false,
-    subscribed: false
+      "Today's biggest technology stories and updates.",
+    icon: "📰",
+    likes: 7200,
+    subscribers: "201K",
+    videoUrl: ""
   }
+
 ];
 
-const shorts = [
+
+let shorts = [
+
   {
     id: 101,
-    title: "AI in 30 seconds",
-    views: "2.8M views",
-    gradient: "short-gradient-1"
+    title: "AI in 30 Seconds",
+    channel: "VYBE AI",
+    icon: "🤖"
   },
+
   {
     id: 102,
-    title: "One business idea",
-    views: "1.4M views",
-    gradient: "short-gradient-2"
+    title: "Amazing Technology",
+    channel: "Future Lab",
+    icon: "🚀"
   },
+
   {
     id: 103,
-    title: "Amazing Pakistan",
-    views: "927K views",
-    gradient: "short-gradient-3"
+    title: "Gaming Trick",
+    channel: "Game Zone",
+    icon: "🎮"
   },
+
   {
     id: 104,
-    title: "Tech you need to know",
-    views: "812K views",
-    gradient: "short-gradient-4"
+    title: "Business Tip",
+    channel: "Business Daily",
+    icon: "💼"
   },
+
   {
     id: 105,
-    title: "Think differently",
-    views: "643K views",
-    gradient: "short-gradient-5"
+    title: "Travel Secret",
+    channel: "Travel Vibes",
+    icon: "🌍"
   },
+
   {
     id: 106,
-    title: "Future technology",
-    views: "511K views",
-    gradient: "short-gradient-6"
+    title: "Learn With AI",
+    channel: "Smart Learning",
+    icon: "📚"
   }
+
 ];
 
-/* =========================================================
+
+/* =====================================================
    STATE
-========================================================= */
+===================================================== */
 
 let currentVideo = null;
-let currentCategory = "All";
 
-let user = {
-  loggedIn: false,
-  name: "Guest",
-  email: "",
-  avatar: "G"
-};
+let selectedCategory = "All";
 
-let comments = {};
+let likedVideos =
+  JSON.parse(
+    localStorage.getItem("vybeLikedVideos") || "[]"
+  );
 
-/* =========================================================
-   DOM HELPERS
-========================================================= */
+let savedVideos =
+  JSON.parse(
+    localStorage.getItem("vybeSavedVideos") || "[]"
+  );
 
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
+let history =
+  JSON.parse(
+    localStorage.getItem("vybeHistory") || "[]"
+  );
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+let subscriptions =
+  JSON.parse(
+    localStorage.getItem("vybeSubscriptions") || "[]"
+  );
 
-document.addEventListener("DOMContentLoaded", () => {
+let comments =
+  JSON.parse(
+    localStorage.getItem("vybeComments") || "{}"
+  );
 
-  renderVideos(videos);
-  renderShorts();
-  setupNavigation();
-  setupSearch();
-  setupModals();
-  setupUpload();
-  setupWatchActions();
-  setupNotifications();
-  setupVoiceSearch();
-  setupProfile();
-  setupCategoryButtons();
 
-});
+/* =====================================================
+   DOM
+===================================================== */
 
-/* =========================================================
-   VIDEO CARD
-========================================================= */
+const videoGrid =
+  document.getElementById("videoGrid");
+
+const shortsGrid =
+  document.getElementById("shortsGrid");
+
+const dynamicPage =
+  document.getElementById("dynamicPage");
+
+const dynamicTitle =
+  document.getElementById("dynamicTitle");
+
+const dynamicSubtitle =
+  document.getElementById("dynamicSubtitle");
+
+const dynamicVideoGrid =
+  document.getElementById("dynamicVideoGrid");
+
+const watchPage =
+  document.getElementById("watchPage");
+
+const homePage =
+  document.getElementById("homePage");
+
+const channelPage =
+  document.getElementById("channelPage");
+
+const uploadModal =
+  document.getElementById("uploadModal");
+
+const loginModal =
+  document.getElementById("loginModal");
+
+const notificationPanel =
+  document.getElementById("notificationPanel");
+
+const toast =
+  document.getElementById("toast");
+
+
+/* =====================================================
+   INITIALIZATION
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    renderVideos();
+
+    renderShorts();
+
+    setupNavigation();
+
+    setupCategories();
+
+    setupSearch();
+
+    setupUpload();
+
+    setupLogin();
+
+    setupNotifications();
+
+    setupMobileMenu();
+
+    setupWatchActions();
+
+    checkSupabaseConnection();
+
+  }
+);
+
+
+/* =====================================================
+   SUPABASE TEST
+===================================================== */
+
+async function checkSupabaseConnection() {
+
+  try {
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("videos")
+      .select("id")
+      .limit(1);
+
+    /*
+      Table may not exist yet.
+
+      This is expected in Step 4.
+    */
+
+    if (error) {
+
+      console.log(
+        "Supabase connected. Database table not created yet."
+      );
+
+      return;
+    }
+
+    console.log(
+      "VYBE AI database connection successful."
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Supabase connection error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   RENDER VIDEOS
+===================================================== */
+
+function renderVideos(list = null) {
+
+  const data =
+    list ||
+    filterByCategory(videos);
+
+  videoGrid.innerHTML = "";
+
+  if (!data.length) {
+
+    videoGrid.innerHTML =
+      emptyVideos();
+
+    return;
+  }
+
+  data.forEach(
+    video => {
+
+      videoGrid.appendChild(
+        createVideoCard(video)
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   CREATE VIDEO CARD
+===================================================== */
 
 function createVideoCard(video) {
 
-  return `
-    <article
-      class="video-card"
-      data-video-id="${video.id}"
-      onclick="openVideo(${video.id})"
-    >
+  const card =
+    document.createElement("article");
 
-      <div class="thumbnail">
+  card.className =
+    "video-card";
 
-        <div class="thumbnail-bg ${video.thumbnail}">
-          <div class="play-overlay">
-            ▶
+  card.innerHTML = `
+
+    <div class="thumbnail">
+
+      ${
+        video.thumbnail
+          ?
+          `<img
+             src="${escapeAttribute(video.thumbnail)}"
+             alt="${escapeAttribute(video.title)}">`
+          :
+          `
+          <div class="thumbnail-gradient">
+            ${video.icon || "▶"}
           </div>
+          `
+      }
+
+      <span class="duration">
+        ${escapeHtml(video.duration || "00:00")}
+      </span>
+
+    </div>
+
+    <div class="video-info">
+
+      <div class="mini-avatar">
+        ${getInitial(video.channel)}
+      </div>
+
+      <div>
+
+        <div class="video-title">
+          ${escapeHtml(video.title)}
         </div>
 
-        <span class="duration">
-          ${video.duration}
-        </span>
+        <div class="video-channel">
+          ${escapeHtml(video.channel)}
+        </div>
+
+        <div class="video-meta">
+          ${escapeHtml(video.views || "0 views")}
+          •
+          ${escapeHtml(video.date || "Today")}
+        </div>
 
       </div>
 
-      <div class="video-info">
-
-        <div class="channel-mini">
-          ${escapeHTML(video.avatar)}
-        </div>
-
-        <div class="video-text">
-
-          <h3 class="video-title">
-            ${escapeHTML(video.title)}
-          </h3>
-
-          <div class="video-channel">
-            ${escapeHTML(video.channel)}
-          </div>
-
-          <div class="video-meta">
-            <span>${escapeHTML(video.views)}</span>
-            <span>•</span>
-            <span>${escapeHTML(video.date)}</span>
-          </div>
-
-        </div>
-
-      </div>
-
-    </article>
+    </div>
   `;
+
+  card.addEventListener(
+    "click",
+    () => openVideo(video.id)
+  );
+
+  return card;
 }
 
-/* =========================================================
-   RENDER VIDEOS
-========================================================= */
 
-function renderVideos(list) {
+/* =====================================================
+   FILTER CATEGORY
+===================================================== */
 
-  const grid = $("#videoGrid");
+function filterByCategory(list) {
 
-  if (!grid) {
-    return;
+  if (selectedCategory === "All") {
+
+    return list;
+
   }
 
-  if (!list.length) {
+  return list.filter(
+    video =>
+      video.category === selectedCategory
+  );
 
-    grid.innerHTML = `
-      <div class="empty-state">
-        <strong>No videos found</strong>
-        <p>Try another search or category.</p>
-      </div>
-    `;
-
-    return;
-  }
-
-  grid.innerHTML = list
-    .map(createVideoCard)
-    .join("");
 }
 
-/* =========================================================
+
+/* =====================================================
    SHORTS
-========================================================= */
+===================================================== */
 
 function renderShorts() {
 
-  const grid = $("#shortsGrid");
+  shortsGrid.innerHTML = "";
 
-  if (!grid) {
-    return;
-  }
+  shorts.forEach(
+    short => {
 
-  grid.innerHTML = shorts.map(short => {
+      const card =
+        document.createElement("article");
 
-    return `
-      <article class="short-card">
+      card.className =
+        "short-card";
 
-        <div
-          class="short-thumb ${short.gradient}"
-          onclick="showToast('Shorts player will be connected soon.')"
-        >
+      card.innerHTML = `
 
-          <div class="short-play">
-            ▶
-          </div>
-
+        <div class="short-thumb">
+          <span>${short.icon}</span>
         </div>
 
-        <div class="short-info">
-
-          <div class="short-title">
-            ${escapeHTML(short.title)}
-          </div>
-
-          <div class="short-views">
-            ${escapeHTML(short.views)}
-          </div>
-
+        <div class="short-title">
+          ${escapeHtml(short.title)}
         </div>
 
-      </article>
-    `;
+      `;
 
-  }).join("");
+      card.addEventListener(
+        "click",
+        () => showToast("Shorts player coming next.")
+      );
+
+      shortsGrid.appendChild(card);
+
+    }
+  );
+
 }
 
-/* =========================================================
+
+/* =====================================================
    OPEN VIDEO
-========================================================= */
+===================================================== */
 
 function openVideo(id) {
 
-  const video = videos.find(item => item.id === Number(id));
+  const video =
+    videos.find(
+      item => item.id === id
+    );
 
   if (!video) {
+
+    showToast(
+      "Video not found."
+    );
+
     return;
   }
 
   currentVideo = video;
 
-  $("#watchTitle").textContent = video.title;
-  $("#watchViews").textContent = video.views;
-  $("#watchDate").textContent = video.date;
-  $("#watchChannel").textContent = video.channel;
-  $("#watchAvatar").textContent = video.avatar;
-  $("#watchDescription").textContent = video.description;
+  addToHistory(video.id);
 
-  renderRecommended(video.id);
-  renderComments(video.id);
+  homePage.style.display = "none";
 
-  showPage("watchPage");
+  dynamicPage.style.display = "none";
+
+  channelPage.style.display = "none";
+
+  watchPage.style.display = "block";
+
+  populateWatchPage(video);
 
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
+
 }
 
-/* =========================================================
-   RECOMMENDED
-========================================================= */
 
-function renderRecommended(excludeId) {
+/* =====================================================
+   WATCH PAGE
+===================================================== */
 
-  const container = $("#recommendedList");
+function populateWatchPage(video) {
 
-  if (!container) {
-    return;
+  const player =
+    document.getElementById("mainVideo");
+
+  const placeholder =
+    document.getElementById(
+      "playerPlaceholder"
+    );
+
+  document.getElementById(
+    "watchTitle"
+  ).textContent =
+    video.title;
+
+  document.getElementById(
+    "watchViews"
+  ).textContent =
+    `${video.views || "0 views"}`;
+
+  document.getElementById(
+    "watchDate"
+  ).textContent =
+    video.date || "Today";
+
+  document.getElementById(
+    "watchChannel"
+  ).textContent =
+    video.channel;
+
+  document.getElementById(
+    "watchSubscribers"
+  ).textContent =
+    `${video.subscribers || "0"} subscribers`;
+
+  document.getElementById(
+    "watchDescription"
+  ).textContent =
+    video.description || "";
+
+  document.getElementById(
+    "watchChannelAvatar"
+  ).textContent =
+    getInitial(video.channel);
+
+  document.getElementById(
+    "likeCount"
+  ).textContent =
+    formatNumber(
+      video.likes || 0
+    );
+
+  const subscribeBtn =
+    document.getElementById(
+      "subscribeBtn"
+    );
+
+  const subscribed =
+    subscriptions.includes(
+      video.channel
+    );
+
+  subscribeBtn.textContent =
+    subscribed
+      ? "Subscribed"
+      : "Subscribe";
+
+  if (video.videoUrl) {
+
+    player.src =
+      video.videoUrl;
+
+    player.style.display =
+      "block";
+
+    placeholder.style.display =
+      "none";
+
+  } else {
+
+    player.removeAttribute(
+      "src"
+    );
+
+    player.style.display =
+      "none";
+
+    placeholder.style.display =
+      "grid";
+
   }
 
-  const recommended = videos
-    .filter(video => video.id !== excludeId)
-    .slice(0, 6);
+  renderComments(video.id);
 
-  container.innerHTML = recommended.map(video => {
+  renderRecommended(video.id);
 
-    return `
-      <div
-        class="recommended-card"
-        onclick="openVideo(${video.id})"
-      >
-
-        <div class="recommended-thumb ${video.thumbnail}"></div>
-
-        <div class="recommended-info">
-
-          <strong>
-            ${escapeHTML(video.title)}
-          </strong>
-
-          <small>
-            ${escapeHTML(video.channel)} • ${escapeHTML(video.views)}
-          </small>
-
-        </div>
-
-      </div>
-    `;
-
-  }).join("");
 }
 
-/* =========================================================
+
+/* =====================================================
+   RECOMMENDED
+===================================================== */
+
+function renderRecommended(currentId) {
+
+  const container =
+    document.getElementById(
+      "recommendedList"
+    );
+
+  container.innerHTML = "";
+
+  videos
+    .filter(
+      video => video.id !== currentId
+    )
+    .slice(0, 6)
+    .forEach(
+      video => {
+
+        const card =
+          document.createElement("div");
+
+        card.className =
+          "recommended-card";
+
+        card.innerHTML = `
+
+          <div class="recommended-thumb">
+            ${video.icon || "▶"}
+          </div>
+
+          <div>
+
+            <div class="recommended-title">
+              ${escapeHtml(video.title)}
+            </div>
+
+            <div class="recommended-meta">
+              ${escapeHtml(video.channel)}
+            </div>
+
+            <div class="recommended-meta">
+              ${escapeHtml(video.views)}
+            </div>
+
+          </div>
+        `;
+
+        card.addEventListener(
+          "click",
+          () => openVideo(video.id)
+        );
+
+        container.appendChild(card);
+
+      }
+    );
+
+}
+
+
+/* =====================================================
    COMMENTS
-========================================================= */
+===================================================== */
 
 function renderComments(videoId) {
 
-  const list = $("#commentsList");
-  const count = $("#commentCount");
+  const list =
+    document.getElementById(
+      "commentsList"
+    );
 
-  if (!list || !count) {
-    return;
-  }
+  list.innerHTML = "";
 
-  const videoComments = comments[videoId] || [];
-
-  count.textContent = videoComments.length;
+  const videoComments =
+    comments[videoId] || [];
 
   if (!videoComments.length) {
 
     list.innerHTML = `
-      <div style="color:var(--muted);font-size:11px;padding:10px 0;">
-        Be the first to comment.
-      </div>
+      <p style="
+        color:#9aa4b5;
+        padding:20px 0;
+      ">
+        No comments yet. Be the first to comment.
+      </p>
     `;
 
     return;
   }
 
-  list.innerHTML = videoComments.map(comment => {
+  videoComments
+    .slice()
+    .reverse()
+    .forEach(
+      comment => {
 
-    return `
-      <div class="comment">
+        const div =
+          document.createElement("div");
 
-        <div class="comment-avatar">
-          ${escapeHTML(comment.avatar)}
-        </div>
+        div.className =
+          "comment";
 
-        <div class="comment-body">
+        div.innerHTML = `
 
-          <strong>
-            ${escapeHTML(comment.name)}
-          </strong>
+          <div class="mini-avatar">
+            U
+          </div>
 
-          <p>
-            ${escapeHTML(comment.text)}
-          </p>
+          <div>
 
-        </div>
+            <strong>
+              ${escapeHtml(comment.user)}
+            </strong>
 
-      </div>
-    `;
+            <p>
+              ${escapeHtml(comment.text)}
+            </p>
 
-  }).join("");
+          </div>
+
+        `;
+
+        list.appendChild(div);
+
+      }
+    );
+
 }
 
-/* =========================================================
+
+/* =====================================================
+   ADD COMMENT
+===================================================== */
+
+function addComment() {
+
+  if (!currentVideo) {
+
+    return;
+  }
+
+  const input =
+    document.getElementById(
+      "commentInput"
+    );
+
+  const text =
+    input.value.trim();
+
+  if (!text) {
+
+    showToast(
+      "Write a comment first."
+    );
+
+    return;
+  }
+
+  if (!comments[currentVideo.id]) {
+
+    comments[currentVideo.id] = [];
+
+  }
+
+  comments[currentVideo.id].push({
+
+    user: "You",
+
+    text: text,
+
+    createdAt:
+      new Date().toISOString()
+
+  });
+
+  localStorage.setItem(
+    "vybeComments",
+    JSON.stringify(comments)
+  );
+
+  input.value = "";
+
+  renderComments(
+    currentVideo.id
+  );
+
+  showToast(
+    "Comment added."
+  );
+
+}
+
+
+/* =====================================================
+   LIKE
+===================================================== */
+
+function toggleLike() {
+
+  if (!currentVideo) {
+
+    return;
+  }
+
+  const id =
+    currentVideo.id;
+
+  const index =
+    likedVideos.indexOf(id);
+
+  if (index === -1) {
+
+    likedVideos.push(id);
+
+    currentVideo.likes =
+      (currentVideo.likes || 0) + 1;
+
+    showToast(
+      "Video liked 👍"
+    );
+
+  } else {
+
+    likedVideos.splice(
+      index,
+      1
+    );
+
+    currentVideo.likes =
+      Math.max(
+        0,
+        (currentVideo.likes || 0) - 1
+      );
+
+    showToast(
+      "Like removed."
+    );
+
+  }
+
+  localStorage.setItem(
+    "vybeLikedVideos",
+    JSON.stringify(likedVideos)
+  );
+
+  document.getElementById(
+    "likeCount"
+  ).textContent =
+    formatNumber(
+      currentVideo.likes
+    );
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function toggleSave() {
+
+  if (!currentVideo) {
+
+    return;
+  }
+
+  const id =
+    currentVideo.id;
+
+  const index =
+    savedVideos.indexOf(id);
+
+  if (index === -1) {
+
+    savedVideos.push(id);
+
+    showToast(
+      "Saved to Watch later 🔖"
+    );
+
+  } else {
+
+    savedVideos.splice(
+      index,
+      1
+    );
+
+    showToast(
+      "Removed from Watch later."
+    );
+
+  }
+
+  localStorage.setItem(
+    "vybeSavedVideos",
+    JSON.stringify(savedVideos)
+  );
+
+}
+
+
+/* =====================================================
+   SUBSCRIBE
+===================================================== */
+
+function toggleSubscribe() {
+
+  if (!currentVideo) {
+
+    return;
+  }
+
+  const channel =
+    currentVideo.channel;
+
+  const index =
+    subscriptions.indexOf(
+      channel
+    );
+
+  const btn =
+    document.getElementById(
+      "subscribeBtn"
+    );
+
+  if (index === -1) {
+
+    subscriptions.push(
+      channel
+    );
+
+    btn.textContent =
+      "Subscribed";
+
+    showToast(
+      `Subscribed to ${channel}`
+    );
+
+  } else {
+
+    subscriptions.splice(
+      index,
+      1
+    );
+
+    btn.textContent =
+      "Subscribe";
+
+    showToast(
+      `Unsubscribed from ${channel}`
+    );
+
+  }
+
+  localStorage.setItem(
+    "vybeSubscriptions",
+    JSON.stringify(
+      subscriptions
+    )
+  );
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function addToHistory(id) {
+
+  history =
+    history.filter(
+      item => item !== id
+    );
+
+  history.unshift(id);
+
+  history =
+    history.slice(
+      0,
+      100
+    );
+
+  localStorage.setItem(
+    "vybeHistory",
+    JSON.stringify(history)
+  );
+
+}
+
+
+/* =====================================================
    NAVIGATION
-========================================================= */
+===================================================== */
 
 function setupNavigation() {
 
-  $$(".nav-item").forEach(button => {
+  document
+    .querySelectorAll(".nav-item[data-page]")
+    .forEach(
+      button => {
 
-    button.addEventListener("click", () => {
+        button.addEventListener(
+          "click",
+          () => {
 
-      const page = button.dataset.page;
+            const page =
+              button.dataset.page;
 
-      if (!page) {
-        return;
+            showPage(page);
+
+          }
+        );
+
       }
+    );
 
-      if (page === "home") {
-        showHome();
-        closeSidebar();
-        return;
-      }
+}
 
-      if (page === "studio") {
-        openUpload();
-        closeSidebar();
-        return;
-      }
 
-      openDynamicPage(page);
+function showPage(page) {
 
-      closeSidebar();
+  homePage.style.display =
+    "none";
 
-    });
+  watchPage.style.display =
+    "none";
 
-  });
+  channelPage.style.display =
+    "none";
 
-  $$("[data-page-link]").forEach(button => {
+  dynamicPage.style.display =
+    "block";
 
-    button.addEventListener("click", () => {
+  let list = [];
 
-      const page = button.dataset.pageLink;
+  switch (page) {
 
-      openDynamicPage(page);
+    case "home":
 
-    });
+      showHome();
 
-  });
+      return;
 
-  $("#backHome")?.addEventListener("click", showHome);
+    case "trending":
 
-  $("#watchBack")?.addEventListener("click", showHome);
+      dynamicTitle.textContent =
+        "🔥 Trending";
 
-  $("#exploreButton")?.addEventListener("click", () => {
+      dynamicSubtitle.textContent =
+        "What's popular on VYBE AI";
 
-    document.querySelector(".section-header")
-      ?.scrollIntoView({
-        behavior: "smooth"
-      });
+      list =
+        [...videos];
 
+      break;
+
+    case "shorts":
+
+      dynamicTitle.textContent =
+        "⚡ Shorts";
+
+      dynamicSubtitle.textContent =
+        "Quick videos. Big VYBE.";
+
+      renderDynamicShorts();
+
+      return;
+
+    case "subscriptions":
+
+      dynamicTitle.textContent =
+        "Subscriptions";
+
+      dynamicSubtitle.textContent =
+        "Videos from creators you follow";
+
+      list =
+        videos.filter(
+          video =>
+            subscriptions.includes(
+              video.channel
+            )
+        );
+
+      break;
+
+    case "history":
+
+      dynamicTitle.textContent =
+        "History";
+
+      dynamicSubtitle.textContent =
+        "Videos you've watched";
+
+      list =
+        history
+          .map(
+            id =>
+              videos.find(
+                video =>
+                  video.id === id
+              )
+          )
+          .filter(Boolean);
+
+      break;
+
+    case "watchlater":
+
+      dynamicTitle.textContent =
+        "Watch later";
+
+      dynamicSubtitle.textContent =
+        "Your saved videos";
+
+      list =
+        savedVideos
+          .map(
+            id =>
+              videos.find(
+                video =>
+                  video.id === id
+              )
+          )
+          .filter(Boolean);
+
+      break;
+
+    case "liked":
+
+      dynamicTitle.textContent =
+        "Liked videos";
+
+      dynamicSubtitle.textContent =
+        "Videos you liked";
+
+      list =
+        likedVideos
+          .map(
+            id =>
+              videos.find(
+                video =>
+                  video.id === id
+              )
+          )
+          .filter(Boolean);
+
+      break;
+
+    default:
+
+      showHome();
+
+      return;
+  }
+
+  renderDynamicVideos(list);
+
+  updateActiveNav(page);
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
   });
 
 }
 
-/* =========================================================
-   SHOW HOME
-========================================================= */
+
+/* =====================================================
+   HOME
+===================================================== */
 
 function showHome() {
 
-  showPage("homePage");
+  homePage.style.display =
+    "block";
 
-  currentCategory = "All";
+  dynamicPage.style.display =
+    "none";
 
-  $$(".category").forEach(button => {
+  watchPage.style.display =
+    "none";
 
-    button.classList.toggle(
-      "active",
-      button.dataset.category === "All"
-    );
+  channelPage.style.display =
+    "none";
 
-  });
-
-  renderVideos(videos);
+  updateActiveNav(
+    "home"
+  );
 
   window.scrollTo({
     top: 0,
@@ -628,804 +1282,283 @@ function showHome() {
 
 }
 
-/* =========================================================
-   SHOW PAGE
-========================================================= */
 
-function showPage(pageId) {
+/* =====================================================
+   DYNAMIC VIDEOS
+===================================================== */
 
-  $$(".page").forEach(page => {
+function renderDynamicVideos(list) {
 
-    page.classList.remove("active");
+  dynamicVideoGrid.innerHTML = "";
 
-  });
+  if (!list.length) {
 
-  const page = document.getElementById(pageId);
-
-  if (page) {
-    page.classList.add("active");
-  }
-
-  updateNavigation(pageId);
-}
-
-/* =========================================================
-   NAV ACTIVE STATE
-========================================================= */
-
-function updateNavigation(pageId) {
-
-  $$(".nav-item").forEach(item => {
-
-    item.classList.remove("active");
-
-  });
-
-  if (pageId === "homePage") {
-
-    document
-      .querySelector('[data-page="home"]')
-      ?.classList.add("active");
-
-  }
-
-}
-
-/* =========================================================
-   DYNAMIC PAGES
-========================================================= */
-
-function openDynamicPage(page) {
-
-  const title = $("#dynamicTitle");
-  const subtitle = $("#dynamicSubtitle");
-  const grid = $("#dynamicVideoGrid");
-
-  let list = videos;
-
-  if (page === "trending") {
-
-    title.textContent = "Trending";
-    subtitle.textContent = "The videos everyone is watching";
-
-    list = videos;
-
-  } else if (page === "shorts") {
-
-    title.textContent = "Shorts";
-    subtitle.textContent = "Quick videos. Big ideas.";
-
-    showPage("dynamicPage");
-
-    grid.innerHTML = `
-      <div style="
-        grid-column:1/-1;
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-        gap:15px;
-      ">
-        ${shorts.map(short => `
-          <div class="short-card">
-
-            <div
-              class="short-thumb ${short.gradient}"
-              onclick="showToast('Short player will be connected soon.')"
-            >
-              <div class="short-play">▶</div>
-            </div>
-
-            <div class="short-info">
-              <div class="short-title">
-                ${escapeHTML(short.title)}
-              </div>
-
-              <div class="short-views">
-                ${escapeHTML(short.views)}
-              </div>
-            </div>
-
-          </div>
-        `).join("")}
-      </div>
-    `;
+    dynamicVideoGrid.innerHTML =
+      emptyVideos();
 
     return;
 
-  } else if (page === "subscriptions") {
-
-    title.textContent = "Subscriptions";
-    subtitle.textContent = "Latest videos from channels you follow";
-
-    list = videos.slice(0, 6);
-
-  } else if (page === "history") {
-
-    title.textContent = "History";
-    subtitle.textContent = "Videos you recently watched";
-
-    list = videos.slice(0, 5);
-
-  } else if (page === "watchlater") {
-
-    title.textContent = "Watch later";
-    subtitle.textContent = "Videos saved for later";
-
-    list = videos.slice(2, 7);
-
-  } else if (page === "liked") {
-
-    title.textContent = "Liked videos";
-    subtitle.textContent = "Videos you liked";
-
-    list = videos.filter(video => video.liked);
-
   }
 
-  grid.innerHTML = list.length
-    ? list.map(createVideoCard).join("")
-    : `
-      <div style="
-        grid-column:1/-1;
-        padding:70px 20px;
-        text-align:center;
-        color:var(--muted);
-      ">
-        <div style="font-size:35px;margin-bottom:12px;">♡</div>
-        <strong style="color:white;">Nothing here yet</strong>
-        <p style="margin-top:5px;">Your activity will appear here.</p>
-      </div>
-    `;
+  list.forEach(
+    video => {
 
-  showPage("dynamicPage");
+      dynamicVideoGrid.appendChild(
+        createVideoCard(video)
+      );
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+    }
+  );
 
 }
 
-/* =========================================================
+
+function renderDynamicShorts() {
+
+  dynamicVideoGrid.innerHTML = "";
+
+  shorts.forEach(
+    short => {
+
+      const card =
+        document.createElement(
+          "article"
+        );
+
+      card.className =
+        "video-card";
+
+      card.innerHTML = `
+
+        <div class="thumbnail">
+
+          <div class="thumbnail-gradient">
+            ${short.icon}
+          </div>
+
+        </div>
+
+        <div class="video-info">
+
+          <div class="mini-avatar">
+            ${getInitial(short.channel)}
+          </div>
+
+          <div>
+
+            <div class="video-title">
+              ${escapeHtml(short.title)}
+            </div>
+
+            <div class="video-channel">
+              ${escapeHtml(short.channel)}
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+      dynamicVideoGrid.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   ACTIVE NAV
+===================================================== */
+
+function updateActiveNav(page) {
+
+  document
+    .querySelectorAll(
+      ".nav-item[data-page]"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+          "active",
+          button.dataset.page === page
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
+function setupCategories() {
+
+  document
+    .querySelectorAll(".category")
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            document
+              .querySelectorAll(
+                ".category"
+              )
+              .forEach(
+                item =>
+                  item.classList.remove(
+                    "active"
+                  )
+              );
+
+            button.classList.add(
+              "active"
+            );
+
+            selectedCategory =
+              button.dataset.category;
+
+            renderVideos();
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
    SEARCH
-========================================================= */
+===================================================== */
 
 function setupSearch() {
 
-  const input = $("#searchInput");
-  const button = $("#searchButton");
-  const clear = $("#clearSearch");
+  const input =
+    document.getElementById(
+      "searchInput"
+    );
+
+  const button =
+    document.getElementById(
+      "searchBtn"
+    );
 
   function performSearch() {
 
-    const query = input.value
-      .trim()
-      .toLowerCase();
+    const query =
+      input.value
+        .trim()
+        .toLowerCase();
 
     if (!query) {
 
       showHome();
 
-      clear.style.display = "none";
-
       return;
-
     }
 
-    const results = videos.filter(video => {
+    const results =
+      videos.filter(
+        video => {
 
-      return (
-        video.title.toLowerCase().includes(query) ||
-        video.channel.toLowerCase().includes(query) ||
-        video.category.toLowerCase().includes(query) ||
-        video.description.toLowerCase().includes(query)
+          return (
+
+            video.title
+              .toLowerCase()
+              .includes(query)
+
+            ||
+
+            video.channel
+              .toLowerCase()
+              .includes(query)
+
+            ||
+
+            video.category
+              .toLowerCase()
+              .includes(query)
+
+          );
+
+        }
       );
 
-    });
+    homePage.style.display =
+      "none";
 
-    $("#dynamicTitle").textContent =
-      `Search results for "${input.value.trim()}"`;
+    watchPage.style.display =
+      "none";
 
-    $("#dynamicSubtitle").textContent =
-      `${results.length} video${results.length === 1 ? "" : "s"} found`;
+    channelPage.style.display =
+      "none";
 
-    $("#dynamicVideoGrid").innerHTML = results.length
-      ? results.map(createVideoCard).join("")
-      : `
-        <div style="
-          grid-column:1/-1;
-          padding:70px 20px;
-          text-align:center;
-          color:var(--muted);
-        ">
-          <div style="font-size:35px;margin-bottom:12px;">⌕</div>
-          <strong style="color:white;">No videos found</strong>
-          <p style="margin-top:5px;">
-            Try searching for something else.
-          </p>
-        </div>
-      `;
+    dynamicPage.style.display =
+      "block";
 
-    showPage("dynamicPage");
+    dynamicTitle.textContent =
+      `Search results for "${input.value}"`;
 
-    clear.style.display = "block";
+    dynamicSubtitle.textContent =
+      `${results.length} video(s) found`;
 
-  }
-
-  button?.addEventListener("click", performSearch);
-
-  input?.addEventListener("keydown", event => {
-
-    if (event.key === "Enter") {
-      performSearch();
-    }
-
-  });
-
-  input?.addEventListener("input", () => {
-
-    clear.style.display =
-      input.value ? "block" : "none";
-
-  });
-
-  clear?.addEventListener("click", () => {
-
-    input.value = "";
-
-    clear.style.display = "none";
-
-    showHome();
-
-    input.focus();
-
-  });
-
-}
-
-/* =========================================================
-   CATEGORIES
-========================================================= */
-
-function setupCategoryButtons() {
-
-  $$(".category").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      $$(".category").forEach(item => {
-        item.classList.remove("active");
-      });
-
-      button.classList.add("active");
-
-      const category = button.dataset.category;
-
-      currentCategory = category;
-
-      if (category === "All") {
-
-        renderVideos(videos);
-
-        return;
-
-      }
-
-      const filtered = videos.filter(video =>
-        video.category === category
-      );
-
-      renderVideos(filtered);
-
-      document.querySelector("#videoGrid")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-
-    });
-
-  });
-
-}
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-function setupModals() {
-
-  $$(".modal").forEach(modal => {
-
-    modal.addEventListener("click", event => {
-
-      if (event.target === modal) {
-        closeModal(modal.id);
-      }
-
-    });
-
-  });
-
-  $$("[data-close-modal]").forEach(button => {
-
-    button.addEventListener("click", () => {
-
-      closeModal(button.dataset.closeModal);
-
-    });
-
-  });
-
-}
-
-/* =========================================================
-   OPEN / CLOSE MODAL
-========================================================= */
-
-function openModal(id) {
-
-  const modal = document.getElementById(id);
-
-  if (modal) {
-    modal.classList.add("show");
-  }
-
-}
-
-function closeModal(id) {
-
-  const modal = document.getElementById(id);
-
-  if (modal) {
-    modal.classList.remove("show");
-  }
-
-}
-
-/* =========================================================
-   UPLOAD
-========================================================= */
-
-function setupUpload() {
-
-  $("#uploadButton")?.addEventListener("click", openUpload);
-
-  $("#heroUpload")?.addEventListener("click", openUpload);
-
-  $("#creatorUpload")?.addEventListener("click", openUpload);
-
-  $("#sidebarUpload")?.addEventListener("click", openUpload);
-
-  $("#videoFile")?.addEventListener("change", event => {
-
-    const file = event.target.files[0];
-
-    const selected = $("#selectedFile");
-
-    if (!file) {
-
-      selected.textContent = "";
-
-      return;
-
-    }
-
-    selected.textContent =
-      `Selected: ${file.name} (${formatFileSize(file.size)})`;
-
-  });
-
-  $("#publishButton")?.addEventListener("click", publishDemoVideo);
-
-}
-
-/* =========================================================
-   OPEN UPLOAD
-========================================================= */
-
-function openUpload() {
-
-  if (!user.loggedIn) {
-
-    showToast("Please sign in before uploading.");
-
-    openModal("loginModal");
-
-    return;
-
-  }
-
-  openModal("uploadModal");
-
-}
-
-/* =========================================================
-   PUBLISH DEMO VIDEO
-========================================================= */
-
-function publishDemoVideo() {
-
-  const file = $("#videoFile")?.files[0];
-  const title = $("#uploadTitle").value.trim();
-  const description = $("#uploadDescription").value.trim();
-  const category = $("#uploadCategory").value;
-
-  if (!file) {
-
-    showToast("Please choose a video file.");
-
-    return;
-
-  }
-
-  if (!title) {
-
-    showToast("Please enter a video title.");
-
-    $("#uploadTitle").focus();
-
-    return;
-
-  }
-
-  const newVideo = {
-
-    id: Date.now(),
-
-    title,
-
-    channel: user.name || "Your Channel",
-
-    avatar: user.avatar || "G",
-
-    category,
-
-    views: "0 views",
-
-    date: "Just now",
-
-    duration: "00:00",
-
-    description:
-      description ||
-      "A new video published on VYBE AI.",
-
-    thumbnail: "thumb-one",
-
-    liked: false,
-
-    subscribed: false
-
-  };
-
-  videos.unshift(newVideo);
-
-  closeModal("uploadModal");
-
-  $("#videoFile").value = "";
-  $("#uploadTitle").value = "";
-  $("#uploadDescription").value = "";
-
-  $("#selectedFile").textContent = "";
-
-  renderVideos(videos);
-
-  showHome();
-
-  showToast(
-    "Video added to your channel. Cloud publishing comes next."
-  );
-
-}
-
-/* =========================================================
-   WATCH ACTIONS
-========================================================= */
-
-function setupWatchActions() {
-
-  $("#watchLike")?.addEventListener("click", () => {
-
-    if (!currentVideo) {
-      return;
-    }
-
-    currentVideo.liked = !currentVideo.liked;
-
-    const button = $("#watchLike");
-
-    if (currentVideo.liked) {
-
-      button.innerHTML = "♥ <span>Liked</span>";
-
-      showToast("Added to liked videos.");
-
-    } else {
-
-      button.innerHTML = "♡ <span>Like</span>";
-
-    }
-
-  });
-
-  $("#watchSubscribe")?.addEventListener("click", () => {
-
-    if (!currentVideo) {
-      return;
-    }
-
-    currentVideo.subscribed =
-      !currentVideo.subscribed;
-
-    const button = $("#watchSubscribe");
-
-    if (currentVideo.subscribed) {
-
-      button.textContent = "Subscribed";
-
-      button.classList.add("subscribed");
-
-      showToast(
-        `Subscribed to ${currentVideo.channel}`
-      );
-
-    } else {
-
-      button.textContent = "Subscribe";
-
-      button.classList.remove("subscribed");
-
-    }
-
-  });
-
-  $("#commentButton")?.addEventListener("click", addComment);
-
-  $("#commentInput")?.addEventListener("keydown", event => {
-
-    if (event.key === "Enter") {
-      addComment();
-    }
-
-  });
-
-}
-
-/* =========================================================
-   ADD COMMENT
-========================================================= */
-
-function addComment() {
-
-  if (!currentVideo) {
-    return;
-  }
-
-  const input = $("#commentInput");
-
-  const text = input.value.trim();
-
-  if (!text) {
-    return;
-  }
-
-  if (!comments[currentVideo.id]) {
-    comments[currentVideo.id] = [];
-  }
-
-  comments[currentVideo.id].push({
-
-    name: user.name || "Guest",
-    avatar: user.avatar || "G",
-    text
-
-  });
-
-  input.value = "";
-
-  renderComments(currentVideo.id);
-
-  showToast("Comment added.");
-
-}
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-function setupProfile() {
-
-  $("#profileButton")?.addEventListener("click", () => {
-
-    if (user.loggedIn) {
-
-      openChannel();
-
-    } else {
-
-      openModal("loginModal");
-
-    }
-
-  });
-
-  $("#loginButton")?.addEventListener("click", loginDemo);
-
-  $("#signupSwitch")?.addEventListener("click", () => {
-
-    showToast(
-      "Signup will be connected to the database in the next stage."
+    renderDynamicVideos(
+      results
     );
 
-  });
-
-}
-
-/* =========================================================
-   DEMO LOGIN
-========================================================= */
-
-function loginDemo() {
-
-  const email = $("#loginEmail").value.trim();
-  const password = $("#loginPassword").value;
-
-  if (!email) {
-
-    showToast("Please enter your email.");
-
-    return;
+    updateActiveNav("");
 
   }
 
-  if (!password) {
-
-    showToast("Please enter your password.");
-
-    return;
-
-  }
-
-  const namePart =
-    email
-      .split("@")[0]
-      .replace(/[._-]+/g, " ")
-      .trim();
-
-  user.loggedIn = true;
-
-  user.email = email;
-
-  user.name =
-    namePart
-      ? capitalizeWords(namePart)
-      : "Creator";
-
-  user.avatar =
-    user.name.charAt(0).toUpperCase();
-
-  $("#profileAvatar").textContent =
-    user.avatar;
-
-  closeModal("loginModal");
-
-  showToast(
-    `Welcome, ${user.name}!`
+  button.addEventListener(
+    "click",
+    performSearch
   );
 
-}
+  input.addEventListener(
+    "keydown",
+    event => {
 
-/* =========================================================
-   CHANNEL
-========================================================= */
+      if (
+        event.key === "Enter"
+      ) {
 
-function openChannel() {
+        performSearch();
 
-  $("#channelName").textContent =
-    user.name || "Your Channel";
-
-  $("#channelHandle").textContent =
-    "@" +
-    (user.name || "yourchannel")
-      .toLowerCase()
-      .replace(/\s+/g, "");
-
-  $("#channelAvatar").textContent =
-    user.avatar || "G";
-
-  const userVideos = videos.filter(video =>
-    video.channel === user.name
-  );
-
-  $("#channelVideoGrid").innerHTML =
-    userVideos.length
-      ? userVideos.map(createVideoCard).join("")
-      : `
-        <div style="
-          grid-column:1/-1;
-          padding:60px 20px;
-          text-align:center;
-          color:var(--muted);
-        ">
-          <strong style="color:white;">
-            Your channel is ready.
-          </strong>
-
-          <p style="margin-top:6px;">
-            Upload your first video.
-          </p>
-
-          <button
-            class="primary-button"
-            style="margin-top:16px;"
-            onclick="openUpload()"
-          >
-            Upload video
-          </button>
-        </div>
-      `;
-
-  showPage("channelPage");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-function setupNotifications() {
-
-  $("#notificationButton")?.addEventListener("click", () => {
-
-    $("#notificationPanel")
-      .classList.toggle("show");
-
-  });
-
-  $("#closeNotifications")?.addEventListener("click", () => {
-
-    $("#notificationPanel")
-      .classList.remove("show");
-
-  });
-
-  document.addEventListener("click", event => {
-
-    const panel = $("#notificationPanel");
-
-    const button = $("#notificationButton");
-
-    if (
-      panel &&
-      panel.classList.contains("show") &&
-      !panel.contains(event.target) &&
-      !button.contains(event.target)
-    ) {
-
-      panel.classList.remove("show");
+      }
 
     }
+  );
 
-  });
+
+  /* Voice Search */
+
+  const voiceBtn =
+    document.getElementById(
+      "voiceSearchBtn"
+    );
+
+  voiceBtn.addEventListener(
+    "click",
+    startVoiceSearch
+  );
 
 }
 
-/* =========================================================
+
+/* =====================================================
    VOICE SEARCH
-========================================================= */
+===================================================== */
 
-function setupVoiceSearch() {
-
-  const button = $("#voiceSearch");
-
-  if (!button) {
-    return;
-  }
+function startVoiceSearch() {
 
   const SpeechRecognition =
     window.SpeechRecognition ||
@@ -1433,182 +1566,855 @@ function setupVoiceSearch() {
 
   if (!SpeechRecognition) {
 
-    button.addEventListener("click", () => {
-
-      showToast(
-        "Voice search is not supported in this browser."
-      );
-
-    });
+    showToast(
+      "Voice search is not supported in this browser."
+    );
 
     return;
+  }
+
+  const recognition =
+    new SpeechRecognition();
+
+  recognition.lang =
+    "en-US";
+
+  recognition.interimResults =
+    false;
+
+  recognition.continuous =
+    false;
+
+  recognition.start();
+
+  showToast(
+    "Listening..."
+  );
+
+  recognition.onresult =
+    event => {
+
+      const text =
+        event.results[0][0].transcript;
+
+      document.getElementById(
+        "searchInput"
+      ).value = text;
+
+      document.getElementById(
+        "searchBtn"
+      ).click();
+
+    };
+
+  recognition.onerror =
+    () => {
+
+      showToast(
+        "Voice search failed."
+      );
+
+    };
+
+}
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
+
+function setupUpload() {
+
+  const buttons = [
+
+    document.getElementById(
+      "uploadTopBtn"
+    ),
+
+    document.getElementById(
+      "sidebarUpload"
+    ),
+
+    document.getElementById(
+      "heroUploadBtn"
+    ),
+
+    document.getElementById(
+      "creatorUploadBtn"
+    )
+
+  ];
+
+  buttons.forEach(
+    button => {
+
+      if (!button) return;
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          uploadModal.classList.add(
+            "show"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  document
+    .getElementById(
+      "uploadClose"
+    )
+    .addEventListener(
+      "click",
+      closeUpload
+    );
+
+
+  document
+    .getElementById(
+      "uploadForm"
+    )
+    .addEventListener(
+      "submit",
+      handleUpload
+    );
+
+}
+
+
+function closeUpload() {
+
+  uploadModal.classList.remove(
+    "show"
+  );
+
+}
+
+
+function handleUpload(event) {
+
+  event.preventDefault();
+
+  const title =
+    document.getElementById(
+      "uploadTitle"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "uploadDescription"
+    ).value.trim();
+
+  const category =
+    document.getElementById(
+      "uploadCategory"
+    ).value;
+
+  const file =
+    document.getElementById(
+      "uploadFile"
+    ).files[0];
+
+  if (!file) {
+
+    showToast(
+      "Please select a video."
+    );
+
+    return;
+  }
+
+  /*
+    Local preview for Step 4.
+
+    Real permanent upload to Supabase Storage
+    will be added in the next database/storage step.
+  */
+
+  const videoUrl =
+    URL.createObjectURL(
+      file
+    );
+
+  const newVideo = {
+
+    id:
+      Date.now(),
+
+    title:
+      title,
+
+    channel:
+      "You",
+
+    views:
+      "0 views",
+
+    date:
+      "Just now",
+
+    category:
+      category,
+
+    duration:
+      "00:00",
+
+    description:
+      description ||
+
+      "Uploaded to VYBE AI.",
+
+    icon:
+      "🎬",
+
+    likes:
+      0,
+
+    subscribers:
+      "0",
+
+    videoUrl:
+      videoUrl
+
+  };
+
+  videos.unshift(
+    newVideo
+  );
+
+  closeUpload();
+
+  document
+    .getElementById(
+      "uploadForm"
+    )
+    .reset();
+
+  renderVideos();
+
+  showToast(
+    "Video added to VYBE AI preview."
+  );
+
+  openVideo(
+    newVideo.id
+  );
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function setupLogin() {
+
+  document
+    .getElementById(
+      "loginBtn"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        loginModal.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "loginClose"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        loginModal.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "loginForm"
+    )
+    .addEventListener(
+      "submit",
+      handleLogin
+    );
+
+}
+
+
+async function handleLogin(event) {
+
+  event.preventDefault();
+
+  const email =
+    document.getElementById(
+      "loginEmail"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "loginPassword"
+    ).value;
+
+  if (!email || !password) {
+
+    showToast(
+      "Enter email and password."
+    );
+
+    return;
+  }
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email:
+          email,
+
+        password:
+          password
+
+      });
+
+
+    if (error) {
+
+      showToast(
+        error.message
+      );
+
+      return;
+    }
+
+
+    loginModal.classList.remove(
+      "show"
+    );
+
+    showLoggedInUser(
+      data.user
+    );
+
+    showToast(
+      "Signed in successfully."
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    showToast(
+      "Login failed."
+    );
 
   }
 
-  const recognition = new SpeechRecognition();
+}
 
-  recognition.lang = "en-US";
 
-  recognition.interimResults = false;
+/* =====================================================
+   SHOW LOGGED USER
+===================================================== */
 
-  recognition.maxAlternatives = 1;
+function showLoggedInUser(user) {
 
-  button.addEventListener("click", () => {
+  const loginBtn =
+    document.getElementById(
+      "loginBtn"
+    );
+
+  const avatar =
+    document.getElementById(
+      "userAvatar"
+    );
+
+  loginBtn.style.display =
+    "none";
+
+  avatar.style.display =
+    "grid";
+
+  avatar.textContent =
+    getInitial(
+      user.email || "User"
+    );
+
+}
+
+
+/* =====================================================
+   CHECK SESSION
+===================================================== */
+
+async function checkSession() {
+
+  const {
+    data
+  } =
+    await supabaseClient.auth.getSession();
+
+  if (
+    data &&
+    data.session &&
+    data.session.user
+  ) {
+
+    showLoggedInUser(
+      data.session.user
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   WATCH ACTIONS
+===================================================== */
+
+function setupWatchActions() {
+
+  document
+    .getElementById(
+      "likeBtn"
+    )
+    .addEventListener(
+      "click",
+      toggleLike
+    );
+
+
+  document
+    .getElementById(
+      "saveBtn"
+    )
+    .addEventListener(
+      "click",
+      toggleSave
+    );
+
+
+  document
+    .getElementById(
+      "subscribeBtn"
+    )
+    .addEventListener(
+      "click",
+      toggleSubscribe
+    );
+
+
+  document
+    .getElementById(
+      "commentBtn"
+    )
+    .addEventListener(
+      "click",
+      addComment
+    );
+
+
+  document
+    .getElementById(
+      "commentInput"
+    )
+    .addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          addComment();
+
+        }
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "shareBtn"
+    )
+    .addEventListener(
+      "click",
+      shareCurrentVideo
+    );
+
+}
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+async function shareCurrentVideo() {
+
+  if (!currentVideo) {
+
+    return;
+  }
+
+  const url =
+    window.location.href;
+
+  if (
+    navigator.share
+  ) {
 
     try {
 
-      recognition.start();
+      await navigator.share({
 
-      showToast("Listening...");
+        title:
+          currentVideo.title,
+
+        text:
+          currentVideo.description,
+
+        url:
+          url
+
+      });
 
     } catch (error) {
 
-      showToast("Voice search is already active.");
+      /* User cancelled share */
 
     }
 
-  });
+    return;
+  }
 
-  recognition.onresult = event => {
 
-    const transcript =
-      event.results[0][0].transcript;
+  try {
 
-    $("#searchInput").value = transcript;
+    await navigator.clipboard.writeText(
+      url
+    );
 
-    $("#searchButton").click();
+    showToast(
+      "Video link copied."
+    );
 
-  };
+  } catch (error) {
 
-  recognition.onerror = () => {
+    showToast(
+      "Unable to copy link."
+    );
 
-    showToast("Voice search could not be completed.");
-
-  };
-
-}
-
-/* =========================================================
-   SIDEBAR MOBILE
-========================================================= */
-
-$("#menuButton")?.addEventListener("click", () => {
-
-  $("#sidebar")?.classList.add("open");
-
-  $("#mobileOverlay")?.classList.add("show");
-
-});
-
-$("#closeSidebar")?.addEventListener(
-  "click",
-  closeSidebar
-);
-
-$("#mobileOverlay")?.addEventListener(
-  "click",
-  closeSidebar
-);
-
-function closeSidebar() {
-
-  $("#sidebar")?.classList.remove("open");
-
-  $("#mobileOverlay")?.classList.remove("show");
+  }
 
 }
 
-/* =========================================================
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function setupNotifications() {
+
+  document
+    .getElementById(
+      "notificationBtn"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        notificationPanel.classList.toggle(
+          "show"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "notificationClose"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        notificationPanel.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+function setupMobileMenu() {
+
+  const menuBtn =
+    document.getElementById(
+      "menuBtn"
+    );
+
+  const sidebar =
+    document.getElementById(
+      "sidebar"
+    );
+
+  menuBtn.addEventListener(
+    "click",
+    () => {
+
+      sidebar.classList.toggle(
+        "open"
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   SCROLL
+===================================================== */
+
+function scrollToVideos() {
+
+  document
+    .getElementById(
+      "videosSection"
+    )
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+function emptyVideos() {
+
+  return `
+
+    <div style="
+      grid-column:1/-1;
+      padding:60px 20px;
+      text-align:center;
+      color:#9aa4b5;
+    ">
+
+      <div style="
+        font-size:45px;
+        margin-bottom:15px;
+      ">
+        🎬
+      </div>
+
+      <h3 style="
+        color:white;
+        margin-bottom:8px;
+      ">
+        No videos found
+      </h3>
+
+      <p>
+        Try another search or category.
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
    TOAST
-========================================================= */
+===================================================== */
 
 let toastTimer;
 
 function showToast(message) {
 
-  const toast = $("#toast");
+  toast.textContent =
+    message;
 
-  if (!toast) {
-    return;
-  }
+  toast.classList.add(
+    "show"
+  );
 
-  toast.textContent = message;
+  clearTimeout(
+    toastTimer
+  );
 
-  toast.classList.add("show");
+  toastTimer =
+    setTimeout(
+      () => {
 
-  clearTimeout(toastTimer);
+        toast.classList.remove(
+          "show"
+        );
 
-  toastTimer = setTimeout(() => {
-
-    toast.classList.remove("show");
-
-  }, 3000);
+      },
+      2800
+    );
 
 }
 
-/* =========================================================
+
+/* =====================================================
    HELPERS
-========================================================= */
+===================================================== */
 
-function formatFileSize(bytes) {
+function getInitial(text) {
 
-  if (!bytes) {
-    return "0 B";
+  if (!text) {
+
+    return "V";
+
   }
 
-  const units = [
-    "B",
-    "KB",
-    "MB",
-    "GB"
-  ];
+  return text
+    .trim()
+    .charAt(0)
+    .toUpperCase();
 
-  const index =
-    Math.floor(
-      Math.log(bytes) / Math.log(1024)
+}
+
+
+function formatNumber(number) {
+
+  number =
+    Number(number) || 0;
+
+  if (
+    number >= 1000000
+  ) {
+
+    return (
+      (number / 1000000)
+        .toFixed(1)
+        .replace(".0", "")
+      + "M"
     );
 
-  return (
-    parseFloat(
-      (bytes / Math.pow(1024, index))
-        .toFixed(2)
-    ) +
-    " " +
-    units[index]
+  }
+
+  if (
+    number >= 1000
+  ) {
+
+    return (
+      (number / 1000)
+        .toFixed(1)
+        .replace(".0", "")
+      + "K"
+    );
+
+  }
+
+  return number.toString();
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(
+    value ?? ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function escapeAttribute(value) {
+
+  return escapeHtml(
+    value
   );
 
 }
 
-function capitalizeWords(text) {
 
-  return text
-    .split(" ")
-    .map(word =>
-      word.charAt(0).toUpperCase() +
-      word.slice(1)
-    )
-    .join(" ");
+/* =====================================================
+   SUPABASE AUTH STATE
+===================================================== */
 
-}
+supabaseClient.auth.onAuthStateChange(
+  (event, session) => {
 
-function escapeHTML(value) {
+    console.log(
+      "VYBE AI Auth:",
+      event
+    );
 
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    if (
+      session &&
+      session.user
+    ) {
 
-}
+      showLoggedInUser(
+        session.user
+      );
 
-/* =========================================================
-   GLOBAL HELPERS
-========================================================= */
+    }
 
-window.openVideo = openVideo;
-window.openUpload = openUpload;
-window.showHome = showHome;
-window.showToast = showToast;
-window.closeModal = closeModal;
-window.openChannel = openChannel;
+  }
+);
+
+
+/* =====================================================
+   INITIAL SESSION CHECK
+===================================================== */
+
+checkSession();
