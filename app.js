@@ -397,6 +397,7 @@ function initializeApp() {
   setupExtraButtons();
 
   checkSupabaseConnection();
+  loadSupabaseVideos();
 
   checkSession();
 
@@ -560,6 +561,191 @@ async function checkSupabaseConnection() {
     );
 
   }
+
+}
+
+
+/* =====================================================
+   LOAD PERSISTENT SUPABASE VIDEOS
+===================================================== */
+
+async function loadSupabaseVideos() {
+
+  if (!supabaseClient) {
+    return;
+  }
+
+  try {
+
+    const { data, error } =
+      await supabaseClient
+        .from("videos")
+        .select("id,user_id,title,description,category,video_url,thumbnail_url,views,likes_count,created_at,duration,visibility")
+        .eq("visibility", "public")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+      console.warn(
+        "Could not load Supabase videos:",
+        error.message
+      );
+
+      return;
+
+    }
+
+    if (!Array.isArray(data) || !data.length) {
+      return;
+    }
+
+    const remoteVideos = data
+      .filter(row => row && row.video_url)
+      .map(mapSupabaseVideo);
+
+    const remoteIds = new Set(
+      remoteVideos.map(video => video.id)
+    );
+
+    videos = [
+      ...remoteVideos,
+      ...videos.filter(video => !remoteIds.has(video.id))
+    ];
+
+    renderVideos();
+
+    if (selectedCategory !== "All") {
+
+      renderVideos(
+        filterByCategory(videos)
+      );
+
+    }
+
+    console.log(
+      `VYBE AI → ${remoteVideos.length} uploaded video(s) loaded.`
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Supabase video loading failed:",
+      error
+    );
+
+  }
+
+}
+
+
+function mapSupabaseVideo(row) {
+
+  return {
+
+    id:
+      `db-${row.id}`,
+
+    dbId:
+      row.id,
+
+    userId:
+      row.user_id || "",
+
+    title:
+      row.title || "Untitled Video",
+
+    channel:
+      "VYBE Creator",
+
+    views:
+      `${formatNumber(row.views || 0)} views`,
+
+    date:
+      formatVideoDate(row.created_at),
+
+    category:
+      row.category || "Technology",
+
+    duration:
+      row.duration || "00:00",
+
+    description:
+      row.description || "",
+
+    icon:
+      "🎬",
+
+    likes:
+      Number(row.likes_count || 0),
+
+    subscribers:
+      "0",
+
+    videoUrl:
+      row.video_url || "",
+
+    thumbnail:
+      row.thumbnail_url || ""
+
+  };
+
+}
+
+
+function formatVideoDate(value) {
+
+  if (!value) {
+    return "Just now";
+  }
+
+  const date =
+    new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Just now";
+  }
+
+  const now = new Date();
+
+  const diff =
+    Math.max(
+      0,
+      now.getTime() - date.getTime()
+    );
+
+  const minutes =
+    Math.floor(diff / 60000);
+
+  if (minutes < 1) {
+    return "Just now";
+  }
+
+  if (minutes < 60) {
+    return `${minutes} min ago`;
+  }
+
+  const hours =
+    Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return `${hours} hr ago`;
+  }
+
+  const days =
+    Math.floor(hours / 24);
+
+  if (days < 7) {
+    return `${days} day${days === 1 ? "" : "s"} ago`;
+  }
+
+  return date.toLocaleDateString(
+    undefined,
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    }
+  );
 
 }
 
@@ -735,18 +921,15 @@ function renderShorts() {
       card.innerHTML = `
 
         <div class="short-thumb">
-
           <span>
             ${escapeHtml(short.icon)}
           </span>
-
         </div>
 
 
         <div class="short-title">
           ${escapeHtml(short.title)}
         </div>
-
       `;
 
 
@@ -823,7 +1006,11 @@ function openVideo(id) {
   });
 
 }
+    top: 0,
+    behavior: "smooth"
+  });
 
+}
 
 /* =====================================================
    WATCH PAGE
@@ -987,9 +1174,13 @@ function populateWatchPage(video) {
         "none";
 
       try {
+
         player.load();
+
       } catch (error) {
+
         console.warn(error);
+
       }
 
     } else {
@@ -1146,7 +1337,6 @@ function renderComments(videoId) {
     `;
 
     return;
-
   }
 
 
@@ -1170,7 +1360,6 @@ function renderComments(videoId) {
           <div class="mini-avatar">
             U
           </div>
-
 
           <div>
 
@@ -1234,7 +1423,6 @@ function addComment() {
     );
 
     return;
-
   }
 
 
@@ -1310,8 +1498,10 @@ function toggleLike() {
       id
     );
 
+
     currentVideo.likes =
       (Number(currentVideo.likes) || 0) + 1;
+
 
     showToast(
       "Video liked 👍"
@@ -1324,11 +1514,13 @@ function toggleLike() {
       1
     );
 
+
     currentVideo.likes =
       Math.max(
         0,
         (Number(currentVideo.likes) || 0) - 1
       );
+
 
     showToast(
       "Like removed."
@@ -1388,6 +1580,7 @@ function toggleSave() {
       id
     );
 
+
     showToast(
       "Saved to Watch later 🔖"
     );
@@ -1398,6 +1591,7 @@ function toggleSave() {
       index,
       1
     );
+
 
     showToast(
       "Removed from Watch later."
@@ -1447,10 +1641,14 @@ function toggleSubscribe() {
       channel
     );
 
+
     if (btn) {
+
       btn.textContent =
         "Subscribed";
+
     }
+
 
     showToast(
       `Subscribed to ${channel}`
@@ -1463,10 +1661,14 @@ function toggleSubscribe() {
       1
     );
 
+
     if (btn) {
+
       btn.textContent =
         "Subscribe";
+
     }
+
 
     showToast(
       `Unsubscribed from ${channel}`
@@ -1536,6 +1738,7 @@ function setupNavigation() {
             const page =
               button.dataset.page;
 
+
             showPage(
               page
             );
@@ -1545,6 +1748,7 @@ function setupNavigation() {
               document.getElementById(
                 "sidebar"
               );
+
 
             if (
               sidebar &&
@@ -1749,23 +1953,34 @@ function showPage(page) {
 function hideAllPages() {
 
   if (homePage) {
+
     homePage.style.display =
       "none";
+
   }
+
 
   if (watchPage) {
+
     watchPage.style.display =
       "none";
+
   }
+
 
   if (channelPage) {
+
     channelPage.style.display =
       "none";
+
   }
 
+
   if (dynamicPage) {
+
     dynamicPage.style.display =
       "none";
+
   }
 
 }
@@ -1818,11 +2033,27 @@ function renderDynamicVideos(list) {
 
   if (!list.length) {
 
-    dynamicVideoGrid.innerHTML =
-      emptyVideos();
+    dynamicVideoGrid.innerHTML = `
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          🎬
+        </div>
+
+        <h3>
+          No videos found
+        </h3>
+
+        <p>
+          There are no videos in this section yet.
+        </p>
+
+      </div>
+
+    `;
 
     return;
-
   }
 
 
@@ -1854,6 +2085,1073 @@ function renderDynamicShorts() {
     "";
 
 
+  if (!shorts.length) {
+
+    dynamicVideoGrid.innerHTML = `
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          ⚡
+        </div>
+
+        <h3>
+          No Shorts available
+        </h3>
+
+        <p>
+          Short videos will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  shorts.forEach(
+    short => {
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "short-card";
+
+
+      card.innerHTML = `
+
+        <div class="short-thumb">
+          ${escapeHtml(
+            short.icon || "⚡"
+          )}
+        </div>
+
+        <div class="short-info">
+
+          <h3>
+            ${escapeHtml(
+              short.title
+            )}
+          </h3>
+
+          <p>
+            ${escapeHtml(
+              short.channel
+            )}
+          </p>
+
+          <span>
+            ${escapeHtml(
+              short.views || "0 views"
+            )}
+          </span>
+
+        </div>
+
+      `;
+
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          if (short.videoId) {
+
+            openVideo(
+              short.videoId
+            );
+
+          }
+
+        }
+      );
+
+
+      dynamicVideoGrid.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   ACTIVE NAV
+===================================================== */
+
+function updateActiveNav(page) {
+
+  document
+    .querySelectorAll(
+      ".nav-item[data-page]"
+    )
+    .forEach(
+      item => {
+
+        item.classList.toggle(
+          "active",
+          item.dataset.page === page
+        );
+
+      }
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function setupSearch() {
+
+  if (!searchInput) {
+    return;
+  }
+
+
+  searchInput.addEventListener(
+    "input",
+    () => {
+
+      performSearch(
+        searchInput.value
+      );
+
+    }
+  );
+
+
+  searchInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        event.preventDefault();
+
+        performSearch(
+          searchInput.value
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+function performSearch(query) {
+
+  const cleanQuery =
+    String(query || "")
+      .trim()
+      .toLowerCase();
+
+
+  if (!cleanQuery) {
+
+    showHome();
+
+    return;
+  }
+
+
+  const results =
+    videos.filter(
+      video => {
+
+        const title =
+          String(
+            video.title || ""
+          ).toLowerCase();
+
+        const channel =
+          String(
+            video.channel || ""
+          ).toLowerCase();
+
+        const description =
+          String(
+            video.description || ""
+          ).toLowerCase();
+
+        const category =
+          String(
+            video.category || ""
+          ).toLowerCase();
+
+
+        return (
+          title.includes(cleanQuery) ||
+          channel.includes(cleanQuery) ||
+          description.includes(cleanQuery) ||
+          category.includes(cleanQuery)
+        );
+
+      }
+    );
+
+
+  dynamicTitle.textContent =
+    `Search results for "${query}"`;
+
+
+  dynamicSubtitle.textContent =
+    `${results.length} video${results.length === 1 ? "" : "s"} found`;
+
+
+  hideAllPages();
+
+
+  if (dynamicPage) {
+
+    dynamicPage.style.display =
+      "block";
+
+  }
+
+
+  renderDynamicVideos(
+    results
+  );
+
+
+  updateActiveNav(
+    ""
+  );
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =====================================================
+   CATEGORY FILTER
+===================================================== */
+
+function filterByCategory(category) {
+
+  const cleanCategory =
+    String(category || "")
+      .trim()
+      .toLowerCase();
+
+
+  if (
+    !cleanCategory ||
+    cleanCategory === "all"
+  ) {
+
+    showHome();
+
+    return;
+  }
+
+
+  const filtered =
+    videos.filter(
+      video =>
+        String(
+          video.category || ""
+        )
+        .toLowerCase() ===
+        cleanCategory
+    );
+
+
+  dynamicTitle.textContent =
+    category;
+
+
+  dynamicSubtitle.textContent =
+    `Videos in ${category}`;
+
+
+  hideAllPages();
+
+
+  if (dynamicPage) {
+
+    dynamicPage.style.display =
+      "block";
+
+  }
+
+
+  renderDynamicVideos(
+    filtered
+  );
+
+
+  updateActiveNav(
+    ""
+  );
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =====================================================
+   MOBILE SIDEBAR
+===================================================== */
+
+function setupMobileSidebar() {
+
+  const menuBtn =
+    document.getElementById(
+      "menuBtn"
+    );
+
+  const sidebar =
+    document.getElementById(
+      "sidebar"
+    );
+
+
+  if (
+    !menuBtn ||
+    !sidebar
+  ) {
+
+    return;
+
+  }
+
+
+  menuBtn.addEventListener(
+    "click",
+    () => {
+
+      sidebar.classList.toggle(
+        "open"
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+function setupModalEvents() {
+
+  document
+    .querySelectorAll(
+      "[data-close-modal]"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const modalId =
+              button.dataset.closeModal;
+
+            closeModal(
+              modalId
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  document
+    .querySelectorAll(
+      ".modal"
+    )
+    .forEach(
+      modal => {
+
+        modal.addEventListener(
+          "click",
+          event => {
+
+            if (
+              event.target ===
+              modal
+            ) {
+
+              closeModal(
+                modal.id
+              );
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+}
+
+
+function openModal(id) {
+
+  const modal =
+    document.getElementById(
+      id
+    );
+
+
+  if (!modal) {
+    return;
+  }
+
+
+  modal.classList.add(
+    "show"
+  );
+
+
+  modal.style.display =
+    "flex";
+
+}
+
+
+function closeModal(id) {
+
+  const modal =
+    document.getElementById(
+      id
+    );
+
+
+  if (!modal) {
+    return;
+  }
+
+
+  modal.classList.remove(
+    "show"
+  );
+
+
+  modal.style.display =
+    "none";
+
+}
+
+
+/* =====================================================
+   UPLOAD MODAL
+===================================================== */
+
+function setupUploadButtons() {
+
+  const uploadButtons =
+    document.querySelectorAll(
+      "[data-open-upload]"
+    );
+
+
+  uploadButtons.forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          openModal(
+            "uploadModal"
+          );
+
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   FILE PREVIEW
+===================================================== */
+
+function setupFilePreview() {
+
+  const fileInput =
+    document.getElementById(
+      "uploadFile"
+    );
+
+  const preview =
+    document.getElementById(
+      "uploadPreview"
+    );
+
+
+  if (
+    !fileInput ||
+    !preview
+  ) {
+
+    return;
+
+  }
+
+
+  fileInput.addEventListener(
+    "change",
+    () => {
+
+      const file =
+        fileInput.files &&
+        fileInput.files[0];
+
+
+      if (!file) {
+
+        preview.innerHTML =
+          "";
+
+        return;
+
+      }
+
+
+      if (
+        !file.type.startsWith(
+          "video/"
+        )
+      ) {
+
+        preview.innerHTML = `
+
+          <div class="preview-error">
+            Please select a valid video file.
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      const url =
+        URL.createObjectURL(
+          file
+        );
+
+
+      preview.innerHTML = `
+
+        <video
+          src="${url}"
+          controls
+          playsinline
+          style="
+            width:100%;
+            max-height:260px;
+            border-radius:12px;
+          "
+        ></video>
+
+        <div class="preview-file-name">
+          ${escapeHtml(
+            file.name
+          )}
+        </div>
+
+      `;
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   UPLOAD
+===================================================== */
+
+async function handleUpload(event) {
+
+  event.preventDefault();
+
+
+  const titleInput =
+    document.getElementById(
+      "uploadTitle"
+    );
+
+  const descriptionInput =
+    document.getElementById(
+      "uploadDescription"
+    );
+
+  const categoryInput =
+    document.getElementById(
+      "uploadCategory"
+    );
+
+  const fileInput =
+    document.getElementById(
+      "uploadFile"
+    );
+
+
+  const title =
+    titleInput
+      ? titleInput.value.trim()
+      : "";
+
+
+  const description =
+    descriptionInput
+      ? descriptionInput.value.trim()
+      : "";
+
+
+  const category =
+    categoryInput
+      ? categoryInput.value
+      : "Technology";
+
+
+  const file =
+    fileInput &&
+    fileInput.files
+      ? fileInput.files[0]
+      : null;
+
+
+  if (!title) {
+
+    showToast(
+      "Please enter a video title."
+    );
+
+    return;
+
+  }
+
+
+  if (!file) {
+
+    showToast(
+      "Please select a video file."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    !file.type.startsWith(
+      "video/"
+    )
+  ) {
+
+    showToast(
+      "Please select a valid video file."
+    );
+
+    return;
+
+  }
+
+
+  showToast(
+    "Preparing video upload..."
+  );
+
+
+  try {
+
+    if (
+      !supabaseClient
+    ) {
+
+      showToast(
+        "Supabase is not available."
+      );
+
+      return;
+
+    }
+
+
+    const {
+      data: {
+        session
+      },
+      error: sessionError
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+
+
+    if (
+      sessionError
+    ) {
+
+      console.error(
+        sessionError
+      );
+
+      showToast(
+        "Unable to check login session."
+      );
+
+      return;
+
+    }
+
+
+    const user =
+      session &&
+      session.user
+        ? session.user
+        : null;
+
+
+    if (!user) {
+
+      showToast(
+        "Please sign in first."
+      );
+
+      openModal(
+        "loginModal"
+      );
+
+      return;
+
+    }
+
+
+    const safeName =
+      file.name
+        .replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+
+    const uniqueName =
+      typeof crypto !== "undefined" &&
+      crypto.randomUUID
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random()
+            .toString(36)
+            .slice(2)}`;
+
+
+    const storagePath =
+      `${user.id}/${uniqueName}-${safeName}`;
+
+
+    showToast(
+      "Uploading video..."
+    );
+
+
+    const {
+      error: uploadError
+    } =
+      await supabaseClient
+        .storage
+        .from("videos")
+        .upload(
+          storagePath,
+          file,
+          {
+            contentType:
+              file.type ||
+              "video/mp4",
+            upsert:
+              false
+          }
+        );
+
+
+    if (uploadError) {
+
+      console.error(
+        "Video upload error:",
+        uploadError
+      );
+
+      showToast(
+        uploadError.message ||
+        "Video upload failed."
+      );
+
+      return;
+
+    }
+
+
+    const {
+      data: publicUrlData
+    } =
+      supabaseClient
+        .storage
+        .from("videos")
+        .getPublicUrl(
+          storagePath
+        );
+
+
+    const publicUrl =
+      publicUrlData &&
+      publicUrlData.publicUrl
+        ? publicUrlData.publicUrl
+        : "";
+
+
+    if (!publicUrl) {
+
+      showToast(
+        "Video uploaded, but public URL was not created."
+      );
+
+      return;
+
+    }
+
+
+    showToast(
+      "Saving video information..."
+    );
+
+
+    const {
+      data: row,
+      error: dbError
+    } =
+      await supabaseClient
+        .from("videos")
+        .insert({
+
+          user_id:
+            user.id,
+
+          title:
+            title,
+
+          description:
+            description || null,
+
+          category:
+            category,
+
+          video_url:
+            publicUrl,
+
+          visibility:
+            "public"
+
+        })
+        .select()
+        .single();
+
+
+    if (dbError) {
+
+      console.error(
+        "Database insert error:",
+        dbError
+      );
+
+      showToast(
+        dbError.message ||
+        "Video information could not be saved."
+      );
+
+      return;
+
+    }
+
+
+    const newVideo = {
+
+      id:
+        row && row.id
+          ? `db-${row.id}`
+          : `db-${Date.now()}`,
+
+      dbId:
+        row && row.id
+          ? row.id
+          : null,
+
+      title:
+        row && row.title
+          ? row.title
+          : title,
+
+      channel:
+        "VYBE Creator",
+
+      views:
+        "0 views",
+
+      date:
+        "Just now",
+
+      category:
+        row && row.category
+          ? row.category
+          : category,
+
+      duration:
+        "00:00",
+
+      description:
+        row && row.description
+          ? row.description
+          : description,
+
+      icon:
+        "🎬",
+
+      likes:
+        0,
+
+      subscribers:
+        "0",
+
+      videoUrl:
+        publicUrl,
+
+      thumbnail:
+        "",
+
+      userId:
+        user.id
+
+    };
+
+
+    videos.unshift(
+      newVideo
+    );
+
+
+    closeModal(
+      "uploadModal"
+    );
+
+
+    const uploadForm =
+      document.getElementById(
+        "uploadForm"
+      );
+
+
+    if (uploadForm) {
+
+      uploadForm.reset();
+
+    }
+
+
+    const preview =
+      document.getElementById(
+        "uploadPreview"
+      );
+
+
+    if (preview) {
+
+      preview.innerHTML =
+        "";
+
+    }
+
+
+    renderVideos();
+
+
+    showToast(
+      "Video uploaded successfully 🎉"
+    );
+
+
+    openVideo(
+      newVideo.id
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "handleUpload error:",
+      error
+    );
+
+    showToast(
+      error.message ||
+      "Something went wrong during upload."
+    );
+
+  }
+
+}
+    dynamicVideoGrid.innerHTML =
+      emptyVideos();
+
+    return;
+  }
+
+  list.forEach(
+    video => {
+      dynamicVideoGrid.appendChild(
+        createVideoCard(video)
+      );
+    }
+  );
+}
+
+
+/* =====================================================
+   DYNAMIC SHORTS
+===================================================== */
+
+function renderDynamicShorts() {
+
+  if (!dynamicVideoGrid) {
+    return;
+  }
+
+  dynamicVideoGrid.innerHTML =
+    "";
+
   shorts.forEach(
     short => {
 
@@ -1862,10 +3160,8 @@ function renderDynamicShorts() {
           "article"
         );
 
-
       card.className =
         "video-card";
-
 
       card.innerHTML = `
 
@@ -1908,7 +3204,6 @@ function renderDynamicShorts() {
           </div>
 
         </div>
-
       `;
 
 
@@ -2175,8 +3470,10 @@ function startVoiceSearch() {
   recognition.lang =
     "en-US";
 
+
   recognition.interimResults =
     false;
+
 
   recognition.continuous =
     false;
@@ -2355,50 +3652,48 @@ function closeUpload() {
    HANDLE UPLOAD
 ===================================================== */
 
-function handleUpload(event) {
+async function handleUpload(event) {
 
   event.preventDefault();
 
 
   const title =
-    document.getElementById(
-      "uploadTitle"
-    )
+    document.getElementById("uploadTitle")
       ?.value
       .trim();
 
 
   const description =
-    document.getElementById(
-      "uploadDescription"
-    )
+    document.getElementById("uploadDescription")
       ?.value
       .trim();
 
 
   const category =
-    document.getElementById(
-      "uploadCategory"
-    )
+    document.getElementById("uploadCategory")
       ?.value ||
     "Technology";
 
 
   const fileInput =
-    document.getElementById(
-      "uploadFile"
-    );
+    document.getElementById("uploadFile");
 
 
   const file =
     fileInput?.files?.[0];
 
 
+  const form =
+    document.getElementById("uploadForm");
+
+
+  const submitButton =
+    form?.querySelector('button[type="submit"]');
+
+
   if (!title) {
 
-    showToast(
-      "Please enter a video title."
-    );
+    showToast("Please enter a video title.");
 
     return;
 
@@ -2407,9 +3702,7 @@ function handleUpload(event) {
 
   if (!file) {
 
-    showToast(
-      "Please select a video."
-    );
+    showToast("Please select a video.");
 
     return;
 
@@ -2418,13 +3711,57 @@ function handleUpload(event) {
 
   if (
     !file.type ||
-    !file.type.startsWith(
-      "video/"
-    )
+    !file.type.startsWith("video/")
   ) {
 
+    showToast("Please select a valid video file.");
+
+    return;
+
+  }
+
+
+  if (!supabaseClient) {
+
+    showToast("Supabase is not connected. Please refresh the page.");
+
+    return;
+
+  }
+
+
+  let sessionData;
+
+
+  try {
+
+    const result =
+      await supabaseClient.auth.getSession();
+
+
+    sessionData =
+      result.data;
+
+
+    if (result.error) {
+
+      showToast(
+        result.error.message
+      );
+
+      return;
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Session error:",
+      error
+    );
+
     showToast(
-      "Please select a valid video file."
+      "Could not verify your login."
     );
 
     return;
@@ -2432,95 +3769,275 @@ function handleUpload(event) {
   }
 
 
-  /*
-    STEP 5:
-    Local preview only.
+  const user =
+    sessionData?.session?.user;
 
-    Permanent Supabase Storage upload
-    will be added in the Storage step.
-  */
 
-  const videoUrl =
-    URL.createObjectURL(
-      file
+  if (!user) {
+
+    showToast(
+      "Please sign in first to upload a video."
     );
 
 
-  const newVideo = {
+    if (loginModal) {
 
-    id:
-      Date.now(),
+      loginModal.classList.add(
+        "show"
+      );
 
-    title:
-      title,
-
-    channel:
-      "You",
-
-    views:
-      "0 views",
-
-    date:
-      "Just now",
-
-    category:
-      category,
-
-    duration:
-      "00:00",
-
-    description:
-      description ||
-      "Uploaded to VYBE AI.",
-
-    icon:
-      "🎬",
-
-    likes:
-      0,
-
-    subscribers:
-      "0",
-
-    videoUrl:
-      videoUrl,
-
-    thumbnail:
-      ""
-
-  };
+    }
 
 
-  videos.unshift(
-    newVideo
-  );
+    return;
 
-
-  closeUpload();
-
-
-  const form =
-    document.getElementById(
-      "uploadForm"
-    );
-
-
-  if (form) {
-    form.reset();
   }
 
 
-  renderVideos();
+  if (submitButton) {
+
+    submitButton.disabled =
+      true;
+
+    submitButton.dataset.originalText =
+      submitButton.textContent;
+
+    submitButton.textContent =
+      "Uploading video...";
+
+  }
 
 
-  showToast(
-    "Video added to VYBE AI preview."
-  );
+  let storagePath =
+    "";
 
 
-  openVideo(
-    newVideo.id
-  );
+  try {
+
+    const safeName =
+      file.name
+        .replace(/[^a-zA-Z0-9._-]/g, "-")
+        .replace(/-+/g, "-");
+
+
+    const uniqueName =
+      `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+
+
+    storagePath =
+      `${user.id}/${uniqueName}`;
+
+
+    showToast(
+      "Uploading video to VYBE AI..."
+    );
+
+
+    const { error: uploadError } =
+      await supabaseClient.storage
+        .from("videos")
+        .upload(
+          storagePath,
+          file,
+          {
+            contentType:
+              file.type || "video/mp4",
+            upsert: false
+          }
+        );
+
+
+    if (uploadError) {
+
+      throw new Error(
+        `Storage upload failed: ${uploadError.message}`
+      );
+
+    }
+
+
+    const { data: publicData } =
+      supabaseClient.storage
+        .from("videos")
+        .getPublicUrl(storagePath);
+
+
+    const publicUrl =
+      publicData?.publicUrl;
+
+
+    if (!publicUrl) {
+
+      throw new Error(
+        "Could not create the public video URL."
+      );
+
+    }
+
+
+    const { data: row, error: dbError } =
+      await supabaseClient
+        .from("videos")
+        .insert({
+
+          user_id:
+            user.id,
+
+          title:
+            title,
+
+          description:
+            description || null,
+
+          category:
+            category,
+
+          video_url:
+            publicUrl,
+
+          visibility:
+            "public"
+
+        })
+        .select()
+        .single();
+
+
+    if (dbError) {
+
+      throw new Error(
+        `Database save failed: ${dbError.message}`
+      );
+
+    }
+
+
+    const newVideo =
+      mapSupabaseVideo(
+        row || {
+
+          id:
+            Date.now(),
+
+          user_id:
+            user.id,
+
+          title:
+            title,
+
+          description:
+            description,
+
+          category:
+            category,
+
+          video_url:
+            publicUrl,
+
+          views:
+            0,
+
+          likes_count:
+            0,
+
+          created_at:
+            new Date().toISOString(),
+
+          duration:
+            "00:00",
+
+          visibility:
+            "public"
+
+        }
+      );
+
+
+    videos = [
+
+      newVideo,
+
+      ...videos.filter(
+        video =>
+          video.id !==
+          newVideo.id
+      )
+
+    ];
+
+
+    if (form) {
+
+      form.reset();
+
+    }
+
+
+    closeUpload();
+
+    renderVideos();
+
+
+    showToast(
+      "Video uploaded successfully!"
+    );
+
+
+    openVideo(
+      newVideo.id
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "VYBE AI upload error:",
+      error
+    );
+
+
+    if (storagePath) {
+
+      try {
+
+        await supabaseClient.storage
+          .from("videos")
+          .remove([
+            storagePath
+          ]);
+
+      } catch (cleanupError) {
+
+        console.warn(
+          "Storage cleanup failed:",
+          cleanupError
+        );
+
+      }
+
+    }
+
+
+    showToast(
+      error?.message ||
+      "Video upload failed."
+    );
+
+
+  } finally {
+
+    if (submitButton) {
+
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        submitButton.dataset.originalText ||
+        "Upload Video";
+
+    }
+
+  }
 
 }
 
@@ -2746,15 +4263,12 @@ function showLoggedInUser(user) {
 
     loginBtn.style.display =
       "none";
-
-  }
-
+       }
 
   if (avatar) {
 
     avatar.style.display =
       "grid";
-
 
     avatar.textContent =
       getInitial(
@@ -2763,7 +4277,6 @@ function showLoggedInUser(user) {
       );
 
   }
-
 }
 
 
@@ -2795,7 +4308,6 @@ async function checkSession() {
       );
 
       return;
-
     }
 
 
@@ -3022,7 +4534,6 @@ async function shareCurrentVideo() {
     }
 
     return;
-
   }
 
 
@@ -3479,6 +4990,7 @@ function saveLocal(
         value
       )
     );
+
 
   } catch (error) {
 
